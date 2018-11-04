@@ -1,0 +1,31 @@
+/* #map {
+    height: 0%;
+    display: none;
+  }
+
+  #searchTextField {
+    font-size: 14px;
+    text-overflow: ellipsis;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #CCCCCC;
+    height:30px;
+    padding-left: 5px;
+  }
+
+  #searchTextField:focus {
+    border: 1px solid #4d90fe;
+    border-color: #4d90fe;
+   
+  } */
+
+h3 {
+  cursor: pointer;
+}
+
+.custom_input {
+  border-radius: 5px !important;
+}
+
+
+

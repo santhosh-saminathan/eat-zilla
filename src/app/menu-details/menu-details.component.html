@@ -1,0 +1,261 @@
+<app-header>
+</app-header>
+<!-- SubHeader =============================================== -->
+<section class="parallax-window" data-parallax="scroll" data-image-src="assets/img/sub_header_2.jpg" data-natural-width="1400"
+  data-natural-height="470">
+  <div id="subheader">
+    <div id="sub_content">
+      <div id="thumb">
+        <img src="assets/img/thumb_restaurant.jpg" alt="">
+      </div>
+      <div class="rating">
+        <i class="icon_star voted"></i>
+        <i class="icon_star voted"></i>
+        <i class="icon_star voted"></i>
+        <i class="icon_star voted"></i>
+        <i class="icon_star"></i> (
+        <small>
+          <a>Read 98 reviews</a>
+        </small>)</div>
+      <h1>Mexican TacoMex</h1>
+      <div>
+        <em>Mexican / American</em>
+      </div>
+      <div>
+        <i class="icon_pin"></i> 135 Newtownards Road, Belfast, BT4 1AB -
+        <strong>Delivery charge:</strong> $10, free over $15.</div>
+    </div>
+    <!-- End sub_content -->
+  </div>
+  <!-- End subheader -->
+</section>
+<!-- End section -->
+<!-- End SubHeader ============================================ -->
+
+<!-- Content ================================================== -->
+<div class="container margin_60_35">
+  <div class="row">
+
+    <div class="col-md-3">
+      <p>
+        <a class="btn_side">Back to search</a>
+      </p>
+      <div class="box_style_1">
+        <ul id="cat_nav">
+          <li>
+            <a class="active">Starters
+              <span>(141)</span>
+            </a>
+          </li>
+          <li>
+            <a>Main Courses
+              <span>(20)</span>
+            </a>
+          </li>
+          <li>
+            <a>Beef
+              <span>(12)</span>
+            </a>
+          </li>
+          <li>
+            <a>Desserts
+              <span>(11)</span>
+            </a>
+          </li>
+          <li>
+            <a>Drinks
+              <span>(20)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- End box_style_1 -->
+
+      <div class="box_style_2 hidden-xs" id="help">
+        <i class="icon_lifesaver"></i>
+        <h4>Need
+          <span>Help?</span>
+        </h4>
+        <a class="phone">+45 423 445 99</a>
+        <small>Monday to Friday 9.00am - 7.30pm</small>
+      </div>
+    </div>
+    <!-- End col-md-3 -->
+
+    <div class="col-md-6" *ngIf="allCategories">
+      <div class="box_style_2" id="main_menu">
+        <h2 class="inner">Menu</h2>
+
+        <div *ngFor="let category of allCategories.category;let i = index">
+          <h3 class="nomargin_top">{{category.name}}</h3>
+          <p></p>
+          <table class="table table-striped cart-list" *ngIf="category.items">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Price </th>
+                <th>Order</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let food of category.items.food_list;let j= index">
+              <tr>
+                <td>
+                  <figure class="thumb_menu_list">
+                    <img src="assets/img/menu-thumb-1.jpg" alt="thumb">
+                  </figure>
+                  <h5>{{food.name}}</h5>
+                  <p>
+                    {{food.description}}
+                  </p>
+                </td>
+                <td>
+                  <strong>€ {{food.price}}</strong>
+                </td>
+                <td class="options">
+                  <div class="dropdown dropdown-options">
+                    <a (click)="addToCart(food)" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                      <i class="icon_plus_alt2"></i>
+                    </a>
+                    <!-- <div class="dropdown-menu">
+                      <h5>Select an option</h5>
+                      <label>
+                        <input type="radio" value="option1" name="options_1" checked>Medium
+                        <span>+ $3.30</span>
+                      </label>
+                      <label>
+                        <input type="radio" value="option2" name="options_1">Large
+                        <span>+ $5.30</span>
+                      </label>
+                      <label>
+                        <input type="radio" value="option3" name="options_1">Extra Large
+                        <span>+ $8.30</span>
+                      </label>
+                      <h5>Add ingredients</h5>
+                      <label>
+                        <input type="checkbox" value="">Extra Tomato
+                        <span>+ $4.30</span>
+                      </label>
+                      <label>
+                        <input type="checkbox" value="">Extra Peppers
+                        <span>+ $2.50</span>
+                      </label>
+                      <a class="add_to_basket" (click)="addToCart()">Add to cart</a>
+                    </div> -->
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <hr>
+        </div>
+
+      </div>
+      <!-- End box_style_1 -->
+    </div>
+    <!-- End col-md-6 -->
+
+    <div class="col-md-3" id="sidebar">
+      <div class="theiaStickySidebar">
+        <div id="cart_box">
+          <h3>Your order
+            <i class="icon_cart_alt pull-right"></i>
+          </h3>
+          <table class="table table_summary">
+            <tbody>
+              <tr>
+                <td>
+                  <a class="remove_item">
+                    <i class="icon_minus_alt"></i>
+                  </a>
+                  <strong>1x</strong> Enchiladas
+                </td>
+                <td>
+                  <strong class="pull-right">$11</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a class="remove_item">
+                    <i class="icon_minus_alt"></i>
+                  </a>
+                  <strong>2x</strong> Burrito
+                </td>
+                <td>
+                  <strong class="pull-right">$14</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a class="remove_item">
+                    <i class="icon_minus_alt"></i>
+                  </a>
+                  <strong>1x</strong> Chicken
+                </td>
+                <td>
+                  <strong class="pull-right">$20</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a class="remove_item">
+                    <i class="icon_minus_alt"></i>
+                  </a>
+                  <strong>2x</strong> Corona Beer
+                </td>
+                <td>
+                  <strong class="pull-right">$9</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <a class="remove_item">
+                    <i class="icon_minus_alt"></i>
+                  </a>
+                  <strong>2x</strong> Cheese Cake
+                </td>
+                <td>
+                  <strong class="pull-right">$12</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr>
+          <table class="table table_summary">
+            <tbody>
+              <tr>
+                <td>
+                  Subtotal
+                  <span class="pull-right">$56</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Delivery fee
+                  <span class="pull-right">$10</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="total">
+                  TOTAL
+                  <span class="pull-right">$66</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <hr>
+          <a class="btn_full" (click)="redirectToCart()">Order now</a>
+        </div>
+        <!-- End cart_box -->
+      </div>
+      <!-- End theiaStickySidebar -->
+    </div>
+    <!-- End col-md-3 -->
+
+  </div>
+  <!-- End row -->
+</div>
+<!-- End container -->
+<!-- End Content =============================================== -->
+
+<app-footer></app-footer>
