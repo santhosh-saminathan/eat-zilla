@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   baseUrl: any;
   popularBrands: any;
   geometry: any;
+  options:any; 
 
 
   constructor(private router: Router, private location: Location, private webStorageService: WebStorageService, private restaurantService: RestaurantService) { }
