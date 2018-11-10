@@ -16,6 +16,7 @@ export class MenuDetailsComponent implements OnInit {
 
   ngOnInit() {
 
+    
     this.restaurant_Id = this.route.snapshot.queryParams['restaurant'];
     // let obj = {
     //   restaurant_id: this.restaurant_Id

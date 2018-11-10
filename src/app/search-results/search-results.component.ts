@@ -12,12 +12,14 @@ export class SearchResultsComponent implements OnInit {
   lat: any;
   lng: any;
   nearbyRestaurants: any;
+  displayGridView: boolean = true;
+  displayListView: boolean = false;
+  // copyNearbyRestaurants: any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private restaurantService: RestaurantService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private restaurantService: RestaurantService) {
+  }
 
   ngOnInit() {
-
-    console.log(this.route);
 
     this.lat = this.route.snapshot.queryParams['lat'];
     this.lng = this.route.snapshot.queryParams['lng'];
@@ -25,11 +27,12 @@ export class SearchResultsComponent implements OnInit {
     console.log(this.lat, this.lng);
 
 
-    this.restaurantService.getNearByRestaurants(this.lat, this.lng).subscribe(data => {
+    this.restaurantService.getNearByRestaurants(1, 1).subscribe(data => {
       console.log(data)
       this.nearbyRestaurants = data;
+      // this.copyNearbyRestaurants = data;
     }, err => {
-      console.log(err);
+      console.error(err);
     })
 
   }
@@ -39,4 +42,23 @@ export class SearchResultsComponent implements OnInit {
 
   }
 
+  gridView() {
+    this.displayGridView = false;
+    this.displayListView = true;
+  }
+
+  listView() {
+    this.displayGridView = true;
+    this.displayListView = false;
+  }
+
+  filterByRating(rating) {
+    this.nearbyRestaurants.restaurants.forEach(element => {
+      if (element.rating >= rating) {
+        element.show = true;
+      } else {
+        element.hide = true;
+      }
+    });
+  }
 }

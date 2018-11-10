@@ -21,7 +21,7 @@
           </a>
           <ul>
             <li>
-              <a (click)="redirectToSearch()"> 
+              <a (click)="redirectToSearch()">
                 <i class="icon-search"></i> Search</a>
             </li>
             <li>
@@ -40,20 +40,20 @@
               <a data-toggle="modal" data-target="#register">Register</a>
             </li>
             <li *ngIf="loggedIn">
-              <a data-toggle="dropdown" (click)="redirectToProfile()">
+              <a (click)="show=!show">
                 <i class="icon-user"></i>
                 <span *ngIf="loginResponse">
                   <span *ngIf="!loginResponse.user_name"> User </span>
                   <span *ngIf="loginResponse.user_name">{{loginResponse.user_name}}</span>
                 </span>
               </a>
-              <ul style="min-width:80%" class="dropdown-menu">
-                <li>
-                  <div (click)="logout()">Logout</div>
-                </li>
-              </ul>
-              <!-- <a>
+              <!-- 
+               <a>
                 <img src={{loginResponse.profile_image}} height="30px"> {{loginResponse.user_name}}</a> -->
+            </li>
+            <li *ngIf="loggedIn">
+              <a (click)="logout()">
+                <i class="icon-logout"></i> Logout</a>
             </li>
 
 
@@ -83,6 +83,7 @@
         </div>
         <div class="error_text">{{errorMessage}}</div>
         <div *ngIf="!forgotPassword">
+          <h3>Sign In</h3>
           <input type="text" autocomplete="false" onkeydown="return ( event.ctrlKey || event.altKey 
               || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false) 
               || (95<event.keyCode && event.keyCode<106)
@@ -97,6 +98,11 @@
         </div>
 
         <div *ngIf="forgotPassword && !checkOtpScreen">
+          <div class="backToLoginBtn">
+            <a (click)="showLoginScreen()">Back to Login</a>
+          </div>
+          <h3>Forgot Password</h3>
+          <h5>Enter your registered Mobile number to get OTP verification</h5>
           <input type="text" autocomplete="false" onkeydown="return ( event.ctrlKey || event.altKey 
                 || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false) 
                 || (95<event.keyCode && event.keyCode<106)
@@ -108,20 +114,45 @@
         </div>
 
         <div *ngIf="checkOtpScreen && !resetPasswordScreen">
+          <div class="backToLoginBtn">
+            <a (click)="showLoginScreen()">Back to Login</a>
+          </div>
           <h3>Enter OTP</h3>
-          <input type="text" maxlength="5" style="letter-spacing:20px;padding:10px" />
+          <h5>Please enter the verification code sent to your Mobile</h5>
+          <input type="text" id="partitioned" maxlength="5" name="otpCode" [(ngModel)]="otp" />
+          <div>
+            <h5>Didn't receive OTP yet ?
+              <a class="cursor_poiter" (click)="forgotPasswordFun()"> Resend OTP</a>
+            </h5>
+
+          </div>
           <button type="submit" class="btn btn-submit" (click)="submitOtp()">Submit OTP</button>
 
         </div>
 
         <div *ngIf="resetPasswordScreen">
+          <div class="backToLoginBtn">
+            <a (click)="showLoginScreen()">Back to Login</a>
+          </div>
+          <h3>New Password</h3>
 
-          <input type="password" class="form-control form-white" placeholder="Password" name="password" [(ngModel)]="newPassword" minlength="8"
-            #password="ngModel" id="password">
+          <input type="password" class="form-control form-white" placeholder="Password *" name="password1" [(ngModel)]="userDetails.password"
+            minlength="8" #password="ngModel" id="password">
           <div [hidden]="password.valid || password.pristine" class="alert_msg">
             <div [hidden]="!password.hasError('minlength')">Password should be minimum 8 characters </div>
+
           </div>
-          <button type="submit" class="btn btn-submit" (click)="resetPasswordFun(newPassword)">Submit OTP</button>
+          <div [hidden]="requiredField || userDetails.password" class="alert_msg">
+            <div>Password is required </div>
+          </div>
+          <input type="password" class="form-control form-white" (keyup)="passwordCheck($event)" placeholder="Confirm password *" name="password2"
+            [(ngModel)]="userDetails.cnfmPassword">
+          <div [hidden]="validPassword" class="alert_msg">
+            <div>Password mismatch
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-submit" (click)="setNewPassword(userDetails.cnfmPassword)">Submit OTP</button>
 
         </div>
 

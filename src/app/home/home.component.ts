@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   baseUrl: any;
   popularBrands: any;
   geometry: any;
-  options:any; 
+  options: any;
 
 
   constructor(private router: Router, private location: Location, private webStorageService: WebStorageService, private restaurantService: RestaurantService) { }
@@ -41,10 +41,12 @@ export class HomeComponent implements OnInit {
     console.log(address);
     this.geometry = address.geometry.viewport;
     console.log(this.geometry.l.l);
+    console.log(this.geometry.j.j);
   }
 
   redirectToSearchResult() {
-    this.router.navigate(['/search-results'], { queryParams: { lat: '1234', lng: '212' } });
+    if(this.geometry && this.geometry.l.l && this.geometry.j.j)
+    this.router.navigate(['/search-results'], { queryParams: { lat: this.geometry.l.l, lng: this.geometry.j.j } });
   }
 
   redirectToRestaurantDetail() {

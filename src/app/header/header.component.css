@@ -14,24 +14,38 @@ li a {
 }
 
 #partitioned {
-    padding-left: 15px;
-    letter-spacing: 42px;
-    border: 0;
-    background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+    letter-spacing: 20px;
+    padding: 10px;
+    /* background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
     background-position: bottom;
-    background-size: 50px 1px;
+    background-size: 35px 2px;
     background-repeat: repeat-x;
-    background-position-x: 35px;
-    width: 220px;
+    background-position-x: 27px; */
 }
 
 .error_text {
     color: red;
 }
 
-.cursor_poiter {
+
+
+.backToLoginBtn {
+    text-align: left;
     cursor: pointer;
 }
+
+.custom-drop-down {
+    position: absolute;
+    width: 90%;
+    background: white;
+    border-radius: 5px;
+    margin-top: -15px;
+    padding: 10px;
+    line-height: 25px;
+    font-size: 16px;
+}
+
+
 
 @media only screen and (max-width: 600px) {
     .main-menu {

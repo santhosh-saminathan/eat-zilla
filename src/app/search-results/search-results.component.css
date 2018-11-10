@@ -1,0 +1,10 @@
+.filter_type ul li .rating {
+    left: 5px;
+    top: 0px;
+}
+
+.filter_name {
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 1px
+}

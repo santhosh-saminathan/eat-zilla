@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
   forgotPasswordResponse: any;
   signupResponse: any;
   profileResponse: any;
+  newPasswordResponse: any;
   userProfileDetails: any;
 
   loggedIn: boolean = false;
@@ -32,6 +33,8 @@ export class HeaderComponent implements OnInit {
   resetPasswordScreen: boolean = false;
   newPassword: any;
   errorMessage: any;
+  otp: any;
+
 
 
   constructor(private toastr: ToastrService, private router: Router, private signUpService: SignUpService, private profileService: ProfileService, private webStorageService: WebStorageService) { }
@@ -43,6 +46,7 @@ export class HeaderComponent implements OnInit {
       this.getProfileDetails();
     } else {
       this.loggedIn = false;
+      this.redirectToHome();
     }
   }
 
@@ -91,6 +95,11 @@ export class HeaderComponent implements OnInit {
     this.forgotPassword = true;
   }
 
+  showLoginScreen() {
+    this.forgotPassword = false;
+    this.checkOtpScreen = false;
+    this.resetPasswordScreen = false;
+  }
 
   acceptTermsAndConditions(event) {
     if (event.target.checked) {
@@ -179,12 +188,10 @@ export class HeaderComponent implements OnInit {
       let data = {
         'phone': this.login.phone
       }
-      // this.checkOtpScreen = true;
       this.signUpService.forgotPassword(data).subscribe(data => {
-        console.log(data);
         this.forgotPasswordResponse = data;
         if (this.forgotPasswordResponse.status) {
-          this.checkOtpScreen = true;
+    this.checkOtpScreen = true;
           this.toastr.success('', 'OTP sent successfully');
         } else {
           this.errorMessage = this.forgotPasswordResponse.message;
@@ -197,12 +204,19 @@ export class HeaderComponent implements OnInit {
   }
 
   submitOtp() {
+    this.errorMessage = null;
+    if (this.forgotPasswordResponse.otp == this.otp) {
     this.resetPasswordScreen = true;
+    } else {
+      this.errorMessage = "OTP didn't match"
+    }
   }
 
-  resetPasswordFun(newPasswd) {
-    if (newPasswd) {
+  setNewPassword(newPasswd) {
+    this.errorMessage = null;
+    console.log(newPasswd, this.validPassword);
 
+    if (newPasswd && this.validPassword) {
       let data = {
         phone: this.login.phone,
         password: newPasswd
@@ -210,7 +224,14 @@ export class HeaderComponent implements OnInit {
 
       this.signUpService.resetPassword(data).subscribe(data => {
         console.log(data)
+        this.newPasswordResponse = data;
+        if (this.newPasswordResponse.status) {
+          this.toastr.success('', 'Reset Password Success');
+        } else {
+          this.errorMessage = "Error while setting new password";
+        }
       }, err => {
+        this.errorMessage = "Error while setting new password"
         console.log(err);
       })
     }

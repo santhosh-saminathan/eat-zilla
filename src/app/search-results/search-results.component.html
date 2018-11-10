@@ -1,17 +1,5 @@
 <app-header></app-header>
 
-<!-- <div>
-  <div id="preloader">
-    <div class="sk-spinner sk-spinner-wave" id="status">
-      <div class="sk-rect1"></div>
-      <div class="sk-rect2"></div>
-      <div class="sk-rect3"></div>
-      <div class="sk-rect4"></div>
-      <div class="sk-rect5"></div>
-    </div>
-  </div>
-</div> -->
-
 <div>
   <!-- SubHeader =============================================== -->
   <section class="parallax-window" id="short" data-parallax="scroll" data-image-src="assets/img/sub_header_short.jpg" data-natural-width="1400"
@@ -37,7 +25,11 @@
 
   <!-- Content ================================================== -->
   <div class="container margin_60_35">
-    <div class="row">
+    <div *ngIf="!nearbyRestaurants" class="row text_center_align">
+      <i class="fa fa-spinner fa-spin" style="font-size:36px;color:#57C704"></i>
+      <div>Please wait...</div>
+    </div>
+    <div class="row" *ngIf="nearbyRestaurants">
 
       <div class="col-md-3">
         <p>
@@ -53,56 +45,72 @@
               <ul>
                 <li>
                   <label>
-                    <input type="checkbox" checked class="icheck">All
-                    <small>(49)</small>
+                    <input type="checkbox" checked class="icheck">
+                    <span class="filter_name">All
+                      <small>(49)</small>
+                    </span>
                   </label>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">American
-                    <small>(12)</small>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">American
+                      <small>(12)</small>
+                    </span>
                   </label>
                   <i class="color_1"></i>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Chinese
-                    <small>(5)</small>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Chinese
+                      <small>(5)</small>
+                    </span>
                   </label>
                   <i class="color_2"></i>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Hamburger
-                    <small>(7)</small>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Hamburger
+                      <small>(7)</small>
+                    </span>
                   </label>
                   <i class="color_3"></i>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Fish
-                    <small>(1)</small>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Fish
+                      <small>(1)</small>
+                    </span>
                   </label>
                   <i class="color_4"></i>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Mexican
-                    <small>(49)</small>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Mexican
+                      <small>(49)</small>
+                    </span>
                   </label>
                   <i class="color_5"></i>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Pizza
-                    <small>(22)</small>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Pizza
+                      <small>(22)</small>
+                    </span>
                   </label>
                   <i class="color_6"></i>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Sushi
-                    <small>(43)</small>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Sushi
+                      <small>(43)</small>
+                    </span>
                   </label>
                   <i class="color_7"></i>
                 </li>
@@ -112,8 +120,8 @@
               <h6>Rating</h6>
               <ul>
                 <li>
-                  <label>
-                    <input type="checkbox" class="icheck">
+                  <label title="5 Rating">
+                    <input type="checkbox" (click)="filterByRating(5)" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
                       <i class="icon_star voted"></i>
@@ -124,7 +132,7 @@
                   </label>
                 </li>
                 <li>
-                  <label>
+                  <label title="4 and Above">
                     <input type="checkbox" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
@@ -136,7 +144,7 @@
                   </label>
                 </li>
                 <li>
-                  <label>
+                  <label title="3 and Above">
                     <input type="checkbox" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
@@ -148,7 +156,7 @@
                   </label>
                 </li>
                 <li>
-                  <label>
+                  <label title="2 and Above">
                     <input type="checkbox" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
@@ -160,7 +168,7 @@
                   </label>
                 </li>
                 <li>
-                  <label>
+                  <label title="1 and Above">
                     <input type="checkbox" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
@@ -178,19 +186,27 @@
               <ul class="nomargin">
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Delivery</label>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Delivery</span>
+                  </label>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Take Away</label>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Take Away</span>
+                  </label>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Distance 10Km</label>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Distance 10Km</span>
+                  </label>
                 </li>
                 <li>
                   <label>
-                    <input type="checkbox" class="icheck">Distance 5Km</label>
+                    <input type="checkbox" class="icheck">
+                    <span class="filter_name">Distance 5Km</span>
+                  </label>
                 </li>
               </ul>
             </div>
@@ -201,7 +217,7 @@
       </div>
       <!--End col-md -->
 
-      <div class="col-md-9" *ngIf="nearbyRestaurants">
+      <div class="col-md-9">
 
         <div id="tools">
           <div class="row">
@@ -214,70 +230,130 @@
                 </select>
               </div>
             </div>
-            <div class="col-md-9 col-sm-9 hidden-xs">
-              <a href="grid_list.html" class="bt_filters">
+
+            <div title="grid view" *ngIf="displayGridView" class="col-md-9 col-sm-9 hidden-xs">
+              <a (click)="gridView()" class="bt_filters cursor_poiter">
                 <i class="icon-th"></i>
               </a>
             </div>
+
+            <div title="list view" *ngIf="displayListView" class="col-md-9 col-sm-9 hidden-xs">
+              <a (click)="listView()" class="bt_filters cursor_poiter">
+                <i class="icon-list"></i>
+              </a>
+            </div>
+
           </div>
         </div>
         <!--End tools -->
 
 
+        <div *ngIf="displayGridView">
+          <div *ngFor="let restaurant of nearbyRestaurants.restaurants;">
 
-        <div *ngFor="let restaurant of nearbyRestaurants.restaurants;" class="strip_list wow fadeIn" data-wow-delay="0.1s">
+            <div *ngIf="!restaurant.hide" class="strip_list wow fadeIn" data-wow-delay="0.1s">
+              <div class="ribbon_1">
+                Popular
+              </div>
+              <div class="row">
+                <div class="col-md-9 col-sm-9">
+                  <div class="desc">
+                    <div class="thumb_strip">
+                      <a class="cursor_poiter" (click)="redirectToMenuDetail(restaurant.id)">
+                        <img src={{restaurant.image}} alt="">
+                      </a>
+                    </div>
+                    <div class="rating" title="{{restaurant.rating}} Rating">
+                      <i [ngClass]="{'voted': restaurant.rating >=1}" class="icon_star"></i>
+                      <i [ngClass]="{'voted': restaurant.rating >=2}" class="icon_star"></i>
+                      <i [ngClass]="{'voted': restaurant.rating >=3}" class="icon_star"></i>
+                      <i [ngClass]="{'voted': restaurant.rating >=4}" class="icon_star"></i>
+                      <i [ngClass]="{'voted': restaurant.rating >=5}" class="icon_star"></i>(
+                      <small>
+                        <a>98 reviews</a>
+                      </small>)
+                    </div>
 
-          <div class="ribbon_1">
-            Popular
-          </div>
-          <div class="row">
-            <div class="col-md-9 col-sm-9">
-              <div class="desc">
-                <div class="thumb_strip">
-                  <a (click)="redirectToMenuDetail()">
-                    <img src={{restaurant.image}} alt="">
-                  </a>
+                    <!-- <i class="icon_star"></i> -->
+
+                    <h3>{{restaurant.name}}</h3>
+                    <div class="type">
+                      <span *ngFor="let cuisines of restaurant.cuisines;let i = index">
+                        {{cuisines.name}}
+                        <span *ngIf="(i+1)<(restaurant.cuisines.length)">/</span>
+                      </span>
+                    </div>
+                    <div class="location">
+                      135 Newtownards Road, Belfast, BT4.
+                      <span class="opening">Opens at 17:00.</span> Minimum order: $15
+                    </div>
+
+                  </div>
                 </div>
-                <div class="rating" title="{{restaurant.rating}} Rating">
-                  <i [ngClass]="{'voted': restaurant.rating >=1}" class="icon_star"></i>
-                  <i [ngClass]="{'voted': restaurant.rating >=2}" class="icon_star"></i>
-                  <i [ngClass]="{'voted': restaurant.rating >=3}" class="icon_star"></i>
-                  <i [ngClass]="{'voted': restaurant.rating >=4}" class="icon_star"></i>
-                  <i [ngClass]="{'voted': restaurant.rating >=5}" class="icon_star"></i>(
-                  <small>
-                    <a>98 reviews</a>
-                  </small>)
+                <div class="col-md-3 col-sm-3">
+                  <div class="go_to">
+                    <div>
+                      <a (click)="redirectToMenuDetail(restaurant.id)" class="btn_1">View Menu</a>
+                    </div>
+                  </div>
                 </div>
-
-                <!-- <i class="icon_star"></i> -->
-
-                <h3>{{restaurant.name}}</h3>
-                <div class="type">
-                  <span *ngFor="let cuisines of restaurant.cuisines;let i = index">
-                    {{cuisines.name}}
-                    <span *ngIf="(i+1)<(restaurant.cuisines.length)">/</span>
-                  </span>
-                </div>
-                <div class="location">
-                  135 Newtownards Road, Belfast, BT4.
-                  <span class="opening">Opens at 17:00.</span> Minimum order: $15
-                </div>
-
               </div>
             </div>
-            <div class="col-md-3 col-sm-3">
-              <div class="go_to">
-                <div>
-                  <a (click)="redirectToMenuDetail(restaurant.id)" class="btn_1">View Menu</a>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
+
+
+        <div *ngIf="displayListView">
+          <div class="row">
+            <div *ngFor="let restaurant of nearbyRestaurants.restaurants;" >
+              <a *ngIf="!restaurant.hide" class="col-md-6 col-sm-6 strip_list grid wow zoomIn" data-wow-delay="0.1s">
+                <div class="ribbon_1">Popular</div>
+                <div class="desc">
+                  <div class="thumb_strip">
+                    <a class="cursor_poiter" (click)="redirectToMenuDetail(restaurant.id)">
+                      <img src={{restaurant.image}} alt="">
+                    </a>
+                  </div>
+                  <div class="rating" title="{{restaurant.rating}} Rating">
+                    <i [ngClass]="{'voted': restaurant.rating >=1}" class="icon_star"></i>
+                    <i [ngClass]="{'voted': restaurant.rating >=2}" class="icon_star"></i>
+                    <i [ngClass]="{'voted': restaurant.rating >=3}" class="icon_star"></i>
+                    <i [ngClass]="{'voted': restaurant.rating >=4}" class="icon_star"></i>
+                    <i [ngClass]="{'voted': restaurant.rating >=5}" class="icon_star"></i>(
+                    <small>
+                      <a>98 reviews</a>
+                    </small>)
+                  </div>
+                  <h3>{{restaurant.name}}</h3>
+                  <div class="type">
+                    <span *ngFor="let cuisines of restaurant.cuisines;let i = index">
+                      {{cuisines.name}}
+                      <span *ngIf="(i+1)<(restaurant.cuisines.length)">/</span>
+                    </span>
+                  </div>
+                  <div class="location">
+                    135 Newtownards Road, Belfast, BT4.
+                    <br>
+                    <span class="opening">Opens at 17:00.</span> Minimum order: $15
+                  </div>
+
+                </div>
+              </a>
+              <!-- End strip_list-->
+            </div>
+          </div>
+          <!-- End row-->
+        </div>
+
+
+
 
         <!-- <a class="load_more_bt wow fadeIn" data-wow-delay="0.2s">Load more...</a> -->
       </div>
       <!-- End col-md-9-->
+
+
 
     </div>
     <!-- End row -->
