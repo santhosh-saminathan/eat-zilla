@@ -45,8 +45,8 @@ export class HomeComponent implements OnInit {
   }
 
   redirectToSearchResult() {
-    if(this.geometry && this.geometry.l.l && this.geometry.j.j)
-    this.router.navigate(['/search-results'], { queryParams: { lat: this.geometry.l.l, lng: this.geometry.j.j } });
+    if (this.geometry && this.geometry.l.l && this.geometry.j.j)
+      this.router.navigate(['/search-results'], { queryParams: { lat: this.geometry.l.l, lng: this.geometry.j.j } });
   }
 
   redirectToRestaurantDetail() {
@@ -55,6 +55,8 @@ export class HomeComponent implements OnInit {
   }
 
   getPopularRestaurants() {
+    console.log("called called this is caled0");
+    console.log(this.webStorageService.getAuthId(), this.webStorageService.getAuthToken())
     this.restaurantService.getPopularBrands().subscribe(data => {
       console.log(data);
       this.popularBrands = data;
@@ -64,6 +66,12 @@ export class HomeComponent implements OnInit {
     }, err => {
       console.log(err);
     })
+  }
+
+  ngOnDestroy() {
+    console.log("destroy called");
+    // var x = document.getElementsByClassName("parallax-mirror")
+    // x[0].innerHTML = "Hello World!";
   }
 
 }

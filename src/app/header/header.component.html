@@ -40,7 +40,7 @@
               <a data-toggle="modal" data-target="#register">Register</a>
             </li>
             <li *ngIf="loggedIn">
-              <a (click)="show=!show">
+              <a (click)="redirectToProfile()">
                 <i class="icon-user"></i>
                 <span *ngIf="loginResponse">
                   <span *ngIf="!loginResponse.user_name"> User </span>

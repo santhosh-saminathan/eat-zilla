@@ -1,0 +1,20 @@
+
+.parallax-window {
+    min-height: 470px;
+    background: 0 0;
+    position: relative
+}
+
+.parallax-window#home {
+    min-height: 550px
+}
+
+.parallax-window#short {
+    height: 550px;
+    min-height: inherit
+}
+
+.parallax-mirror{
+    height: 300px !important;
+    width: 500px !important;
+}

@@ -4,6 +4,7 @@ import { SignUpService } from './../services/signup.service';
 import { ProfileService } from './../services/profile.service';
 import { WebStorageService } from './../services/web-storage.service';
 import { ToastrService } from 'ngx-toastr';
+// import { HomeComponent } from './../home/home.component';
 
 declare var jquery: any;
 declare var $: any;
@@ -138,16 +139,17 @@ export class HeaderComponent implements OnInit {
       this.errorMessage = null;
       this.login.login_type = 0;
       this.signUpService.loginUser(this.login).subscribe(data => {
-        console.log(data);
         this.loginResponse = data;
         if (this.loginResponse.status) {
           this.webStorageService.storeAuthId(this.loginResponse.authId);
           this.webStorageService.storeAuthToken(this.loginResponse.authToken);
           this.toastr.success('', 'Login Success');
+
           setTimeout(() => {
             $('#login').modal("hide")
             this.loggedIn = true;
           }, 1000);
+
         } else {
           this.errorMessage = "Invalid login credentials";
         }
@@ -191,7 +193,7 @@ export class HeaderComponent implements OnInit {
       this.signUpService.forgotPassword(data).subscribe(data => {
         this.forgotPasswordResponse = data;
         if (this.forgotPasswordResponse.status) {
-    this.checkOtpScreen = true;
+          this.checkOtpScreen = true;
           this.toastr.success('', 'OTP sent successfully');
         } else {
           this.errorMessage = this.forgotPasswordResponse.message;
@@ -206,7 +208,7 @@ export class HeaderComponent implements OnInit {
   submitOtp() {
     this.errorMessage = null;
     if (this.forgotPasswordResponse.otp == this.otp) {
-    this.resetPasswordScreen = true;
+      this.resetPasswordScreen = true;
     } else {
       this.errorMessage = "OTP didn't match"
     }

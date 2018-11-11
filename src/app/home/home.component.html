@@ -1,177 +1,163 @@
-<div>
-  <!-- <div id="preloader">
-    <div class="sk-spinner sk-spinner-wave" id="status">
-      <div class="sk-rect1"></div>
-      <div class="sk-rect2"></div>
-      <div class="sk-rect3"></div>
-      <div class="sk-rect4"></div>
-      <div class="sk-rect5"></div>
-    </div>
-  </div> -->
-</div>
+<app-header></app-header>
 
-<section>
-  <app-header></app-header>
-  <!-- SubHeader =============================================== -->
-  <section class="parallax-window" id="home" data-parallax="scroll" data-image-src="assets/img/sub_header_home.jpg" data-natural-width="1400"
-    data-natural-height="550">
 
-    <div id="subheader">
-      <div id="sub_content">
-        <div>
-          <img src="assets/img/white.png" width="250" height="60" alt="">
-        </div>
-        <h1>Order Food Online</h1>
-        <span>
-          Find the best restaurants, cafés, and bars in your City.
+<section class="parallax-window" id="home" data-parallax="scroll" data-image-src="assets/img/sub_header_home.jpg" data-natural-width="1400"
+  data-natural-height="550">
 
-        </span>
-        <div>
-          <div id="custom-search-input">
-            <div class="input-group ">
-              <!-- <div id="map"></div> -->
-              <!-- <input id="searchTextField" type="text" placeholder="Enter location" [(ngModel)]="eventLocation" name="location" > -->
+  <div id="subheader">
+    <div id="sub_content">
+      <div>
+        <img src="assets/img/white.png" width="250" height="60" alt="">
+      </div>
+      <h1>Order Food Online</h1>
+      <span>
+        Find the best restaurants, cafés, and bars in your City.
 
-              <!-- <input type="text" class="search-query" placeholder="Enter your delivery location"> -->
-              <input class="custom_input search-query" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
-                placeholder="Enter your delivery location" />
-              <span class="input-group-btn">
-                <input (click)="redirectToSearchResult()" type="submit" class="btn_search" value="submit">
-              </span>
-            </div>
+      </span>
+      <div>
+        <div id="custom-search-input">
+          <div class="input-group ">
+            <!-- <div id="map"></div> -->
+            <!-- <input id="searchTextField" type="text" placeholder="Enter location" [(ngModel)]="eventLocation" name="location" > -->
+
+            <!-- <input type="text" class="search-query" placeholder="Enter your delivery location"> -->
+            <input class="custom_input search-query" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
+              placeholder="Enter your delivery location" />
+            <span class="input-group-btn">
+              <input (click)="redirectToSearchResult()" type="submit" class="btn_search" value="submit">
+            </span>
           </div>
         </div>
       </div>
-      <!-- End sub_content -->
     </div>
-    <!-- End subheader -->
+    <!-- End sub_content -->
+  </div>
+  <!-- End subheader -->
 
-  </section>
-  <!-- End section -->
-  <!-- End SubHeader ============================================ -->
+</section>
+<!-- End section -->
+<!-- End SubHeader ============================================ -->
 
-  <!-- Content ================================================== -->
+<!-- Content ================================================== -->
+<div class="container margin_60">
+
+  <div class="main_title">
+    <h2 class="nomargin_top" style="padding-top:0">How it works</h2>
+
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="box_home" id="one">
+        <span>1</span>
+        <h3>Search by address</h3>
+        <p>
+          Find all restaurants available in your zone.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="box_home" id="two">
+        <span>2</span>
+        <h3>Choose a restaurant</h3>
+        <p>
+          We have more than 1000s of menus online.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="box_home" id="three">
+        <span>3</span>
+        <h3>Pay by card or cash</h3>
+        <p>
+          It's quick, easy and totally secure.
+        </p>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="box_home" id="four">
+        <span>4</span>
+        <h3>Delivery or takeaway</h3>
+        <p>
+          You are lazy? Are you backing home?
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- End row -->
+
+
+</div>
+<!-- End container -->
+
+
+<div class="white_bg" *ngIf="popularBrands && popularBrands.data && popularBrands.data.length>0">
   <div class="container margin_60">
 
     <div class="main_title">
-      <h2 class="nomargin_top" style="padding-top:0">How it works</h2>
+      <h2 class="nomargin_top">Choose from Most Popular</h2>
 
     </div>
+
     <div class="row">
-      <div class="col-md-3">
-        <div class="box_home" id="one">
-          <span>1</span>
-          <h3>Search by address</h3>
-          <p>
-            Find all restaurants available in your zone.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="box_home" id="two">
-          <span>2</span>
-          <h3>Choose a restaurant</h3>
-          <p>
-            We have more than 1000s of menus online.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="box_home" id="three">
-          <span>3</span>
-          <h3>Pay by card or cash</h3>
-          <p>
-            It's quick, easy and totally secure.
-          </p>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="box_home" id="four">
-          <span>4</span>
-          <h3>Delivery or takeaway</h3>
-          <p>
-            You are lazy? Are you backing home?
-          </p>
-        </div>
+      <div class="col-md-6" *ngFor="let restaurant of popularBrands.data">
+        <a (click)="redirectToRestaurantDetail()" class="strip_list">
+          <div class="ribbon_1">Popular</div>
+          <div class="desc">
+            <div class="thumb_strip">
+              <img src={{restaurant.image}} alt="">
+            </div>
+            <div class="rating">
+              <i class="icon_star voted"></i>
+              <i class="icon_star voted"></i>
+              <i class="icon_star voted"></i>
+              <i class="icon_star voted"></i>
+              <i class="icon_star"></i>
+            </div>
+            <h3>{{restaurant.name}}</h3>
+            <div class="type">
+              Mexican / American
+            </div>
+            <div class="location">
+              135 Newtownards Road, Belfast, BT4.
+              <span class="opening">Opens at 17:00</span>
+            </div>
+            <ul>
+              <li>Take away
+                <i class="icon_check_alt2 ok"></i>
+              </li>
+              <li>Delivery
+                <i class="icon_check_alt2 ok"></i>
+              </li>
+            </ul>
+          </div>
+          <!-- End desc-->
+        </a>
       </div>
     </div>
     <!-- End row -->
 
-
   </div>
   <!-- End container -->
+</div>
+<!-- End white_bg -->
 
 
-  <div class="white_bg" *ngIf="popularBrands && popularBrands.data && popularBrands.data.length>0">
-    <div class="container margin_60">
-
-      <div class="main_title">
-        <h2 class="nomargin_top">Choose from Most Popular</h2>
-
-      </div>
-
-      <div class="row">
-        <div class="col-md-6" *ngFor="let restaurant of popularBrands.data">
-          <a (click)="redirectToRestaurantDetail()" class="strip_list">
-            <div class="ribbon_1">Popular</div>
-            <div class="desc">
-              <div class="thumb_strip">
-                <img src={{restaurant.image}} alt="">
-              </div>
-              <div class="rating">
-                <i class="icon_star voted"></i>
-                <i class="icon_star voted"></i>
-                <i class="icon_star voted"></i>
-                <i class="icon_star voted"></i>
-                <i class="icon_star"></i>
-              </div>
-              <h3>{{restaurant.name}}</h3>
-              <div class="type">
-                Mexican / American
-              </div>
-              <div class="location">
-                135 Newtownards Road, Belfast, BT4.
-                <span class="opening">Opens at 17:00</span>
-              </div>
-              <ul>
-                <li>Take away
-                  <i class="icon_check_alt2 ok"></i>
-                </li>
-                <li>Delivery
-                  <i class="icon_check_alt2 ok"></i>
-                </li>
-              </ul>
-            </div>
-            <!-- End desc-->
-          </a>
-        </div>
-      </div>
-      <!-- End row -->
+<section class="parallax-window" data-parallax="scroll" data-image-src="assets/img/bg_office.jpg" data-natural-width="1200"
+  data-natural-height="600">
+  <div class="parallax-content">
+    <div class="sub_content">
+      <i class="icon_mug"></i>
+      <h3>We also deliver to your office</h3>
 
     </div>
-    <!-- End container -->
+    <!-- End sub_content -->
   </div>
-  <!-- End white_bg -->
-
-
-  <section class="parallax-window" data-parallax="scroll" data-image-src="assets/img/bg_office.jpg" data-natural-width="1200"
-    data-natural-height="600">
-    <div class="parallax-content">
-      <div class="sub_content">
-        <i class="icon_mug"></i>
-        <h3>We also deliver to your office</h3>
-
-      </div>
-      <!-- End sub_content -->
-    </div>
-    <!-- End subheader -->
-  </section>
-  <!-- End section -->
-  <!-- End Content =============================================== -->
-
-
-
-  <!-- Footer ================================================== -->
-  <app-footer></app-footer>
-  <!-- End Footer =============================================== -->
+  <!-- End subheader -->
 </section>
+<!-- End section -->
+<!-- End Content =============================================== -->
+
+
+
+<!-- Footer ================================================== -->
+<app-footer></app-footer>

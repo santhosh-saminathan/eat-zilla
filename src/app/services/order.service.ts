@@ -27,7 +27,17 @@ export class OrderService {
         return this.http.post(url + "foodie/api/add_delivery_address", data, httpOptions);
     }
 
+    getDefaultAddress() {
+        return this.http.get(url + "foodie/api/get_default_address", httpOptions);
+
+    }
+
+    setDefaultAddress(data) {
+        return this.http.post(url + "foodie/api/set_delivery_address", data, httpOptions);
+
+    }
+
     checkoutCart() {
-        return this.http.post(url + "foodie/api/checkout",{}, httpOptions);
+        return this.http.post(url + "foodie/api/checkout", {}, httpOptions);
     }
 }
