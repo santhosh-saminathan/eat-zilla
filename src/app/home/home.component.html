@@ -3,36 +3,35 @@
 
 <!-- <section class="parallax-window" id="home" data-parallax="scroll" data-image-src="assets/img/sub_header_home.jpg" data-natural-width="1400"
   data-natural-height="550"> -->
+<div id="subheader" style="background-color: rgba(0,0,0,.7);background-image:url('assets/img/sub_header_home.jpg');">
+  <div id="sub_content">
+    <div>
+      <img src="assets/img/white.png" width="250" height="60" alt="">
+    </div>
+    <h1>Order Food Online</h1>
+    <span>
+      Find the best restaurants, cafés, and bars in your City.
 
-  <div id="subheader">
-    <div id="sub_content">
-      <div>
-        <img src="assets/img/white.png" width="250" height="60" alt="">
-      </div>
-      <h1>Order Food Online</h1>
-      <span>
-        Find the best restaurants, cafés, and bars in your City.
+    </span>
+    <div>
+      <div id="custom-search-input">
+        <div class="input-group ">
+          <!-- <div id="map"></div> -->
+          <!-- <input id="searchTextField" type="text" placeholder="Enter location" [(ngModel)]="eventLocation" name="location" > -->
 
-      </span>
-      <div>
-        <div id="custom-search-input">
-          <div class="input-group ">
-            <!-- <div id="map"></div> -->
-            <!-- <input id="searchTextField" type="text" placeholder="Enter location" [(ngModel)]="eventLocation" name="location" > -->
-
-            <!-- <input type="text" class="search-query" placeholder="Enter your delivery location"> -->
-            <input class="custom_input search-query" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
-              placeholder="Enter your delivery location" />
-            <span class="input-group-btn">
-              <input (click)="redirectToSearchResult()" type="submit" class="btn_search" value="submit">
-            </span>
-          </div>
+          <!-- <input type="text" class="search-query" placeholder="Enter your delivery location"> -->
+          <input class="custom_input search-query" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"
+            placeholder="Enter your delivery location" />
+          <span class="input-group-btn">
+            <input (click)="redirectToSearchResult()" type="submit" class="btn_search" value="submit">
+          </span>
         </div>
       </div>
     </div>
-    <!-- End sub_content -->
   </div>
-  <!-- End subheader -->
+  <!-- End sub_content -->
+</div>
+<!-- End subheader -->
 
 <!-- </section> -->
 <!-- End section -->
@@ -142,7 +141,7 @@
 <!-- End white_bg -->
 
 
-<section class="parallax-window" data-parallax="scroll" data-image-src="assets/img/bg_office.jpg" data-natural-width="1200"
+<!-- <section class="parallax-window" data-parallax="scroll" data-image-src="assets/img/bg_office.jpg" data-natural-width="1200"
   data-natural-height="600">
   <div class="parallax-content">
     <div class="sub_content">
@@ -150,10 +149,8 @@
       <h3>We also deliver to your office</h3>
 
     </div>
-    <!-- End sub_content -->
   </div>
-  <!-- End subheader -->
-</section>
+</section> -->
 <!-- End section -->
 <!-- End Content =============================================== -->
 
