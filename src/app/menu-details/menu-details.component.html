@@ -3,17 +3,17 @@
 <!-- SubHeader =============================================== -->
 <!-- <section class="parallax-window" data-parallax="scroll" data-image-src="assets/img/sub_header_2.jpg" data-natural-width="1400"
   data-natural-height="470"> -->
-<div id="subheader" style="background-color: rgba(0,0,0,.7);background-image:url('assets/img/sub_header_2.jpg');">
-  <div id=" sub_content ">
-    <div id="thumb ">
-      <img src="assets/img/thumb_restaurant.jpg " alt=" ">
+<div id="subheader" style="height:470px;background-image:url('assets/img/sub_header_2.jpg');">
+  <div id="sub_content" style="background-color: rgba(0,0,0,.7);height:inherit;width:inherit;animation-name:none">
+    <div id="thumb">
+      <img src="assets/img/thumb_restaurant.jpg" alt="">
     </div>
-    <div class="rating ">
-      <i class="icon_star voted "></i>
-      <i class="icon_star voted "></i>
-      <i class="icon_star voted "></i>
-      <i class="icon_star voted "></i>
-      <i class="icon_star "></i> (
+    <div class="rating">
+      <i class="icon_star voted"></i>
+      <i class="icon_star voted"></i>
+      <i class="icon_star voted"></i>
+      <i class="icon_star voted"></i>
+      <i class="icon_star"></i> (
       <small>
         <a>Read 98 reviews</a>
       </small>)</div>
@@ -22,7 +22,7 @@
       <em>Mexican / American</em>
     </div>
     <div>
-      <i class="icon_pin "></i> 135 Newtownards Road, Belfast, BT4 1AB -
+      <i class="icon_pin"></i> 135 Newtownards Road, Belfast, BT4 1AB -
       <strong>Delivery charge:</strong> $10, free over $15.</div>
   </div>
   <!-- End sub_content -->
@@ -33,17 +33,17 @@
 <!-- End SubHeader ============================================ -->
 
 <!-- Content ================================================== -->
-<div class="container margin_60_35 ">
-  <div class="row ">
+<div class="container margin_60_35">
+  <div class="row">
 
-    <div class="col-md-3 ">
+    <div class="col-md-3">
       <p>
-        <a class="btn_side ">Back to search</a>
+        <a class="btn_side">Back to search</a>
       </p>
-      <div class="box_style_1 ">
-        <ul id="cat_nav ">
+      <div class="box_style_1">
+        <ul id="cat_nav">
           <li>
-            <a class="active ">Starters
+            <a class="active">Starters
               <span>(141)</span>
             </a>
           </li>
@@ -71,25 +71,25 @@
       </div>
       <!-- End box_style_1 -->
 
-      <div class="box_style_2 hidden-xs " id="help ">
-        <i class="icon_lifesaver "></i>
+      <div class="box_style_2 hidden-xs" id="help">
+        <i class="icon_lifesaver"></i>
         <h4>Need
           <span>Help?</span>
         </h4>
-        <a class="phone ">+45 423 445 99</a>
+        <a class="phone">+45 423 445 99</a>
         <small>Monday to Friday 9.00am - 7.30pm</small>
       </div>
     </div>
     <!-- End col-md-3 -->
 
-    <div class="col-md-6 " *ngIf="allCategories ">
-      <div class="box_style_2 " id="main_menu ">
-        <h2 class="inner ">Menu</h2>
+    <div class="col-md-6" *ngIf="allCategories">
+      <div class="box_style_2" id="main_menu">
+        <h2 class="inner">Menu</h2>
 
-        <div *ngFor="let category of allCategories.category;let i=i ndex ">
-          <h3 class="nomargin_top ">{{category.name}}</h3>
+        <div *ngFor="let category of allCategories.category;let i = index">
+          <h3 class="nomargin_top">{{category.name}}</h3>
           <p></p>
-          <table class="table table-striped cart-list " *ngIf="category.items ">
+          <table class="table table-striped cart-list" *ngIf="category.items">
             <thead>
               <tr>
                 <th>Item</th>
@@ -97,11 +97,11 @@
                 <th>Order</th>
               </tr>
             </thead>
-            <tbody *ngFor="let food of category.items.food_list;let j=i ndex ">
+            <tbody *ngFor="let food of category.items.food_list;let j= index">
               <tr>
                 <td>
-                  <figure class="thumb_menu_list ">
-                    <img src="assets/img/menu-thumb-1.jpg " alt="thumb ">
+                  <figure class="thumb_menu_list">
+                    <img src="assets/img/menu-thumb-1.jpg" alt="thumb">
                   </figure>
                   <h5>{{food.name}}</h5>
                   <p>
@@ -111,36 +111,35 @@
                 <td>
                   <strong>€ {{food.price}}</strong>
                 </td>
-                <td class="options ">
-                  <div class="dropdown dropdown-options ">
-                    <a (click)="addToCart(food) " class="dropdown-toggle cursor_poiter " data-toggle="dropdown
-  " aria-expanded="true ">
-                      <i class="icon_plus_alt2 "></i>
+                <td class="options">
+                  <div class="dropdown dropdown-options">
+                    <a (click)="addToCart(food)" class="dropdown-toggle cursor_poiter" data-toggle="dropdown" aria-expanded="true">
+                      <i class="icon_plus_alt2"></i>
                     </a>
-                    <!-- <div class="dropdown-menu ">
+                    <!-- <div class="dropdown-menu">
                       <h5>Select an option</h5>
                       <label>
-                        <input type="radio " value="option1 " name="options_1 " checked>Medium
+                        <input type="radio" value="option1" name="options_1" checked>Medium
                         <span>+ $3.30</span>
                       </label>
                       <label>
-                        <input type="radio " value="option2 " name="options_1 ">Large
+                        <input type="radio" value="option2" name="options_1">Large
                         <span>+ $5.30</span>
                       </label>
                       <label>
-                        <input type="radio " value="option3 " name="options_1 ">Extra Large
+                        <input type="radio" value="option3" name="options_1">Extra Large
                         <span>+ $8.30</span>
                       </label>
                       <h5>Add ingredients</h5>
                       <label>
-                        <input type="checkbox " value=" ">Extra Tomato
+                        <input type="checkbox" value="">Extra Tomato
                         <span>+ $4.30</span>
                       </label>
                       <label>
-                        <input type="checkbox " value=" ">Extra Peppers
+                        <input type="checkbox" value="">Extra Peppers
                         <span>+ $2.50</span>
                       </label>
-                      <a class="add_to_basket " (click)="addToCart() ">Add to cart</a>
+                      <a class="add_to_basket" (click)="addToCart()">Add to cart</a>
                     </div> -->
                   </div>
                 </td>
@@ -155,23 +154,23 @@
     </div>
     <!-- End col-md-6 -->
 
-    <div class="col-md-3 " id="sidebar ">
-      <div class="theiaStickySidebar ">
-        <div id="cart_box ">
+    <div class="col-md-3" id="sidebar">
+      <div class="theiaStickySidebar">
+        <div id="cart_box">
           <h3>Your order
-            <i class="icon_cart_alt pull-right "></i>
+            <i class="icon_cart_alt pull-right"></i>
           </h3>
-          <table *ngIf="cartItems " class="table table_summary ">
+          <table *ngIf="cartItems" class="table table_summary">
             <tbody>
-              <tr *ngFor="let cartItem of cartItems ">
+              <tr *ngFor="let cartItem of cartItems">
                 <td>
-                  <a (click)="removeFromCart(cartItem.food_id,cartItem.quantity) " class="remove_item cursor_pointer ">
-                    <i class="icon_minus_alt "></i>
+                  <a (click)="removeFromCart(cartItem.food_id,cartItem.quantity)" class="remove_item cursor_pointer">
+                    <i class="icon_minus_alt"></i>
                   </a>
                   <strong>{{cartItem.quantity}} x </strong> {{cartItem.name}}
                 </td>
                 <td>
-                  <strong class="pull-right ">${{cartItem.price}}</strong>
+                  <strong class="pull-right">${{cartItem.price}}</strong>
                 </td>
               </tr>
 
@@ -179,30 +178,30 @@
           </table>
 
           <hr>
-          <table class="table table_summary ">
+          <table class="table table_summary">
             <tbody>
               <!-- <tr>
                 <td>
                   Subtotal
-                  <span class="pull-right ">$56</span>
+                  <span class="pull-right">$56</span>
                 </td>
               </tr> -->
               <!-- <tr>
                 <td>
                   Delivery fee
-                  <span class="pull-right ">$10</span>
+                  <span class="pull-right">$10</span>
                 </td>
               </tr> -->
               <tr>
-                <td class="total " *ngIf="checkCartResponse ">
+                <td class="total" *ngIf="checkCartResponse">
                   TOTAL
-                  <span class="pull-right ">$ {{checkCartResponse.cart[0].amount}}</span>
+                  <span class="pull-right">$ {{checkCartResponse.cart[0].amount}}</span>
                 </td>
               </tr>
             </tbody>
           </table>
           <hr>
-          <a class="btn_full " (click)="redirectToCart() ">Order now</a>
+          <a class="btn_full" (click)="redirectToCart()">Order now</a>
         </div>
         <!-- End cart_box -->
       </div>

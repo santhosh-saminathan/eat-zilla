@@ -20,24 +20,24 @@ export class OrderService {
 
 
     getDeliveryLocation() {
-        return this.http.get(url + "foodie/api/get_delivery_address", httpOptions);
+        return this.http.get(url + "/get_delivery_address", httpOptions);
     }
 
     addDeliveryAddress(data) {
-        return this.http.post(url + "foodie/api/add_delivery_address", data, httpOptions);
+        return this.http.post(url + "/add_delivery_address", data, httpOptions);
     }
 
     getDefaultAddress() {
-        return this.http.get(url + "foodie/api/get_default_address", httpOptions);
+        return this.http.get(url + "/get_default_address", httpOptions);
 
     }
 
     setDefaultAddress(data) {
-        return this.http.post(url + "foodie/api/set_delivery_address", data, httpOptions);
+        return this.http.post(url + "/set_delivery_address", data, httpOptions);
 
     }
 
     checkoutCart() {
-        return this.http.post(url + "foodie/api/checkout", {}, httpOptions);
+        return this.http.post(url + "/checkout", {}, httpOptions);
     }
 }

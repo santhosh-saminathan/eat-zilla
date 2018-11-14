@@ -22,11 +22,11 @@ export class RestaurantService {
 
 
     getPopularBrands() {
-        return this.http.get(url + "foodie/api/get_popular_brands", this.httpOptions);
+        return this.http.get(url + "/get_popular_brands", this.httpOptions);
     }
 
     getNearByRestaurants(lat, lng) {
-        return this.http.get(url + "foodie/api/get_nearby_restaurant?lat=" + lat + "&lng=" + lng, this.httpOptions);
+        return this.http.get(url + "/get_nearby_restaurant?lat=" + lat + "&lng=" + lng, this.httpOptions);
     }
 
 }

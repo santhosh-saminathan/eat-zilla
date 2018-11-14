@@ -20,24 +20,24 @@ export class SignUpService {
 
     registerUser(data) {
         data.device_token = deviceToken;
-        return this.http.post(url + "foodie/api/register", data);
+        return this.http.post(url + "/register", data);
     }
 
     loginUser(data) {
         data.device_token = deviceToken;
-        return this.http.post(url + "foodie/api/login", data);
+        return this.http.post(url + "/login", data);
     }
 
     logout() {
-        return this.http.get(url + "foodie/api/logout", httpOptions);
+        return this.http.get(url + "/logout", httpOptions);
     }
 
     forgotPassword(data) {
-        return this.http.post(url + "foodie/api/forgot_password", data);
+        return this.http.post(url + "/forgot_password", data);
     }
 
     resetPassword(data) {
-        return this.http.post(url + "foodie/api/reset_password", data);
+        return this.http.post(url + "/reset_password", data);
 
     }
 

@@ -21,16 +21,16 @@ export class MenuService {
     getMenus(data) {
         data.device_token = deviceToken;
         console.log(data);
-        return this.http.post(url + "foodie/api/get_menu", data, httpOptions);
+        return this.http.post(url + "/get_menu", data, httpOptions);
     }
 
     getCategory(data) {
-        return this.http.get(url + "foodie/api/get_category/" + data, httpOptions);
+        return this.http.get(url + "/get_category/" + data, httpOptions);
     }
 
     getCategoryWiseMenu(data) {
         console.log(data);
-        return this.http.post(url + "foodie/api/get_category_wise_food_list", data, httpOptions);
+        return this.http.post(url + "/get_category_wise_food_list", data, httpOptions);
     }
 
 

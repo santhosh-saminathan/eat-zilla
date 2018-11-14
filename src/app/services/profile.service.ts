@@ -20,7 +20,7 @@ export class ProfileService {
 
   getProfile() {
     console.log(httpOptions);
-    return this.http.get(url + "foodie/api/get_profile", httpOptions);
+    return this.http.get(url + "/get_profile", httpOptions);
   }
 
 }

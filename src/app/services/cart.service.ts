@@ -20,20 +20,20 @@ export class CartService {
 
 
     addToCart(data) {
-        return this.http.post(url + "foodie/api/add_to_cart", data, httpOptions);
+        return this.http.post(url + "/add_to_cart", data, httpOptions);
     }
 
     removeFromCart(data) {
-        return this.http.post(url + "foodie/api/reduce_from_cart", data, httpOptions);
+        return this.http.post(url + "/reduce_from_cart", data, httpOptions);
     }
 
     getCartItems() {
-        return this.http.get(url + "foodie/api/check_cart", httpOptions);
+        return this.http.get(url + "/check_cart", httpOptions);
     }
 
     checkOutCart(data) {
         // body - coupon_code: 'testcode'
-        return this.http.post(url + "foodie/api/checkout", data, httpOptions);
+        return this.http.post(url + "/api/checkout", data, httpOptions);
     }
 
 

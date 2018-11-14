@@ -117,13 +117,31 @@ export class HeaderComponent implements OnInit {
         let obj = {
           phone: this.userDetails.phone,
           email: this.userDetails.email,
+          first_name: this.userDetails.firstName,
+          last_name: this.userDetails.lastName,
           password: this.userDetails.password,
+          device_type: 'web',
           login_type: 0
         }
         this.signUpService.registerUser(obj).subscribe(data => {
           this.signupResponse = data;
+          if (this.signupResponse.status) {
+            this.toastr.success('', 'Register User Success');
+            this.webStorageService.storeAuthId(this.signupResponse.authId);
+            this.webStorageService.storeAuthToken(this.signupResponse.authToken);
+
+            setTimeout(() => {
+              $('#register').modal("hide");
+              this.loggedIn = true;
+
+            }, 1000);
+          } else {
+            this.toastr.error('', this.signupResponse.message);
+          }
+
         }, err => {
           console.log(err);
+          this.toastr.error('', 'Register user error');
         })
       } else {
         this.requiredField = false;
@@ -136,6 +154,7 @@ export class HeaderComponent implements OnInit {
 
   loginUser() {
     if (this.login.phone && this.login.password) {
+      this.login.device_type = 'web';
       this.errorMessage = null;
       this.login.login_type = 0;
       this.signUpService.loginUser(this.login).subscribe(data => {

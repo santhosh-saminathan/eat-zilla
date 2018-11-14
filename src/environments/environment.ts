@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://35.154.6.47/',
+  apiUrl: ' http://54.218.62.130/eatzilla/api',
   deviceToken: 'jhsvjx'
 
 };
