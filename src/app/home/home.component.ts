@@ -47,6 +47,9 @@ export class HomeComponent implements OnInit {
   redirectToSearchResult() {
     if (this.geometry && this.geometry.l.l && this.geometry.j.j)
       this.router.navigate(['/search-results'], { queryParams: { lat: this.geometry.l.l, lng: this.geometry.j.j } });
+    else
+      this.router.navigate(['/search-results'], { queryParams: { lat: 1, lng: 1 } });
+
   }
 
   redirectToRestaurantDetail() {

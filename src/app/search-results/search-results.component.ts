@@ -27,7 +27,7 @@ export class SearchResultsComponent implements OnInit {
     console.log(this.lat, this.lng);
 
 
-    this.restaurantService.getNearByRestaurants(1, 1).subscribe(data => {
+    this.restaurantService.getNearByRestaurants(this.lat, this.lng).subscribe(data => {
       console.log(data)
       this.nearbyRestaurants = data;
       // this.copyNearbyRestaurants = data;
