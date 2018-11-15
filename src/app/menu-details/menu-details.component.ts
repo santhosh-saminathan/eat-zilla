@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from './../services/menu.service';
 import { CartService } from './../services/cart.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-menu-details',
@@ -15,7 +16,7 @@ export class MenuDetailsComponent implements OnInit {
   cartItems: any;
   checkCartResponse: any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private menuService: MenuService, private cartService: CartService) { }
+  constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private menuService: MenuService, private cartService: CartService) { }
 
   ngOnInit() {
 
@@ -38,7 +39,6 @@ export class MenuDetailsComponent implements OnInit {
 
     this.menuService.getCategory(this.restaurant_Id).subscribe(data => {
       this.allCategories = data;
-      console.log(this.allCategories);
       this.allCategories.category.forEach(element => {
         let obj2 = {
           restaurant_id: this.restaurant_Id,
@@ -48,10 +48,12 @@ export class MenuDetailsComponent implements OnInit {
         this.menuService.getCategoryWiseMenu(obj2).subscribe(data => {
           element.items = data;
         }, err => {
+          this.toastr.error('', 'Error while getting menu');
           console.log(err);
         })
       });
     }, err => {
+      this.toastr.error('', 'Error while getting categories');
       console.log(err);
     })
 
@@ -79,6 +81,7 @@ export class MenuDetailsComponent implements OnInit {
     this.cartService.addToCart(obj).subscribe(data => {
       this.addToCartResponse = data;
       if (this.addToCartResponse.status) {
+        this.toastr.success('', 'Item Added Successfully to cart');
         this.checkCart();
       } else {
         if (window.confirm(this.addToCartResponse.message)) {
@@ -94,6 +97,7 @@ export class MenuDetailsComponent implements OnInit {
           this.cartService.addToCart(obj).subscribe(data => {
             this.addToCartResponse = data;
             if (this.addToCartResponse.status) {
+              this.toastr.success('', 'Item Added Successfully to cart');
               this.checkCart();
             } else {
               console.log("error");
@@ -105,13 +109,13 @@ export class MenuDetailsComponent implements OnInit {
         }
       }
     }, err => {
+      this.toastr.error('', 'Error while adding item');
       console.log(err);
     })
   }
 
   checkCart() {
     this.cartService.getCartItems().subscribe(data => {
-      console.log(data);
       this.checkCartResponse = data;
     }, err => {
       console.log(err);
@@ -126,17 +130,26 @@ export class MenuDetailsComponent implements OnInit {
       quantity: newQuantity
     }
     this.cartService.removeFromCart(data).subscribe(data => {
-      console.log(data);
+      this.toastr.success('', 'Item Removed from cart');
+
       this.checkCart();
 
     }, err => {
+      this.toastr.error('', 'Error while Removing items in cart');
+
       console.log(err);
     })
   }
 
 
   redirectToCart() {
-    this.router.navigate(['/cart'], { queryParams: { id: this.restaurant_Id } });
+    console.log(this.checkCartResponse)
+    if (this.checkCartResponse.cart["0"].quantity > 0) {
+      this.router.navigate(['/cart'], { queryParams: { id: this.restaurant_Id } });
+    } else {
+      this.toastr.error('', 'Please add some items to cart');
+
+    }
   }
 
 }

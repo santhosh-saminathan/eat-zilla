@@ -37,8 +37,8 @@ export class OrderService {
 
     }
 
-    checkoutCart() {
-        return this.http.post(url + "/checkout", {}, httpOptions);
+    placeOrder(data) {
+        return this.http.post(url + "/paynow", data, httpOptions);
     }
 
     orderHistory() {
@@ -54,7 +54,7 @@ export class OrderService {
     }
 
     trackOrderDetail(data) {
-        return this.http.post(url + "/checkout", data, httpOptions);
+        return this.http.post(url + "/track_order_detail", data, httpOptions);
 
     }
 }

@@ -32,8 +32,7 @@ export class CartService {
     }
 
     checkOutCart(data) {
-        // body - coupon_code: 'testcode'
-        return this.http.post(url + "/api/checkout", data, httpOptions);
+        return this.http.post(url + "/checkout", data, httpOptions);
     }
 
 

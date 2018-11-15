@@ -10,23 +10,27 @@ import { OrderService } from './../services/order.service';
 export class ProfileComponent implements OnInit {
   userProfileDetails: any;
   profileResponse: any;
+  orderHistoryResponse: any;
+  pastOrders: any;
+  currentOrders: any;
+
+  currentOrderStatus: any;
+  trackingOrderResponse: any;
 
   constructor(private profileService: ProfileService, private orderService: OrderService) { }
 
   ngOnInit() {
-    console.log("ngonint called")
     this.getProfileDetails();
     this.orderHistory();
   }
 
+
+
   getProfileDetails() {
-    console.log("celle d ");
     this.profileService.getProfile().subscribe(data => {
-      console.log(data);
       this.profileResponse = data;
       if (this.profileResponse.status) {
         this.userProfileDetails = this.profileResponse.data[0];
-        console.log(this.userProfileDetails);
       }
     }, err => {
       console.log(err);
@@ -34,8 +38,25 @@ export class ProfileComponent implements OnInit {
   }
 
   orderHistory() {
+
+    this.orderService.currentOrderStatus().subscribe(data => {
+      this.currentOrderStatus = data;
+      this.currentOrderStatus.order_status.forEach(element => {
+        this.orderService.trackOrderDetail({ request_id: element.request_id }).subscribe(data => {
+          this.trackingOrderResponse = data;
+          element.trackingDetails = this.trackingOrderResponse.tracking_detail;
+        }, err => {
+          console.log(err);
+        })
+      });
+    }, err => {
+      console.log(err);
+    })
+
     this.orderService.orderHistory().subscribe(data => {
-      console.log(data);
+      this.orderHistoryResponse = data;
+      this.pastOrders = this.orderHistoryResponse.past_orders;
+      this.currentOrders = this.orderHistoryResponse.upcoming_orders;
     }, err => {
       console.log(err);
     })

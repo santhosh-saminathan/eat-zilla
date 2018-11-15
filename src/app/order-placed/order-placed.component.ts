@@ -13,14 +13,24 @@ export class OrderPlacedComponent implements OnInit {
   constructor(private router: Router, private orderService: OrderService) { }
 
   ngOnInit() {
-    this.orderService.checkoutCart().subscribe(data => {
-      console.log(data);
-      this.orderDetails = data
-    }, err => {
-      console.log(err);
-    })
+    // this.orderService.currentOrderStatus().subscribe(data => {
+    //   console.log(data);
+    // }, err => {
+    //   console.log(err);
+    // })
+
+    // this.orderService.orderHistory().subscribe(data => {
+    //   console.log(data);
+    // }, err => {
+    //   console.log(err);
+    // })
   }
 
+
+  trackOrder() {
+    console.log("Called")
+    this.router.navigate(['/profile'])
+  }
 
 
 }

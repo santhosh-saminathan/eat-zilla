@@ -21,7 +21,7 @@
 <div class="container margin_60_35">
   <div class="col-md-12 ">
     <div class="heading">
-      <h3>User123</h3>
+      <!-- <h3>User123</h3> -->
       <input type="button" class="btn_1" name="" data-toggle="modal" data-target="#edit_profile" value="edit profile">
     </div>
     <div class="box_style_2 nomargin">
@@ -52,15 +52,24 @@
           </ul>
 
           <div class="tab-content">
+
+
             <div class="tab-pane active" id="orders">
-              <div>
-                <div class="strip_list wow fadeIn" data-wow-delay="0.3s">
+
+              <div *ngIf="!currentOrderStatus" class="row text_center_align">
+                <i class="fa fa-spinner fa-spin" style="font-size:36px;color:#57C704"></i>
+                <div>Please wait...</div>
+              </div>
+
+              <div *ngIf="pastOrders && pastOrders.length>0">
+                <h4>Past Orders</h4>
+                <div class="strip_list wow fadeIn" *ngFor="let orders of pastOrders">
                   <div class="row">
                     <div class="col-md-9 col-sm-9">
                       <div class="desc">
                         <div class="thumb_strip">
-                          <a href="detail_page.html">
-                            <img src="assets/img/thumb_restaurant_3.jpg" alt="">
+                          <a>
+                            <img src={{orders.restaurant_image}} alt="">
                           </a>
                         </div>
                         <div class="col-md-6 rating">
@@ -70,31 +79,31 @@
                           <i class="icon_star voted"></i>
                           <i class="icon_star"></i> (
                           <small>
-                            <a href="#0">98 reviews</a>
+                            <a>98 reviews</a>
                           </small>)
                         </div>
-                        <h3>Japan Food</h3>
-                        <div class="type">
-                          Sushi / Japanese
-                        </div>
+                        <h3>{{orders.restaurant_name}}</h3>
+                        <!-- <div class="type">
+                                        Sushi / Japanese
+                                      </div> -->
                         <div class="location">
-                          135 Newtownards Road, Belfast, BT4.
+                          <!-- 135 Newtownards Road, Belfast, BT4. -->
                           <br>
-                          <span class="opening">ORDER #18026770713 | Wed, Aug 22, 8:56 PM</span> | Delivered on Wed, Aug 22, 9:25 PM
+                          <span class="opening">{{orders.ordered_on}}</span>
+                          <!-- <span class="opening">ORDER #18026770713 | Wed, Aug 22, 8:56 PM</span> | Delivered on Wed, Aug 22, 9:25 PM -->
                         </div>
-                        <h4 class="old">
-                          Chicken Noodles x 1, Naan x 3, Chicken Chettinad Masala x 1, Chicken Biryani x 2
-                        </h4>
+                        <h5 class="old" *ngFor="let items of orders.item_list">
+                          {{items.food_name}} {{items.food_quantity}},
+                        </h5>
                       </div>
                     </div>
                     <div class="col-md-3 col-sm-3">
                       <div style="text-align: center;">
-                        <h4>Total Paid: ₹619</h4>
+                        <h4>Total Paid: ₹{{orders.bill_amount}}</h4>
                       </div>
                       <div class="go_to margin_60_35">
                         <div>
                           <button class="btn_1" type="button">REORDER</button>
-                          <button class="btn_1" type="button">HELP</button>
                         </div>
                       </div>
                     </div>
@@ -102,7 +111,134 @@
                 </div>
                 <!-- End strip_list-->
               </div>
+              <!-- 
+              <div *ngIf="currentOrders && currentOrders.length>0">
+                <h4>Current Orders</h4>
+                <div class="strip_list wow fadeIn" *ngFor="let orders of currentOrders">
+                  <div class="row">
+                    <div class="col-md-9 col-sm-9">
+                      <div class="desc">
+                        <div class="thumb_strip">
+                          <a>
+                            <img src={{orders.restaurant_image}} alt="">
+                          </a>
+                        </div>
+                        <div class="col-md-6 rating">
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star"></i> (
+                          <small>
+                            <a>98 reviews</a>
+                          </small>)
+                        </div>
+                        <h3>{{orders.restaurant_name}}</h3>
+                        <div class="location">
+                          135 Newtownards Road, Belfast, BT4.
+                          <br>
+                          <span class="opening">{{orders.ordered_on}}</span>
+                        </div>
+                        <h5 class="old" *ngFor="let items of orders.item_list">
+                          {{items.food_name}} {{items.food_quantity}},
+                        </h5>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                      <div style="text-align: center;">
+                        <h4>Total Paid: ₹{{orders.bill_amount}}</h4>
+                      </div>
+                      <div class="go_to margin_60_35">
+                        <div>
+                          <button class="btn_1" type="button">TRACK ORDER</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+              <div *ngIf="currentOrderStatus && currentOrderStatus.order_status.length>0">
+                <h4>Current Orders</h4>
+                <div class="strip_list wow fadeIn" *ngFor="let orders of currentOrderStatus.order_status">
+                  <div class="row">
+                    <div class="col-md-9 col-sm-9">
+                      <div class="desc">
+                        <div class="thumb_strip">
+                          <a>
+                            <img src={{orders.restaurant_image}} alt="">
+                          </a>
+                        </div>
+                        <div class="col-md-6 rating">
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star"></i> (
+                          <small>
+                            <a>98 reviews</a>
+                          </small>)
+                        </div>
+                        <h3>{{orders.restaurant_name}}</h3>
+                        <!-- <div class="type">
+                                        Sushi / Japanese
+                                      </div> -->
+                        <div class="location">
+                          135 Newtownards Road, Belfast, BT4.
+                          <br>
+                          <span class="opening">{{orders.ordered_time}}</span>
+                          <!-- <span class="opening">ORDER #18026770713 | Wed, Aug 22, 8:56 PM</span> | Delivered on Wed, Aug 22, 9:25 PM -->
+                        </div>
+                        <br>
+                        <br>
+                        <div *ngFor="let track of orders.trackingDetails">
+                          <b>{{track.detail}}</b> at {{track.created_at}}
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                      <div>
+                        <h4>Total Paid: ₹{{orders.bill_amount}}</h4>
+                      </div>
+                      <!-- <div class="go_to margin_60_35"> -->
+                      <br>
+                      <h5 class="old" *ngFor="let items of orders.item_list">
+                        {{items.item_quantity}} x{{items.item_name}}
+                      </h5>
+
+
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div *ngIf="currentOrderStatus && currentOrderStatus.order_status.length>0">
+                <div *ngFor="let trackOrder of currentOrderStatus.order_status">
+                  <div class="row">
+                    <div class="col-md-9 col-sm-9">
+                      <div class="desc">
+                  
+                        <h3>{{trackOrder.restaurant_name}}</h3>
+                        <div class="location">
+                          <span class="opening">ORDER {{trackOrder.order_id}} - {{trackOrder.ordered_time}} </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-3">
+                      <div style="text-align: center;">
+                        <h4>Total Paid: ₹{{trackOrder.bill_amount}}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
             </div>
+
+
             <div class="tab-pane" id="offers">
               <div class="row">
                 <h3 class="heading">COUPON CODE</h3>

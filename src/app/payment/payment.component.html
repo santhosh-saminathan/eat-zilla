@@ -129,7 +129,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-3" id="sidebar" *ngIf="orderDetails">
+		<div class="col-md-3" id="sidebar" *ngIf="orderDetails &&  orderDetails.food_detail">
 			<div class="theiaStickySidebar">
 				<div id="cart_box">
 					<h3>Your order
@@ -151,7 +151,7 @@
 						</tbody>
 					</table>
 					<hr>
-					<table class="table table_summary">
+					<table *ngIf="orderDetails && orderDetails.invoice[0]" class="table table_summary">
 						<tbody>
 							<tr>
 								<td>
@@ -167,25 +167,26 @@
 							</tr>
 							<tr *ngIf="orderDetails.invoice[0].gst">
 								<td>
-									Gst
+									GST
 									<span class="pull-right">${{orderDetails.invoice[0].gst}}</span>
 								</td>
 							</tr>
+
+
+							<tr *ngIf="orderDetails.invoice[0].restaurant_packaging_charge">
+								<td>
+									Packaging fee
+									<span class="pull-right">${{orderDetails.invoice[0].restaurant_packaging_charge}}</span>
+								</td>
+							</tr>
+
 							<tr *ngIf="orderDetails.invoice[0].offer_discount">
 								<td>
 									Discount
 									<span class="pull-right">${{orderDetails.invoice[0].offer_discount}}</span>
 								</td>
 							</tr>
-
-							<tr *ngIf="orderDetails.invoice[0].restaurant_packaging_charge">
-								<td>
-									Pacckaging fee
-									<span class="pull-right">${{orderDetails.invoice[0].restaurant_packaging_charge}}</span>
-								</td>
-							</tr>
 							<tr>
-
 								<td class="total">
 									TOTAL
 									<span class="pull-right">${{orderDetails.invoice[0].bill_amount}}</span>

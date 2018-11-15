@@ -219,15 +219,15 @@
           </h3>
           <table *ngIf="checkCartResponse" class="table table_summary">
             <tbody>
-              <tr *ngFor="let cartItem of checkCartResponse.cart[0].item_list">
+              <tr *ngFor="let cartItem of checkCartResponse.food_detail">
                 <td>
-                  <a (click)="removeFromCart(cartItem.item_id,cartItem.quantity)" class="remove_item cursor_pointer">
+                  <a (click)="removeFromCart(cartItem.food_id,cartItem.quantity)" class="remove_item cursor_pointer">
                     <i class="icon_minus_alt"></i>
                   </a>
-                  <strong>{{cartItem.quantity}} x </strong> {{cartItem.item_name}}
+                  <strong>{{cartItem.quantity}} x </strong> {{cartItem.name}}
                 </td>
                 <td>
-                  <!-- <strong class="pull-right">${{cartItem.price}}</strong> -->
+                  <strong class="pull-right">${{cartItem.price}}</strong>
                 </td>
               </tr>
 
@@ -236,22 +236,40 @@
           <hr>
           <table *ngIf="checkCartResponse" class="table table_summary">
             <tbody>
-              <!-- <tr>
+              <tr>
                 <td>
                   Subtotal
-                  <span class="pull-right">$56</span>
+                  <span class="pull-right">${{checkCartResponse.invoice[0].item_total}}</span>
                 </td>
               </tr>
               <tr>
                 <td>
                   Delivery fee
-                  <span class="pull-right">$10</span>
+                  <span class="pull-right">${{checkCartResponse.invoice[0].delivery_charge}}</span>
                 </td>
-              </tr>-->
+              </tr>
+              <tr>
+                <td>
+                  GST
+                  <span class="pull-right">${{checkCartResponse.invoice[0].gst}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Packaging fee
+                  <span class="pull-right">${{checkCartResponse.invoice[0].restaurant_packaging_charge}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Discount
+                  <span class="pull-right">${{checkCartResponse.invoice[0].offer_discount}}</span>
+                </td>
+              </tr>
               <tr>
                 <td class="total">
                   TOTAL
-                  <span class="pull-right">${{checkCartResponse.cart[0].amount}}</span>
+                  <span class="pull-right">${{checkCartResponse.invoice[0].bill_amount}}</span>
                 </td>
               </tr>
             </tbody>

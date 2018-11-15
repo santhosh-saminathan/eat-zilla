@@ -17,6 +17,7 @@ export class CartDetailsComponent implements OnInit {
   setDeliveryAddr: any;
   checkCartResponse: any;
   restaurant_Id: any;
+  addDeliveryAddressResponse: any;
 
   constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private orderService: OrderService, private cartService: CartService) { }
 
@@ -32,7 +33,7 @@ export class CartDetailsComponent implements OnInit {
   }
 
   checkCart() {
-    this.cartService.getCartItems().subscribe(data => {
+    this.cartService.checkOutCart({ coupon_code: 'testcode' }).subscribe(data => {
       console.log(data);
       this.checkCartResponse = data;
     }, err => {
@@ -49,6 +50,7 @@ export class CartDetailsComponent implements OnInit {
     }
     this.cartService.removeFromCart(data).subscribe(data => {
       console.log(data);
+      this.toastr.success('', 'Removed Item Successfully');
       this.checkCart();
 
     }, err => {
@@ -74,8 +76,14 @@ export class CartDetailsComponent implements OnInit {
       }
 
       this.orderService.addDeliveryAddress(data).subscribe((data) => {
-        this.toastr.success('', 'Address Added Successfully');
-        this.newDeliveryAddress = null;
+        this.addDeliveryAddressResponse = data;
+        if (this.addDeliveryAddressResponse.status) {
+          this.toastr.success('', 'Address Added Successfully');
+          this.newDeliveryAddress = null;
+          this.getDeliveryAddress();
+        } else {
+          this.toastr.error('', this.addDeliveryAddressResponse.message);
+        }
 
       }, err => {
         console.log(err);

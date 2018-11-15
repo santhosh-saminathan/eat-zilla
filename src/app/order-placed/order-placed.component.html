@@ -49,7 +49,7 @@
   <div class="row">
     <div class="col-md-offset-3 col-md-6">
       <div class="box_style_2">
-        <h2 class="inner">Order confirmed!</h2>
+        <h2 class="inner" style="text-align: center">Order confirmed!</h2>
         <div id="confirm">
           <i class="icon_check_alt2"></i>
           <h3>Thank you!</h3>
@@ -57,10 +57,15 @@
 
           </p>
         </div>
-        <h4>Summary</h4>
+        <div>
+
+          <a class="btn_full" (click)="trackOrder()">Track Order</a>
+
+        </div>
+        <!-- <h4>Summary</h4> -->
 
 
-        <table *ngIf="orderDetails" class="table table-striped nomargin">
+        <!-- <table *ngIf="orderDetails" class="table table-striped nomargin">
           <tbody>
             <tr *ngFor="let food of orderDetails.food_detail">
               <td>
@@ -90,7 +95,7 @@
                 </td>
               </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
   </div>

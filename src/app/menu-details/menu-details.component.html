@@ -34,7 +34,13 @@
 
 <!-- Content ================================================== -->
 <div class="container margin_60_35">
-  <div class="row">
+
+  <div *ngIf="!allCategories" class="row text_center_align">
+    <i class="fa fa-spinner fa-spin" style="font-size:36px;color:#57C704"></i>
+    <div>Please wait...</div>
+  </div>
+
+  <div class="row" *ngIf="allCategories">
 
     <div class="col-md-3">
       <p>
@@ -158,7 +164,7 @@
       <div class="theiaStickySidebar">
         <div id="cart_box">
           <h3>Your order
-            <i class="icon_cart_alt pull-right"></i>
+            <i class="icon_cart_alt pull-right cursor_pointer"></i>
           </h3>
           <table *ngIf="checkCartResponse" class="table table_summary">
             <tbody>
@@ -170,7 +176,7 @@
                   <strong>{{cartItem.quantity}} x </strong> {{cartItem.item_name}}
                 </td>
                 <td>
-                  <!-- <strong class="pull-right">${{cartItem.price}}</strong> -->
+                  <strong class="pull-right">${{cartItem.price}}</strong>
                 </td>
               </tr>
 
