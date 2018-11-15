@@ -1,8 +1,8 @@
 <app-header></app-header>
 <!-- <section class="parallax-window" id="short" data-parallax="scroll" data-image-src="assets/img/sub_header_cart.jpg" data-natural-width="1400"
   data-natural-height="350"> -->
-<div id="subheader" style="background-color: rgba(0,0,0,.7);background-image:url('assets/img/sub_header_home.jpg');">
-  <div id="sub_content">
+<div id="subheader" style="height:350px;background-image:url('assets/img/sub_header_cart.jpg');">
+  <div id="sub_content" style="background-color: rgba(0,0,0,.7);height:inherit;width:inherit;animation-name:none">
     <h1>Place your order</h1>
     <div class="bs-wizard">
       <div class="col-xs-4 bs-wizard-step active">
@@ -217,69 +217,26 @@
           <h3>Your order
             <i class="icon_cart_alt pull-right"></i>
           </h3>
-          <table class="table table_summary">
+          <table *ngIf="checkCartResponse" class="table table_summary">
             <tbody>
-              <tr>
+              <tr *ngFor="let cartItem of checkCartResponse.cart[0].item_list">
                 <td>
-                  <a href="#0" class="remove_item">
+                  <a (click)="removeFromCart(cartItem.item_id,cartItem.quantity)" class="remove_item cursor_pointer">
                     <i class="icon_minus_alt"></i>
                   </a>
-                  <strong>1x</strong> Enchiladas
+                  <strong>{{cartItem.quantity}} x </strong> {{cartItem.item_name}}
                 </td>
                 <td>
-                  <strong class="pull-right">$11</strong>
+                  <!-- <strong class="pull-right">${{cartItem.price}}</strong> -->
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <a href="#0" class="remove_item">
-                    <i class="icon_minus_alt"></i>
-                  </a>
-                  <strong>2x</strong> Burrito
-                </td>
-                <td>
-                  <strong class="pull-right">$14</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <a href="#0" class="remove_item">
-                    <i class="icon_minus_alt"></i>
-                  </a>
-                  <strong>1x</strong> Chicken
-                </td>
-                <td>
-                  <strong class="pull-right">$20</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <a href="#0" class="remove_item">
-                    <i class="icon_minus_alt"></i>
-                  </a>
-                  <strong>2x</strong> Corona Beer
-                </td>
-                <td>
-                  <strong class="pull-right">$9</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <a href="#0" class="remove_item">
-                    <i class="icon_minus_alt"></i>
-                  </a>
-                  <strong>2x</strong> Cheese Cake
-                </td>
-                <td>
-                  <strong class="pull-right">$12</strong>
-                </td>
-              </tr>
+
             </tbody>
           </table>
           <hr>
-          <table class="table table_summary">
+          <table *ngIf="checkCartResponse" class="table table_summary">
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td>
                   Subtotal
                   <span class="pull-right">$56</span>
@@ -290,18 +247,18 @@
                   Delivery fee
                   <span class="pull-right">$10</span>
                 </td>
-              </tr>
+              </tr>-->
               <tr>
                 <td class="total">
                   TOTAL
-                  <span class="pull-right">$66</span>
+                  <span class="pull-right">${{checkCartResponse.cart[0].amount}}</span>
                 </td>
               </tr>
             </tbody>
           </table>
           <hr>
           <a class="btn_full" (click)="redirectToPayment()">Go to checkout</a>
-          <a class="btn_full_outline">
+          <a class="btn_full_outline" (click)="backToAddItems()">
             <i class="icon-right"></i> Add other items</a>
         </div>
         <!-- End cart_box -->
@@ -317,118 +274,5 @@
 <!-- End Content =============================================== -->
 
 <!-- Footer ================================================== -->
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 col-sm-3">
-        <h3>Secure payments with</h3>
-        <p>
-          <img src="assets/img/cards.png" alt="" class="img-responsive">
-        </p>
-
-      </div>
-      <div class="col-md-3 col-sm-3">
-        <h3>About</h3>
-        <ul>
-          <li>
-            <a href="#">About us</a>
-          </li>
-
-          <li>
-            <a href="#">Contacts</a>
-          </li>
-          <li>
-            <a href="#0" data-toggle="modal" data-target="#login_2">Login</a>
-          </li>
-          <li>
-            <a href="#0" data-toggle="modal" data-target="#register">Register</a>
-          </li>
-          <li>
-            <a href="#0">Terms and conditions</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-3 col-sm-3" id="newsletter">
-        <h3>Newsletter</h3>
-        <p>Join our newsletter to keep be informed about offers and news.</p>
-        <div id="message-newsletter_2"></div>
-        <form name="newsletter_2" id="newsletter_2">
-          <div class="form-group">
-            <input name="email_newsletter_2" id="email_newsletter_2" type="email" value="" placeholder="Your mail" class="form-control">
-          </div>
-          <input type="submit" value="Subscribe" class="btn_1" id="submit-newsletter_2">
-        </form>
-      </div>
-      <div class="col-md-2 col-sm-3">
-        <h3>Settings</h3>
-        <div class="styled-select">
-          <select class="form-control" name="lang" id="lang">
-            <option value="English" selected>English</option>
-            <option value="French">French</option>
-            <option value="Spanish">Spanish</option>
-            <option value="Russian">Russian</option>
-          </select>
-        </div>
-        <div class="styled-select">
-          <select class="form-control" name="currency" id="currency">
-            <option value="USD" selected>USD</option>
-            <option value="EUR">EUR</option>
-            <option value="GBP">GBP</option>
-            <option value="RUB">RUB</option>
-          </select>
-        </div>
-      </div>
-    </div>
-    <!-- End row -->
-    <div class="row">
-      <div class="col-md-12">
-        <div id="social_footer">
-          <ul>
-            <li>
-              <a href="#0">
-                <i class="icon-facebook"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#0">
-                <i class="icon-twitter"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#0">
-                <i class="icon-google"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#0">
-                <i class="icon-instagram"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#0">
-                <i class="icon-pinterest"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#0">
-                <i class="icon-vimeo"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#0">
-                <i class="icon-youtube-play"></i>
-              </a>
-            </li>
-          </ul>
-          <p>© EatZilla 2018</p>
-        </div>
-      </div>
-    </div>
-    <!-- End row -->
-  </div>
-  <!-- End container -->
-</footer>
+<app-footer></app-footer>
 <!-- End Footer =============================================== -->
-
-<div class="layer"></div>
-<!-- Mobile menu overlay mask -->

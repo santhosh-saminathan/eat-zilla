@@ -160,17 +160,17 @@
           <h3>Your order
             <i class="icon_cart_alt pull-right"></i>
           </h3>
-          <table *ngIf="cartItems" class="table table_summary">
+          <table *ngIf="checkCartResponse" class="table table_summary">
             <tbody>
-              <tr *ngFor="let cartItem of cartItems">
+              <tr *ngFor="let cartItem of checkCartResponse.cart[0].item_list">
                 <td>
-                  <a (click)="removeFromCart(cartItem.food_id,cartItem.quantity)" class="remove_item cursor_pointer">
+                  <a (click)="removeFromCart(cartItem.item_id,cartItem.quantity)" class="remove_item cursor_pointer">
                     <i class="icon_minus_alt"></i>
                   </a>
-                  <strong>{{cartItem.quantity}} x </strong> {{cartItem.name}}
+                  <strong>{{cartItem.quantity}} x </strong> {{cartItem.item_name}}
                 </td>
                 <td>
-                  <strong class="pull-right">${{cartItem.price}}</strong>
+                  <!-- <strong class="pull-right">${{cartItem.price}}</strong> -->
                 </td>
               </tr>
 

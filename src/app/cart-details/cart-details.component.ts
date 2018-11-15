@@ -4,6 +4,7 @@ import { OrderService } from './../services/order.service';
 import { GooglePlaceDirective } from 'node_modules/ngx-google-places-autocomplete/ngx-google-places-autocomplete.directive';
 import { Address } from 'node_modules/ngx-google-places-autocomplete/objects/address';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from './../services/cart.service';
 
 @Component({
   selector: 'app-cart-details',
@@ -14,17 +15,46 @@ export class CartDetailsComponent implements OnInit {
   deliveryAddress: any = {};
   newDeliveryAddress: any;
   setDeliveryAddr: any;
+  checkCartResponse: any;
+  restaurant_Id: any;
 
-  constructor(private toastr: ToastrService, private router: Router, private orderService: OrderService) { }
+  constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private orderService: OrderService, private cartService: CartService) { }
 
   @ViewChild("placesRef") placesRef: GooglePlaceDirective;
 
 
   ngOnInit() {
     // this.getDefaultAddress();// api error
+    this.restaurant_Id = this.route.snapshot.queryParams['id'];
+
     this.getDeliveryAddress();
+    this.checkCart();
   }
 
+  checkCart() {
+    this.cartService.getCartItems().subscribe(data => {
+      console.log(data);
+      this.checkCartResponse = data;
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  removeFromCart(id, quantity) {
+    let newQuantity = quantity - 1;
+
+    let data = {
+      food_id: id,
+      quantity: newQuantity
+    }
+    this.cartService.removeFromCart(data).subscribe(data => {
+      console.log(data);
+      this.checkCart();
+
+    }, err => {
+      console.log(err);
+    })
+  }
 
   newAddress(address: Address) {
     // Do some stuff
@@ -92,5 +122,10 @@ export class CartDetailsComponent implements OnInit {
 
   redirectToPayment() {
     this.router.navigate(['/payment']);
+  }
+
+  backToAddItems() {
+    this.router.navigate(['/menu-details'], { queryParams: { restaurant: this.restaurant_Id } });
+
   }
 }

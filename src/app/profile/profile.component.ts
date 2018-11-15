@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from './../services/profile.service';
- 
+import { OrderService } from './../services/order.service';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -9,14 +10,15 @@ import { ProfileService } from './../services/profile.service';
 export class ProfileComponent implements OnInit {
   userProfileDetails: any;
   profileResponse: any;
- 
-  constructor(private profileService: ProfileService) { }
- 
+
+  constructor(private profileService: ProfileService, private orderService: OrderService) { }
+
   ngOnInit() {
     console.log("ngonint called")
     this.getProfileDetails();
+    this.orderHistory();
   }
- 
+
   getProfileDetails() {
     console.log("celle d ");
     this.profileService.getProfile().subscribe(data => {
@@ -30,5 +32,13 @@ export class ProfileComponent implements OnInit {
       console.log(err);
     })
   }
- 
+
+  orderHistory() {
+    this.orderService.orderHistory().subscribe(data => {
+      console.log(data);
+    }, err => {
+      console.log(err);
+    })
+  }
+
 }

@@ -40,4 +40,21 @@ export class OrderService {
     checkoutCart() {
         return this.http.post(url + "/checkout", {}, httpOptions);
     }
+
+    orderHistory() {
+        return this.http.get(url + "/order_history", httpOptions);
+    }
+
+    currentOrderStatus() {
+        return this.http.get(url + "/get_current_order_status", httpOptions);
+    }
+
+    orderStatus() {
+        return this.http.get(url + "/get_order_status", httpOptions);
+    }
+
+    trackOrderDetail(data) {
+        return this.http.post(url + "/checkout", data, httpOptions);
+
+    }
 }

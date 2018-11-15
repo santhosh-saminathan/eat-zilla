@@ -60,9 +60,16 @@ export class MenuDetailsComponent implements OnInit {
   }
 
   addToCart(food) {
+    let quantity = 1;
+    if (this.checkCartResponse && this.checkCartResponse.cart[0].item_list.length > 0)
+      this.checkCartResponse.cart[0].item_list.forEach(element => {
+        if (element.item_id === food.food_id) {
+          quantity = element.quantity + quantity;
+        }
+      });
     let obj = {
       "food_id": food.food_id,
-      "quantity": 1,
+      "quantity": quantity,
       "restaurant_id": this.restaurant_Id,
       "force_insert": 0,
       'name': food.name,
@@ -112,9 +119,11 @@ export class MenuDetailsComponent implements OnInit {
   }
 
   removeFromCart(id, quantity) {
+    let newQuantity = quantity - 1;
+
     let data = {
       food_id: id,
-      quantity: quantity
+      quantity: newQuantity
     }
     this.cartService.removeFromCart(data).subscribe(data => {
       console.log(data);
@@ -127,7 +136,7 @@ export class MenuDetailsComponent implements OnInit {
 
 
   redirectToCart() {
-    this.router.navigate(['/cart']);
+    this.router.navigate(['/cart'], { queryParams: { id: this.restaurant_Id } });
   }
 
 }
