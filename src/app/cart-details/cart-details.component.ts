@@ -18,6 +18,7 @@ export class CartDetailsComponent implements OnInit {
   checkCartResponse: any;
   restaurant_Id: any;
   addDeliveryAddressResponse: any;
+  options: any;
 
   constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private orderService: OrderService, private cartService: CartService) { }
 
