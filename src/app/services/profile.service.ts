@@ -23,4 +23,8 @@ export class ProfileService {
     return this.http.get(url + "/get_profile", httpOptions);
   }
 
+  updateProfile(data) {
+    return this.http.post(url + "/update_profile", data, httpOptions);
+  }
+
 }

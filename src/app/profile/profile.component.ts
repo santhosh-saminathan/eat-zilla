@@ -11,8 +11,9 @@ export class ProfileComponent implements OnInit {
   userProfileDetails: any;
   profileResponse: any;
   orderHistoryResponse: any;
-  pastOrders: any;
-  currentOrders: any;
+  pastOrderArray: any = [];
+  currentOrders: any = [];
+  // updateUserProfile:any
 
   currentOrderStatus: any;
   trackingOrderResponse: any;
@@ -31,6 +32,7 @@ export class ProfileComponent implements OnInit {
       this.profileResponse = data;
       if (this.profileResponse.status) {
         this.userProfileDetails = this.profileResponse.data[0];
+        console.log(this.userProfileDetails);
       }
     }, err => {
       console.log(err);
@@ -55,8 +57,26 @@ export class ProfileComponent implements OnInit {
 
     this.orderService.orderHistory().subscribe(data => {
       this.orderHistoryResponse = data;
-      this.pastOrders = this.orderHistoryResponse.past_orders;
-      this.currentOrders = this.orderHistoryResponse.upcoming_orders;
+      console.log(this.orderHistoryResponse);
+      this.pastOrderArray = this.orderHistoryResponse.past_orders ? this.orderHistoryResponse.past_orders : null;
+      console.log(this.pastOrderArray);
+      this.currentOrders = this.orderHistoryResponse.upcoming_orders ? this.orderHistoryResponse.upcoming_orders : [];
+    }, err => {
+      console.log(err);
+    })
+  }
+
+  updateProfile() {
+    console.log(this.userProfileDetails);
+    let obj = {
+      'profile_image': this.userProfileDetails.profile_image,
+      'name': this.userProfileDetails.name,
+      'email': this.userProfileDetails.email,
+      'id': this.userProfileDetails.id,
+      'password': 'new password'
+    }
+    this.profileService.updateProfile(obj).subscribe(data => {
+      console.log(data);
     }, err => {
       console.log(err);
     })

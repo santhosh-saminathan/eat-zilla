@@ -61,9 +61,9 @@
                 <div>Please wait...</div>
               </div>
 
-              <div *ngIf="pastOrders && pastOrders.length>0">
+              <div *ngIf="orderHistoryResponse && pastOrderArray">
                 <h4>Past Orders</h4>
-                <div class="strip_list wow fadeIn" *ngFor="let orders of pastOrders">
+                <div class="strip_list wow fadeIn" *ngFor="let orders of pastOrderArray">
                   <div class="row">
                     <div class="col-md-9 col-sm-9">
                       <div class="desc">
@@ -83,14 +83,10 @@
                           </small>)
                         </div>
                         <h3>{{orders.restaurant_name}}</h3>
-                        <!-- <div class="type">
-                                        Sushi / Japanese
-                                      </div> -->
+
                         <div class="location">
-                          <!-- 135 Newtownards Road, Belfast, BT4. -->
                           <br>
                           <span class="opening">{{orders.ordered_on}}</span>
-                          <!-- <span class="opening">ORDER #18026770713 | Wed, Aug 22, 8:56 PM</span> | Delivered on Wed, Aug 22, 9:25 PM -->
                         </div>
                         <h5 class="old" *ngFor="let items of orders.item_list">
                           {{items.food_name}} {{items.food_quantity}},
@@ -109,7 +105,6 @@
                     </div>
                   </div>
                 </div>
-                <!-- End strip_list-->
               </div>
               <!-- 
               <div *ngIf="currentOrders && currentOrders.length>0">
@@ -158,7 +153,7 @@
                 </div>
               </div> -->
 
-              <div *ngIf="currentOrderStatus && currentOrderStatus.order_status.length>0">
+              <div *ngIf="currentOrderStatus && currentOrderStatus.order_status&& currentOrderStatus.order_status.length>0">
                 <h4>Current Orders</h4>
                 <div class="strip_list wow fadeIn" *ngFor="let orders of currentOrderStatus.order_status">
                   <div class="row">
@@ -180,14 +175,10 @@
                           </small>)
                         </div>
                         <h3>{{orders.restaurant_name}}</h3>
-                        <!-- <div class="type">
-                                        Sushi / Japanese
-                                      </div> -->
                         <div class="location">
                           135 Newtownards Road, Belfast, BT4.
                           <br>
                           <span class="opening">{{orders.ordered_time}}</span>
-                          <!-- <span class="opening">ORDER #18026770713 | Wed, Aug 22, 8:56 PM</span> | Delivered on Wed, Aug 22, 9:25 PM -->
                         </div>
                         <br>
                         <br>
@@ -201,41 +192,14 @@
                       <div>
                         <h4>Total Paid: ₹{{orders.bill_amount}}</h4>
                       </div>
-                      <!-- <div class="go_to margin_60_35"> -->
                       <br>
                       <h5 class="old" *ngFor="let items of orders.item_list">
                         {{items.item_quantity}} x{{items.item_name}}
                       </h5>
-
-
-                      <!-- </div> -->
                     </div>
                   </div>
                 </div>
               </div>
-
-              <!-- <div *ngIf="currentOrderStatus && currentOrderStatus.order_status.length>0">
-                <div *ngFor="let trackOrder of currentOrderStatus.order_status">
-                  <div class="row">
-                    <div class="col-md-9 col-sm-9">
-                      <div class="desc">
-                  
-                        <h3>{{trackOrder.restaurant_name}}</h3>
-                        <div class="location">
-                          <span class="opening">ORDER {{trackOrder.order_id}} - {{trackOrder.ordered_time}} </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-md-3 col-sm-3">
-                      <div style="text-align: center;">
-                        <h4>Total Paid: ₹{{trackOrder.bill_amount}}</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
             </div>
 
 
@@ -477,20 +441,19 @@
 <div class="modal fade" id="edit_profile" tabindex="-1" role="dialog" aria-labelledby="myprofile" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content modal-popup">
-      <a href="#" class="close-link">
+      <a class="close-link">
         <i class="icon_close_alt2"></i>
       </a>
-      <form action="#" class="popup-form" id="myprofile">
+      <form *ngIf="userProfileDetails" class="popup-form" id="myprofile">
         <div class="login_icon">
-          <i class="icon_pencil_alt"></i>
+            <input type="file" name="pic" accept="image/*">
+          <img src={{userProfileDetails.profile_image}}>
         </div>
-        <input type="text" class="form-control form-white" placeholder="Name">
-        <input type="email" class="form-control form-white" placeholder="Email">
-        <input type="text" class="form-control form-white" placeholder="Password" id="password1">
-        <input type="text" class="form-control form-white" placeholder="Confirm password" id="password2">
+        <input type="text" class="form-control form-white" [(ngModel)]="userProfileDetails.name" placeholder="Name" name="user name">
+        <input type="email" class="form-control form-white" [(ngModel)]="userProfileDetails.email" placeholder="Email" name="user email">
         <div id="pass-info" class="clearfix"></div>
 
-        <button type="submit" class="btn btn-submit">Update</button>
+        <button type="submit" (click)="updateProfile()" class="btn btn-submit">Update</button>
       </form>
     </div>
   </div>

@@ -12,6 +12,7 @@ import { ContactComponent } from './contact/contact.component';
 import { MenuDetailsComponent } from './menu-details/menu-details.component';
 import { RestaurantDetailComponent } from './restaurant-detail/restaurant-detail.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { TrackOrderComponent } from './track-order/track-order.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'menu-details', component: MenuDetailsComponent },
   { path: 'restaurant-detail', component: RestaurantDetailComponent },
   { path: 'search-results', component: SearchResultsComponent },
+  { path: 'track-order', component: TrackOrderComponent },
   { path: '**', component: HomeComponent },
 ];
 

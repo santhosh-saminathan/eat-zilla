@@ -32,6 +32,7 @@ import { ProfileService } from './services/profile.service';
 import { WebStorageService } from './services/web-storage.service';
 import { RestaurantService } from './services/restaurant.service';
 import { OrderService } from './services/order.service';
+import { TrackOrderComponent } from './track-order/track-order.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { OrderService } from './services/order.service';
     ContactComponent,
     MenuDetailsComponent,
     RestaurantDetailComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    TrackOrderComponent
   ],
   imports: [
     GooglePlaceModule,

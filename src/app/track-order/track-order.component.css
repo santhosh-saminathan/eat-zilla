@@ -1,0 +1,36 @@
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+    min-height: 100px;
+}
+
+.bs-wizard-dot{
+    left: 2% !important;
+    top:0px !important;
+}
+
+.custom-progress-bar-top {
+    border: 1px solid #fbe8aa;
+    background: #fbe8aa;
+    width: 8px;
+    height: 50px;
+    position: absolute;
+    margin-top: 0%;
+}
+
+.custom-progress-bar {
+    border: 1px solid #fbe8aa;
+    background: #fbe8aa;
+    width: 8px;
+    height: 80px;
+    position: absolute;
+    margin-top: 12px;
+}
+
+.order-detail{
+    margin-left: 20%;
+    font-size: 16px;
+    font-weight: 600;
+    position: absolute;
+    margin-top: -8px;
+}
