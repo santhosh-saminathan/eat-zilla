@@ -13,20 +13,36 @@ let deviceToken = environment.deviceToken;
 export class RestaurantService {
     constructor(private http: HttpClient, private webStorageService: WebStorageService) { }
 
-    httpOptions = {
-        headers: new HttpHeaders({
-            'authId': this.webStorageService.getAuthId(),
-            'authToken': this.webStorageService.getAuthToken(),
-        })
-    };
+    // httpOptions = {
+    //     headers: new HttpHeaders({
+    //         'authId': this.webStorageService.getAuthId(),
+    //         'authToken': this.webStorageService.getAuthToken(),
+    //     })
+    // };
 
 
     getPopularBrands() {
-        return this.http.get(url + "/get_popular_brands", this.httpOptions);
+
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'authId': this.webStorageService.getAuthId(),
+                'authToken': this.webStorageService.getAuthToken(),
+            })
+        };
+
+        return this.http.get(url + "/get_popular_brands", httpOptions);
     }
 
     getNearByRestaurants(lat, lng) {
-        return this.http.get(url + "/get_nearby_restaurant?lat=" + lat + "&lng=" + lng, this.httpOptions);
+
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'authId': this.webStorageService.getAuthId(),
+                'authToken': this.webStorageService.getAuthToken(),
+            })
+        };
+
+        return this.http.get(url + "/get_nearby_restaurant?lat=" + lat + "&lng=" + lng, httpOptions);
     }
 
 }

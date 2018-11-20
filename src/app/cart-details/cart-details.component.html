@@ -85,10 +85,13 @@
           <label>Select Address to Deliver</label>
           <div *ngFor="let address of deliveryAddress.data">
             <div>
-              <span>
+              <span class="">
                 <input type="radio" name="address" [value]='address' [(ngModel)]="setDeliveryAddr">
               </span>
-              <span class="all_address">{{address.address}}</span>
+
+              <span class=""> {{address.flat_no}} - {{address.landmark}} {{address.address}}</span>
+
+
             </div>
           </div>
         </div>
@@ -102,9 +105,28 @@
         <hr>
 
         <div class="form-group">
-          <label>Add New Address</label>
+          <label>Flat No / Door No *</label>
+          <input type="text" class="form-control" id="deliveryFlatNo" name="flatNo" [(ngModel)]="deliveryAddress.flat_no" placeholder="SM-223">
+        </div>
+        <div [hidden]="requiredField || deliveryAddress.flat_no" class="alert_msg">
+          <div>Door No is required </div>
+        </div>
+
+        <div class="form-group">
+          <label>Landmark *</label>
+          <input type="text" id="tel_order" name="tel_order" class="form-control" [(ngModel)]="deliveryAddress.landmark" placeholder="Near RVS Arts college">
+        </div>
+        <div [hidden]="requiredField || deliveryAddress.landmark" class="alert_msg">
+          <div>Landmark is required </div>
+        </div>
+
+        <div class="form-group">
+          <label>Address *</label>
           <input type="text" class="form-control" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="newAddress($event)"
             placeholder="Enter your delivery location" />
+        </div>
+        <div [hidden]="requiredField || newDeliveryAddress" class="alert_msg">
+          <div>Address is required </div>
         </div>
 
         <div class="row">
@@ -217,9 +239,10 @@
           <h3>Your order
             <i class="icon_cart_alt pull-right"></i>
           </h3>
-          <table *ngIf="checkCartResponse" class="table table_summary">
+          <div *ngIf="!cartDetails" class="no_item">No Item in cart</div>
+          <table *ngIf="cartDetails" class="table table_summary">
             <tbody>
-              <tr *ngFor="let cartItem of checkCartResponse.food_detail">
+              <tr *ngFor="let cartItem of cartDetails.food_detail">
                 <td>
                   <a (click)="removeFromCart(cartItem.food_id,cartItem.quantity)" class="remove_item cursor_pointer">
                     <i class="icon_minus_alt"></i>
@@ -234,42 +257,42 @@
             </tbody>
           </table>
           <hr>
-          <table *ngIf="checkCartResponse" class="table table_summary">
+          <table *ngIf="cartDetails" class="table table_summary">
             <tbody>
               <tr>
                 <td>
                   Subtotal
-                  <span class="pull-right">${{checkCartResponse.invoice[0].item_total}}</span>
+                  <span class="pull-right">${{cartDetails.invoice[0].item_total}}</span>
                 </td>
               </tr>
               <tr>
                 <td>
                   Delivery fee
-                  <span class="pull-right">${{checkCartResponse.invoice[0].delivery_charge}}</span>
+                  <span class="pull-right">${{cartDetails.invoice[0].delivery_charge}}</span>
                 </td>
               </tr>
               <tr>
                 <td>
                   GST
-                  <span class="pull-right">${{checkCartResponse.invoice[0].gst}}</span>
+                  <span class="pull-right">${{cartDetails.invoice[0].gst}}</span>
                 </td>
               </tr>
               <tr>
                 <td>
                   Packaging fee
-                  <span class="pull-right">${{checkCartResponse.invoice[0].restaurant_packaging_charge}}</span>
+                  <span class="pull-right">${{cartDetails.invoice[0].restaurant_packaging_charge}}</span>
                 </td>
               </tr>
               <tr>
                 <td>
                   Discount
-                  <span class="pull-right">${{checkCartResponse.invoice[0].offer_discount}}</span>
+                  <span class="pull-right">${{cartDetails.invoice[0].offer_discount}}</span>
                 </td>
               </tr>
               <tr>
                 <td class="total">
                   TOTAL
-                  <span class="pull-right">${{checkCartResponse.invoice[0].bill_amount}}</span>
+                  <span class="pull-right">${{cartDetails.invoice[0].bill_amount}}</span>
                 </td>
               </tr>
             </tbody>

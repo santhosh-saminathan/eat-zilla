@@ -19,6 +19,9 @@ export class CartDetailsComponent implements OnInit {
   restaurant_Id: any;
   addDeliveryAddressResponse: any;
   options: any;
+  cartDetails: any;
+  requiredField: boolean = true;
+
 
   constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private orderService: OrderService, private cartService: CartService) { }
 
@@ -37,6 +40,11 @@ export class CartDetailsComponent implements OnInit {
     this.cartService.checkOutCart({ coupon_code: 'testcode' }).subscribe(data => {
       console.log(data);
       this.checkCartResponse = data;
+      if (this.checkCartResponse.status) {
+        this.cartDetails = this.checkCartResponse;
+      } else {
+        this.toastr.error('', 'No Item in cart');
+      }
     }, err => {
       console.log(err);
     })
@@ -68,8 +76,10 @@ export class CartDetailsComponent implements OnInit {
   }
 
   addAddress() {
-    if (this.newDeliveryAddress) {
+    if (this.newDeliveryAddress && this.deliveryAddress.flat_no && this.deliveryAddress.landmark) {
       let data = {
+        "landmark": this.deliveryAddress.landmark,
+        "flat_no": this.deliveryAddress.flat_no,
         "address": this.newDeliveryAddress.name + ',' + this.newDeliveryAddress.formatted_address,
         "lat": this.newDeliveryAddress.geometry.viewport.l.l,
         "lng": this.newDeliveryAddress.geometry.viewport.j.j,
@@ -89,6 +99,8 @@ export class CartDetailsComponent implements OnInit {
       }, err => {
         console.log(err);
       })
+    } else {
+      this.requiredField = false;
     }
 
 
@@ -130,7 +142,12 @@ export class CartDetailsComponent implements OnInit {
   }
 
   redirectToPayment() {
-    this.router.navigate(['/payment']);
+    if (this.cartDetails) {
+      this.router.navigate(['/payment']);
+    } else {
+      this.toastr.error('', 'Please add some Items before proceed');
+    }
+
   }
 
   backToAddItems() {
