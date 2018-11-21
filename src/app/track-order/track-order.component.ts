@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from './../services/order.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var google;
 
@@ -9,49 +10,21 @@ declare var google;
   styleUrls: ['./track-order.component.css']
 })
 export class TrackOrderComponent implements OnInit {
+  trackingOrderResponse: any;
+  orderId: any;
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.orderId = this.route.snapshot.queryParams['order-id'];
 
-    this.orderService.currentOrderStatus().subscribe(data => {
-      console.log(data);
-    }, err => {
-      console.log(err);
-    })
-
-
-    this.orderService.trackOrderDetail({ request_id: 111 }).subscribe(data => {
-      console.log(data);
-      // this.trackingOrderResponse = data;
+    this.orderService.trackOrderDetail({ request_id: this.orderId }).subscribe(data => {
+      this.trackingOrderResponse = data;
+      console.log(this.trackingOrderResponse)
       // element.trackingDetails = this.trackingOrderResponse.tracking_detail;
     }, err => {
       console.log(err);
     })
-
-    // var source = { lat: 11.3, lng: 77.6 }
-
-    // var map;
-    // map = new google.maps.Map(document.getElementById('map'), {
-    //   center: source,
-    //   zoom: 8,
-    //   mapTypeId: 'roadmap'
-    // });
-
-
-    // var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-    // var icons = {
-    //   restaurant: {
-    //     name: 'Restaurant',
-    //     icon: iconBase + 'parking_lot_maps.png'
-    //   },
-    // }
-
-    // var marker = new google.maps.Marker({
-    //   position: source,
-    //   icon: icons['restaurant'].icon,
-    //   map: map
-    // });
 
 
 

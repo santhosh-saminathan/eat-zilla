@@ -182,9 +182,12 @@
                         </div>
                         <br>
                         <br>
-                        <div *ngFor="let track of orders.trackingDetails">
-                          <b>{{track.detail}}</b> at {{track.created_at}}
+                        <div>
+                          <button class="btn_1" (click)="trackOrder(orders.request_id)" type="button">TRACK ORDER</button>
                         </div>
+                        <!-- <div *ngFor="let track of orders.trackingDetails">
+                          <b>{{track.detail}}</b> at {{track.created_at}}
+                        </div> -->
 
                       </div>
                     </div>
@@ -406,38 +409,7 @@
 <!-- End Content =============================================== -->
 
 
-<div class="layer"></div>
-<!-- Mobile menu overlay mask -->
-
-<!-- Login modal -->
-<div class="modal fade" id="edit_address" tabindex="-1" role="dialog" aria-labelledby="myaddress" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content modal-popup">
-      <a href="#" class="close-link">
-        <i class="icon_close_alt2"></i>
-      </a>
-      <form action="#" class="popup-form" id="myaddress">
-        <div class="login_icon">
-          <i class="icon_house_alt"></i>
-        </div>
-        <input type="text" class="form-control form-white" placeholder="Street Name" value="42/U-156, 1st Floor, Mecricar Road, Poo Market">
-        <input type="text" class="form-control form-white" placeholder="City" value="Coimbatore, Tamilnadu">
-        <input type="text" id="restaurant_postal_code" name="restaurant_postal_code" class="form-control form-white" placeholder="Pincode"
-          value="641002">
-        <select class="form-control form-white" name="country" id="country">
-          <option value="">Select Residency Type</option>
-          <option value="Home" selected="">Home</option>
-          <option value="Office">Office</option>
-        </select>
-
-        <button type="submit" class="btn btn-submit">Submit</button>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- End modal -->
-
-<!-- Register modal -->
+<!-- user modal -->
 <div class="modal fade" id="edit_profile" tabindex="-1" role="dialog" aria-labelledby="myprofile" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content modal-popup">
@@ -445,9 +417,10 @@
         <i class="icon_close_alt2"></i>
       </a>
       <form *ngIf="userProfileDetails" class="popup-form" id="myprofile">
-        <div class="login_icon">
-            <input type="file" name="pic" accept="image/*">
-          <img src={{userProfileDetails.profile_image}}>
+        <div class="">
+          <input type="file" (change)="userPic($event.target.files)" class="custom-file-input" id="category_banner" accept=".jpeg,.png,.jpg">
+
+          <img width="50px" src={{userProfileDetails.profile_image}}>
         </div>
         <input type="text" class="form-control form-white" [(ngModel)]="userProfileDetails.name" placeholder="Name" name="user name">
         <input type="email" class="form-control form-white" [(ngModel)]="userProfileDetails.email" placeholder="Email" name="user email">
@@ -458,21 +431,8 @@
     </div>
   </div>
 </div>
-<!-- End Register modal -->
+<!-- End user modal -->
 
-<!-- Search Menu -->
-<div class="search-overlay-menu">
-  <span class="search-overlay-close">
-    <i class="icon_close"></i>
-  </span>
-  <form role="search" id="searchform" method="get">
-    <input value="" name="q" type="search" placeholder="Search..." />
-    <button type="submit">
-      <i class="icon-search-6"></i>
-    </button>
-  </form>
-</div>
-<!-- End Search Menu -->
 
 
 <app-footer></app-footer>
