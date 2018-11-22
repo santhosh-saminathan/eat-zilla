@@ -12,20 +12,23 @@ declare var google;
 export class TrackOrderComponent implements OnInit {
   trackingOrderResponse: any;
   orderId: any;
+  orderStatus: any;
 
   constructor(private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.orderId = this.route.snapshot.queryParams['order-id'];
+    // this.orderId = this.route.snapshot.queryParams['order-id'];
 
-    this.orderService.trackOrderDetail({ request_id: this.orderId }).subscribe(data => {
-      this.trackingOrderResponse = data;
-      console.log(this.trackingOrderResponse)
-      // element.trackingDetails = this.trackingOrderResponse.tracking_detail;
-    }, err => {
-      console.log(err);
-    })
-
+    // this.orderService.trackOrderDetail({ request_id: this.orderId }).subscribe(data => {
+    //   this.trackingOrderResponse = data;
+    //   console.log(this.trackingOrderResponse)
+    //   if(this.trackingOrderResponse.status){
+    //     // this.orderStatus = this.trackingOrderResponse
+    //   }
+    // }, err => {
+    //   console.log(err);
+    // })
+    this.orderStatus = 4;
 
 
     var directionsDisplay = new google.maps.DirectionsRenderer;

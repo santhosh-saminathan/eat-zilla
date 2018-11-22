@@ -7,6 +7,7 @@
 .bs-wizard-dot {
     left: 2% !important;
     top: 0px !important;
+    margin-left: -17px !important;
 }
 
 .custom-progress-bar-top {
@@ -24,7 +25,12 @@
     width: 8px;
     height: 80px;
     position: absolute;
-    margin-top: 12px;
+    margin-top: 18px;
+}
+
+.disableProgress {
+    background: white !important;
+    border: white;
 }
 
 .order-detail {
@@ -33,6 +39,7 @@
     font-weight: 600;
     position: absolute;
     margin-top: -8px;
+    color: white;
 }
 
 #map {
