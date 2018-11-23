@@ -35,20 +35,21 @@ export class ProfileComponent implements OnInit {
     console.log(image);
     let input = new FormData();
     console.log(input);
+
     console.log(image[0]);
 
 
-    // let obj = {
-    //   'profile_image': input.append('profile_image', image[0]),
-    //   'name': this.userProfileDetails.name,
-    //   'email': this.userProfileDetails.email,
-    //   'id': this.userProfileDetails.id,
-    // }
-    // this.profileService.updateProfile(obj).subscribe(data => {
-    //   console.log(data);
-    // }, err => {
-    //   console.log(err);
-    // })
+    let obj = {
+      'profile_image': input.append('file', image[0]),
+      'name': this.userProfileDetails.name,
+      'email': this.userProfileDetails.email,
+      'id': this.userProfileDetails.id,
+    }
+    this.profileService.updateProfile(obj).subscribe(data => {
+      console.log(data);
+    }, err => {
+      console.log(err);
+    })
 
   }
 

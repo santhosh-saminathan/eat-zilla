@@ -1,47 +1,88 @@
 .row {
-    margin-right: 0px;
-    margin-left: 0px;
-    min-height: 100px;
+  margin-right: 0px;
+  margin-left: 0px;
+  min-height: 100px;
 }
 
 .bs-wizard-dot {
-    left: 2% !important;
-    top: 0px !important;
-    margin-left: -17px !important;
+  left: 2% !important;
+  top: 0px !important;
+  margin-left: -17px !important;
 }
 
 .custom-progress-bar-top {
-    border: 1px solid #fbe8aa;
-    background: #fbe8aa;
-    width: 8px;
-    height: 50px;
-    position: absolute;
-    margin-top: 0%;
+  border: 1px solid #fbe8aa;
+  background: #fbe8aa;
+  width: 8px;
+  height: 50px;
+  position: absolute;
+  margin-top: 0%;
 }
 
 .custom-progress-bar {
-    border: 1px solid #fbe8aa;
-    background: #fbe8aa;
-    width: 8px;
-    height: 80px;
-    position: absolute;
-    margin-top: 18px;
+  border: 1px solid #fbe8aa;
+  background: #fbe8aa;
+  width: 8px;
+  height: 80px;
+  position: absolute;
+  margin-top: 18px;
 }
 
 .disableProgress {
-    background: white !important;
-    border: white;
+  background: white !important;
+  border: white;
 }
 
 .order-detail {
-    margin-left: 20%;
-    font-size: 16px;
-    font-weight: 600;
-    position: absolute;
-    margin-top: -8px;
-    color: white;
+  margin-left: 20%;
+  font-size: 16px;
+  font-weight: 600;
+  position: absolute;
+  margin-top: -8px;
+  color: white;
+}
+
+.delivery_boy_pic {
+  width: 60px;
+  border-radius: 50%;
+  background: white;
+}
+
+.delivery_boy_details {
+  font-size: 16px;
+  color: white;
+  margin-left: 20px;
+}
+
+.delivery_amount {
+  float: right;
+  color: white;
+  font-size: 16px;
+}
+
+h4 {
+  color: white;
 }
 
 #map {
-    height: 300px;
+  height: 300px;
+  border-radius: 3px;
+}
+
+@media only screen and (max-width: 767px) {
+  .bs-wizard-dot {
+    left: 1% !important;
+  }
+  .bs-wizard>.bs-wizard-step>.bs-wizard-dot {
+    margin-top: -11px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .bs-wizard-dot {
+    left: 2% !important;
+  }
+  .bs-wizard>.bs-wizard-step>.bs-wizard-dot {
+    margin-top: -11px;
+  }
 }

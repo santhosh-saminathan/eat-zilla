@@ -2,18 +2,22 @@
 <!-- SubHeader =============================================== -->
 
 <div id="subheader" style="height: 70px;">
-  <div id="sub_content" style="background-color: rgba(0,0,0,.7);height:inherit;width:inherit;animation-name:none">
+  <div id="sub_content" style="background-color:#81DB66;height:inherit;width:inherit;animation-name:none">
 
   </div>
+</div>
+
+<div *ngIf="!orderStatus">
+  loading..
 </div>
 
 <div style="background-color: rgba(0,0,0,.7)">
   <div class="container margin_60_35">
     <div class="row">
-      <div class="col-sm-4">
+      <div *ngIf="orderStatus" class="col-sm-4">
         <div class="row">
           <div class="bs-wizard">
-            <div class=" bs-wizard-step active">
+            <div [ngClass]="{'disabled': orderStatus<=1 }" class=" bs-wizard-step active">
               <!-- <div class="custom-progress-bar-top"></div> -->
               <a class="bs-wizard-dot"></a>
               <div class="order-detail">Order Placed</div>
@@ -28,30 +32,19 @@
             <div [ngClass]="{'disabled': orderStatus<=2 }" class=" bs-wizard-step ">
               <!-- <div class="custom-progress-bar-top"></div> -->
               <a [ngClass]="{'disableProgress': orderStatus<=2 }" class="bs-wizard-dot"></a>
-              <div class="order-detail">Assigned to Delivery Boy</div>
-              <div [ngClass]="{'disableProgress': orderStatus<=3 }" class="custom-progress-bar"></div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="row">
-          <div class="bs-wizard">
-            <div [ngClass]="{'disabled': orderStatus<=3 }" class=" bs-wizard-step">
-              <!-- <div class="custom-progress-bar-top"></div> -->
-              <a [ngClass]="{'disableProgress': orderStatus<=3 }" class="bs-wizard-dot"></a>
-              <div class="order-detail">Started towards Customer</div>
+              <div class="order-detail">Preparing Food</div>
               <div [ngClass]="{'disableProgress': orderStatus<=4 }" class="custom-progress-bar"></div>
             </div>
           </div>
         </div>
 
+
         <div class="row">
           <div class="bs-wizard">
-            <div [ngClass]="{'disabled': orderStatus<=4 }" class=" bs-wizard-step ">
+            <div [ngClass]="{'disabled': orderStatus<=4 }" class=" bs-wizard-step">
               <!-- <div class="custom-progress-bar-top"></div> -->
               <a [ngClass]="{'disableProgress': orderStatus<=4 }" class="bs-wizard-dot"></a>
-              <div class="order-detail">Food delivered</div>
+              <div class="order-detail">Started towards Customer</div>
               <div [ngClass]="{'disableProgress': orderStatus<=5 }" class="custom-progress-bar"></div>
             </div>
           </div>
@@ -59,9 +52,20 @@
 
         <div class="row">
           <div class="bs-wizard">
-            <div [ngClass]="{'disabled': orderStatus<=5 }" class=" bs-wizard-step">
+            <div [ngClass]="{'disabled': orderStatus<=5 }" class=" bs-wizard-step ">
               <!-- <div class="custom-progress-bar-top"></div> -->
               <a [ngClass]="{'disableProgress': orderStatus<=5 }" class="bs-wizard-dot"></a>
+              <div class="order-detail">Food delivered</div>
+              <div [ngClass]="{'disableProgress': orderStatus<=6 }" class="custom-progress-bar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="bs-wizard">
+            <div [ngClass]="{'disabled': orderStatus<=6 }" class=" bs-wizard-step">
+              <!-- <div class="custom-progress-bar-top"></div> -->
+              <a [ngClass]="{'disableProgress': orderStatus<=6 }" class="bs-wizard-dot"></a>
               <div class="order-detail">Completed</div>
               <!-- <div class="custom-progress-bar"></div> -->
             </div>
@@ -70,6 +74,22 @@
       </div>
 
       <div class="col-sm-8">
+        <div *ngIf="deliveryBoyDetails">
+          <h4>Delivery Boy Details:</h4>
+          <!-- <div class="row"> -->
+          <!-- <div class="col-sm-4"> -->
+          <img class="delivery_boy_pic" src={{deliveryBoyDetails.delivery_boy_image}} width="50px">
+
+          <!-- </div> -->
+          <span class="delivery_boy_details">
+            <b>Name :</b> {{deliveryBoyDetails.delivery_boy_name}} ({{deliveryBoyDetails.delivery_boy_phone}})
+          </span>
+
+          <span class="delivery_amount">Total Amount: {{deliveryBoyDetails.item_total}}</span>
+
+          <!-- </div> -->
+        </div>
+        <br>
         <div id="map"></div>
       </div>
 
