@@ -8,3 +8,17 @@
     margin-left: 5px;
     margin-top: 1px
 }
+
+.search_text {
+    width: 100%;
+    border: none;
+    padding: 8px;
+}
+
+.search_text:focus {
+    outline: none;
+}
+
+.strip_list {
+    border: 5px solid #F5F5F5;
+}

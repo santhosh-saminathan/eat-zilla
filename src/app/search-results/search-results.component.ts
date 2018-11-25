@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RestaurantService } from './../services/restaurant.service';
+import { validateConfig } from '@angular/router/src/config';
 
 @Component({
   selector: 'app-search-results',
@@ -14,7 +15,12 @@ export class SearchResultsComponent implements OnInit {
   nearbyRestaurants: any;
   displayGridView: boolean = true;
   displayListView: boolean = false;
-  // copyNearbyRestaurants: any;
+  searchRestaurant: any = '';
+
+  food_type: any = [];
+  foof_type_count: any = [];
+
+  filter_data: any = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private restaurantService: RestaurantService) {
   }
@@ -28,12 +34,40 @@ export class SearchResultsComponent implements OnInit {
 
 
     this.restaurantService.getNearByRestaurants(this.lat, this.lng).subscribe(data => {
-      console.log(data)
+      // console.log(data)
       this.nearbyRestaurants = data;
-      // this.copyNearbyRestaurants = data;
+      let all_item_count = 0;
+      this.nearbyRestaurants.restaurants.forEach(restaurant => {
+        // console.log(restaurant);
+        restaurant.cuisines.forEach(element => {
+          all_item_count++;
+          let json = {
+            'food': element.name,
+            'count': 1
+          }
+          var index = this.food_type.findIndex(item => item.food == element.name)
+          console.log(element.name);
+          if (index === -1) {
+            this.food_type.push(json)
+          }
+          else {
+            this.food_type[index].count += 1;
+            console.log("object already exists", index)
+          }
+
+
+        });
+      });
+      this.food_type.push({ 'food': 'All', 'count': all_item_count });
+      console.log(this.food_type);
+
+      this.sortByRanking(0)
+
     }, err => {
       console.error(err);
     })
+
+
 
   }
 
@@ -52,13 +86,59 @@ export class SearchResultsComponent implements OnInit {
     this.displayListView = false;
   }
 
-  filterByRating(rating) {
-    this.nearbyRestaurants.restaurants.forEach(element => {
-      if (element.rating >= rating) {
-        element.show = true;
-      } else {
-        element.hide = true;
+  addFilters(event, data) {
+
+    if (event.target.checked) {
+      this.filter_data.push(data)
+    } else {
+      var index = this.filter_data.indexOf(data);
+      if (index > -1) {
+        this.filter_data.splice(index, 1);
       }
-    });
+    }
+
+    if (this.filter_data.length == 0) {
+      this.nearbyRestaurants.restaurants.forEach(element => {
+        element.hide = false;
+      })
+    } else {
+      this.nearbyRestaurants.restaurants.forEach(element => {
+        element.hide = true;
+      })
+
+      this.filter_data.forEach(filterType => {
+        if (typeof (filterType) == "number") {
+          this.nearbyRestaurants.restaurants.forEach(element => {
+            if (element.rating >= filterType) {
+              element.hide = false;
+            }
+          });
+        } else if (typeof (filterType) == "string") {
+          this.nearbyRestaurants.restaurants.forEach(element => {
+            var index = element.cuisines.findIndex(cuisine => cuisine.name == filterType)
+            if (index != -1) {
+              element.hide = false;
+            }
+          });
+        }
+      });
+    }
+
+
+
+
+  }
+
+  sortByRanking(value) {
+    if (value == 0) {
+      this.nearbyRestaurants.restaurants.sort(function (a, b) {
+        return b.rating - a.rating;
+      })
+    }
+    if (value == 1) {
+      this.nearbyRestaurants.restaurants.sort(function (a, b) {
+        return a.rating - b.rating;
+      })
+    }
   }
 }

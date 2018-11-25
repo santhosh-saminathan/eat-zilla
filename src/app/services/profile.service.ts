@@ -16,7 +16,7 @@ export class ProfileService {
   getProfile() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'enctype': 'multipart/form-data',
+
         'authId': localStorage.getItem('authId'),
         'authToken': localStorage.getItem('authToken'),
       })
@@ -28,10 +28,10 @@ export class ProfileService {
   updateProfile(data) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'authId': localStorage.getItem('authId'),
-        'authToken': localStorage.getItem('authToken'),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       })
-    };
+    }
     return this.http.post(url + "/update_profile", data, httpOptions);
   }
 

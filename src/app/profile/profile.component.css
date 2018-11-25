@@ -1,0 +1,22 @@
+input[type="file"] {
+    display: none;
+}
+
+img {
+    border: 1px solid grey;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+}
+
+.custom_file_input {
+    position: absolute;
+    font-size: 14px;
+    background: #91DC5A;
+    padding: 2px;
+    border-radius: 2px;
+    color: white;
+    border: 1px solid white;
+    cursor: pointer;
+    margin-left: 60px;
+}

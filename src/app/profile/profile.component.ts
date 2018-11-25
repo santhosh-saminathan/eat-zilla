@@ -3,12 +3,22 @@ import { ProfileService } from './../services/profile.service';
 import { OrderService } from './../services/order.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
+
+import { ElementRef } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
+
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('avatar') avatar: ElementRef;
+
   userProfileDetails: any;
   profileResponse: any;
   orderHistoryResponse: any;
@@ -22,7 +32,7 @@ export class ProfileComponent implements OnInit {
   fileToUpload: File = null;
 
 
-  constructor(private profileService: ProfileService, private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private profileService: ProfileService, private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getProfileDetails();
@@ -33,14 +43,15 @@ export class ProfileComponent implements OnInit {
 
     console.log(image)
     console.log(image);
-    let input = new FormData();
-    console.log(input);
+    let content = new FormData();
+    console.log(content);
+    content.append('pic', image[0]);
 
-    console.log(image[0]);
+    console.log(content);
 
 
     let obj = {
-      'profile_image': input.append('file', image[0]),
+      'profile_image': content,
       'name': this.userProfileDetails.name,
       'email': this.userProfileDetails.email,
       'id': this.userProfileDetails.id,
@@ -52,6 +63,7 @@ export class ProfileComponent implements OnInit {
     })
 
   }
+
 
 
   getProfileDetails() {
@@ -99,19 +111,54 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    console.log(this.userProfileDetails);
-    let obj = {
-      'profile_image': this.userProfileDetails.profile_image,
-      'name': this.userProfileDetails.name,
-      'email': this.userProfileDetails.email,
-      'id': this.userProfileDetails.id,
-      'password': 'new password'
+
+
+    if (this.avatar.nativeElement.files[0]) {
+
+
+      const formData = new FormData();
+      formData.append('profile_image',
+        this.avatar.nativeElement.files[0],
+        this.avatar.nativeElement.files[0].name);
+
+      formData.append('id', this.userProfileDetails.id);
+      formData.append('name', this.userProfileDetails.name);
+      formData.append('email', this.userProfileDetails.email);
+
+
+
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/json');
+      this.http.post('http://54.218.62.130/eatzilla/api/update_profile', formData, { headers: headers })
+        .subscribe(
+        (response) => {
+          console.log(response);
+          this.getProfileDetails();
+        },
+        (error) => {
+          console.log(error);
+        }
+        );
+
+    } else if (this.userProfileDetails.name && this.userProfileDetails.email) {
+
+      let obj = {
+        'id': this.userProfileDetails.id,
+        'name': this.userProfileDetails.name,
+        'email': this.userProfileDetails.email
+      }
+
+      this.profileService.updateProfile(obj).subscribe(data => {
+        console.log(data);
+        this.getProfileDetails();
+      }, err => {
+        console.log(err);
+      })
     }
-    this.profileService.updateProfile(obj).subscribe(data => {
-      console.log(data);
-    }, err => {
-      console.log(err);
-    })
+
+
+
   }
 
 }

@@ -36,83 +36,28 @@
           <a class="btn_map" data-toggle="collapse" href="#collapseMap" aria-expanded="false" aria-controls="collapseMap">View on map</a>
         </p> -->
         <div id="filters_col">
-          <a data-toggle="collapse" href="#collapseFilters" aria-expanded="true" aria-controls="collapseFilters" id="filters_col_bt">Filters
-            <i class="icon-plus-1 pull-right"></i>
+          <a id="filters_col_bt">Filters
+            <!-- <i class="icon-plus-1 pull-right"></i> -->
           </a>
-          <div class="collapse" id="collapseFilters">
+          <div>
             <div class="filter_type">
               <h6>Type</h6>
               <ul>
-                <li>
-                  <label>
-                    <input type="checkbox" checked class="icheck">
-                    <span class="filter_name">All
-                      <small>(49)</small>
+                <li *ngFor="let foodTypes of food_type">
+                  <label *ngIf="foodTypes.food=='All'">
+                    <input type="checkbox" class="icheck" checked>
+                    <span class="filter_name">{{foodTypes.food}}
+                      <small>({{foodTypes.count}})</small>
                     </span>
                   </label>
                 </li>
-                <li>
-                  <label>
-                    <input type="checkbox" class="icheck">
-                    <span class="filter_name">American
-                      <small>(12)</small>
+                <li *ngFor="let foodTypes of food_type">
+                  <label *ngIf="foodTypes.food!='All'">
+                    <input (change)="addFilters($event,foodTypes.food)" type="checkbox" class="icheck">
+                    <span class="filter_name">{{foodTypes.food}}
+                      <small>({{foodTypes.count}})</small>
                     </span>
                   </label>
-                  <i class="color_1"></i>
-                </li>
-                <li>
-                  <label>
-                    <input type="checkbox" class="icheck">
-                    <span class="filter_name">Chinese
-                      <small>(5)</small>
-                    </span>
-                  </label>
-                  <i class="color_2"></i>
-                </li>
-                <li>
-                  <label>
-                    <input type="checkbox" class="icheck">
-                    <span class="filter_name">Hamburger
-                      <small>(7)</small>
-                    </span>
-                  </label>
-                  <i class="color_3"></i>
-                </li>
-                <li>
-                  <label>
-                    <input type="checkbox" class="icheck">
-                    <span class="filter_name">Fish
-                      <small>(1)</small>
-                    </span>
-                  </label>
-                  <i class="color_4"></i>
-                </li>
-                <li>
-                  <label>
-                    <input type="checkbox" class="icheck">
-                    <span class="filter_name">Mexican
-                      <small>(49)</small>
-                    </span>
-                  </label>
-                  <i class="color_5"></i>
-                </li>
-                <li>
-                  <label>
-                    <input type="checkbox" class="icheck">
-                    <span class="filter_name">Pizza
-                      <small>(22)</small>
-                    </span>
-                  </label>
-                  <i class="color_6"></i>
-                </li>
-                <li>
-                  <label>
-                    <input type="checkbox" class="icheck">
-                    <span class="filter_name">Sushi
-                      <small>(43)</small>
-                    </span>
-                  </label>
-                  <i class="color_7"></i>
                 </li>
               </ul>
             </div>
@@ -121,7 +66,7 @@
               <ul>
                 <li>
                   <label title="5 Rating">
-                    <input type="checkbox" (click)="filterByRating(5)" class="icheck">
+                    <input type="checkbox" (change)="addFilters($event,5)" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
                       <i class="icon_star voted"></i>
@@ -133,7 +78,7 @@
                 </li>
                 <li>
                   <label title="4 and Above">
-                    <input type="checkbox" class="icheck">
+                    <input type="checkbox" (change)="addFilters($event,4)" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
                       <i class="icon_star voted"></i>
@@ -145,7 +90,7 @@
                 </li>
                 <li>
                   <label title="3 and Above">
-                    <input type="checkbox" class="icheck">
+                    <input type="checkbox" (change)="addFilters($event,3)" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
                       <i class="icon_star voted"></i>
@@ -157,7 +102,7 @@
                 </li>
                 <li>
                   <label title="2 and Above">
-                    <input type="checkbox" class="icheck">
+                    <input type="checkbox" (change)="addFilters($event,2)" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
                       <i class="icon_star voted"></i>
@@ -169,7 +114,7 @@
                 </li>
                 <li>
                   <label title="1 and Above">
-                    <input type="checkbox" class="icheck">
+                    <input type="checkbox" (change)="addFilters($event,1)" class="icheck">
                     <span class="rating">
                       <i class="icon_star voted"></i>
                       <i class="icon_star"></i>
@@ -221,37 +166,39 @@
 
         <div id="tools">
           <div class="row">
+
             <div class="col-md-3 col-sm-3 col-xs-6">
               <div class="styled-select">
-                <select name="sort_rating" id="sort_rating">
-                  <option value="" selected>Sort by ranking</option>
-                  <option value="lower">Lowest ranking</option>
-                  <option value="higher">Highest ranking</option>
+                <select (change)="sortByRanking($event.target.value)" name="sort_rating" id="sort_rating">
+                  <option selected>Sort by ranking</option>
+                  <option value="0">High to Low</option>
+                  <option value="1">Low to High</option>
                 </select>
               </div>
             </div>
 
-            <div title="grid view" *ngIf="displayGridView" class="col-md-9 col-sm-9 hidden-xs">
-              <a (click)="gridView()" class="bt_filters cursor_poiter">
-                <i class="icon-th"></i>
-              </a>
+            <div class="col-md-6 col-sm-6 col-xs-6">
+              <input type="text" class="search_text" name="search" [(ngModel)]="searchRestaurant" placeholder="Search Restaurant here...">
             </div>
-
-            <div title="list view" *ngIf="displayListView" class="col-md-9 col-sm-9 hidden-xs">
-              <a (click)="listView()" class="bt_filters cursor_poiter">
-                <i class="icon-list"></i>
-              </a>
+            <div class="col-md-3 col-sm-3 hidden-xs">
+              <div title="grid view" *ngIf="displayGridView">
+                <a (click)="gridView()" class="bt_filters cursor_poiter">
+                  <i class="icon-th"></i>
+                </a>
+              </div>
+              <div title="list view" *ngIf="displayListView">
+                <a (click)="listView()" class="bt_filters cursor_poiter">
+                  <i class="icon-list"></i>
+                </a>
+              </div>
             </div>
-
           </div>
         </div>
-        <!--End tools -->
-
 
         <div *ngIf="displayGridView">
           <div *ngFor="let restaurant of nearbyRestaurants.restaurants;">
 
-            <div *ngIf="!restaurant.hide" class="strip_list wow fadeIn" data-wow-delay="0.1s">
+            <div *ngIf="!restaurant.hide && restaurant.name.toLowerCase().includes(searchRestaurant.toLowerCase())" class="strip_list wow fadeIn">
               <div class="ribbon_1">
                 Popular
               </div>
@@ -307,7 +254,7 @@
         <div *ngIf="displayListView">
           <div class="row">
             <div *ngFor="let restaurant of nearbyRestaurants.restaurants;">
-              <a *ngIf="!restaurant.hide" class="col-md-6 col-sm-6 strip_list grid wow zoomIn" data-wow-delay="0.1s">
+              <a *ngIf="!restaurant.hide && restaurant.name.toLowerCase().includes(searchRestaurant.toLowerCase())" class="col-md-6 col-sm-6 strip_list grid wow zoomIn">
                 <div class="ribbon_1">Popular</div>
                 <div class="desc">
                   <div class="thumb_strip">
@@ -347,9 +294,6 @@
         </div>
 
 
-
-
-        <!-- <a class="load_more_bt wow fadeIn" data-wow-delay="0.2s">Load more...</a> -->
       </div>
       <!-- End col-md-9-->
 

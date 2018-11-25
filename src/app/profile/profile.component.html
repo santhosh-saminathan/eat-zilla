@@ -6,14 +6,9 @@
 <div id="subheader" style="height:350px;background-image:url('assets/img/sub_header_short.jpg');">
   <div id="sub_content" style="background-color: rgba(0,0,0,.7);height:inherit;width:inherit;animation-name:none">
     <h1>Account</h1>
-
   </div>
-  <!-- End sub_content -->
 </div>
-<!-- End subheader -->
-<!-- </section> -->
-<!-- End section -->
-<!-- End SubHeader ============================================ -->
+
 
 
 
@@ -418,10 +413,17 @@
       </a>
       <form *ngIf="userProfileDetails" class="popup-form" id="myprofile">
         <div class="">
-          <input type="file" (change)="userPic($event.target.files)" class="custom-file-input" id="category_banner" accept=".jpeg,.png,.jpg">
+          <label for="file-upload" class="custom_file_input">
+            <i class="fa fa-pencil"></i>
+          </label>
 
-          <img width="50px" src={{userProfileDetails.profile_image}}>
+          <!-- <input type="file" (change)="userPic($event.target.files)" class="custom-file-input" id="category_banner" accept=".jpeg,.png,.jpg"> -->
+          <input id="file-upload" type="file" accept=".png, .jpg, .jpeg" #avatar>
+
+          <img src={{userProfileDetails.profile_image}}>
+
         </div>
+
         <input type="text" class="form-control form-white" [(ngModel)]="userProfileDetails.name" placeholder="Name" name="user name">
         <input type="email" class="form-control form-white" [(ngModel)]="userProfileDetails.email" placeholder="Email" name="user email">
         <div id="pass-info" class="clearfix"></div>
