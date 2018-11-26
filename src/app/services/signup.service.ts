@@ -2,12 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-const httpOptions = {
-    headers: new HttpHeaders({
-        'authId': localStorage.getItem('authId'),
-        'authToken': localStorage.getItem('authToken'),
-    })
-};
 
 let url = environment.apiUrl;
 let deviceToken = environment.deviceToken;
@@ -29,6 +23,13 @@ export class SignUpService {
     }
 
     logout() {
+
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'authId': localStorage.getItem('authId'),
+                'authToken': localStorage.getItem('authToken'),
+            })
+        };
         return this.http.get(url + "/logout", httpOptions);
     }
 

@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   requiredField: boolean = true;
   login: any = {};
 
-  loginResponse: any;
+  loginResponse: any = {};
   forgotPasswordResponse: any;
   signupResponse: any;
   profileResponse: any;
@@ -44,7 +44,11 @@ export class HeaderComponent implements OnInit {
 
     if (this.webStorageService.getAuthId() && this.webStorageService.getAuthToken()) {
       console.log("called");
-      this.getProfileDetails();
+      this.loginResponse.user_name = this.webStorageService.getUserName();
+      // (this.loginResponse.user_name);
+      console.log(this.loginResponse.user_name);
+      // this.webStorageService.storeUserPic(this.loginResponse.profile_image);
+      this.loggedIn = true;
     } else {
       this.loggedIn = false;
       this.redirectToHome();
@@ -160,8 +164,11 @@ export class HeaderComponent implements OnInit {
       this.signUpService.loginUser(this.login).subscribe(data => {
         this.loginResponse = data;
         if (this.loginResponse.status) {
+          console.log(this.loginResponse);
           this.webStorageService.storeAuthId(this.loginResponse.authId);
           this.webStorageService.storeAuthToken(this.loginResponse.authToken);
+          this.webStorageService.storeUserName(this.loginResponse.user_name);
+          this.webStorageService.storeUserPic(this.loginResponse.profile_image);
           this.toastr.success('', 'Login Success');
 
           setTimeout(() => {
@@ -182,8 +189,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.signUpService.logout().subscribe(data => {
-      this.webStorageService.removeAuthId();
-      this.webStorageService.removeAuthToken();
+      this.webStorageService.removeUserData();
       this.ngOnInit();
     }, err => {
       console.log(err);

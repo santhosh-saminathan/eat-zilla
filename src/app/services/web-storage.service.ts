@@ -14,6 +14,14 @@ export class WebStorageService {
         localStorage.setItem('authToken', data);
     }
 
+    storeUserName(data) {
+        localStorage.setItem('userName', data);
+    }
+
+    storeUserPic(data) {
+        localStorage.setItem('userPic', data);
+    }
+
     getAuthId() {
         return localStorage.getItem('authId');
     }
@@ -22,14 +30,19 @@ export class WebStorageService {
         return localStorage.getItem('authToken');
     }
 
-    removeAuthId() {
-        console.log("removed");
-        localStorage.removeItem('authId');
+    getUserName() {
+        return localStorage.getItem('userName');
     }
 
-    removeAuthToken() {
-        console.log("removed");
+    getUserPic() {
+        return localStorage.getItem('userPic');
+    }
+
+    removeUserData() {
+        localStorage.removeItem('authId');
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userPic');
     }
 
 

@@ -2,12 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-const httpOptions = {
-    headers: new HttpHeaders({
-        'authId': localStorage.getItem('authId'),
-        'authToken': localStorage.getItem('authToken'),
-    })
-};
 
 let url = environment.apiUrl;
 let deviceToken = environment.deviceToken;
@@ -19,17 +13,33 @@ export class MenuService {
 
 
     getMenus(data) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'authId': localStorage.getItem('authId'),
+                'authToken': localStorage.getItem('authToken'),
+            })
+        };
         data.device_token = deviceToken;
-        console.log(data);
         return this.http.post(url + "/get_menu", data, httpOptions);
     }
 
     getCategory(data) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'authId': localStorage.getItem('authId'),
+                'authToken': localStorage.getItem('authToken'),
+            })
+        };
         return this.http.get(url + "/get_category/" + data, httpOptions);
     }
 
     getCategoryWiseMenu(data) {
-        console.log(data);
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'authId': localStorage.getItem('authId'),
+                'authToken': localStorage.getItem('authToken'),
+            })
+        };
         return this.http.post(url + "/get_category_wise_food_list", data, httpOptions);
     }
 
