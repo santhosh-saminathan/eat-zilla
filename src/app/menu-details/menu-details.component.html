@@ -44,8 +44,19 @@
 
     <div class="col-md-3">
       <p>
-        <a class="btn_side">Back to search</a>
+        <a href="#test" class="btn_side">Back to search</a>
       </p>
+
+      <div class="box_style_1">
+        <ul id="cat_nav">
+          <li *ngFor="let variety of food_variety">
+            <a  class="">{{variety.category}}
+              <span>({{variety.count}})</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- 
       <div class="box_style_1">
         <ul id="cat_nav">
           <li>
@@ -74,7 +85,7 @@
             </a>
           </li>
         </ul>
-      </div>
+      </div> -->
       <!-- End box_style_1 -->
 
       <div class="box_style_2 hidden-xs" id="help">
@@ -153,6 +164,10 @@
             </tbody>
           </table>
           <hr>
+        </div>
+
+        <div id="test">
+          wueehrekkl
         </div>
 
       </div>

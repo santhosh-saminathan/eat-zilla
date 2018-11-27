@@ -16,6 +16,8 @@ export class MenuDetailsComponent implements OnInit {
   cartItems: any;
   checkCartResponse: any;
 
+  food_variety: any = [];
+
   constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private menuService: MenuService, private cartService: CartService) { }
 
   ngOnInit() {
@@ -39,6 +41,7 @@ export class MenuDetailsComponent implements OnInit {
 
     this.menuService.getCategory(this.restaurant_Id).subscribe(data => {
       this.allCategories = data;
+      console.log(this.allCategories);
       this.allCategories.category.forEach(element => {
         let obj2 = {
           restaurant_id: this.restaurant_Id,
@@ -46,12 +49,23 @@ export class MenuDetailsComponent implements OnInit {
           veg_only: 0
         }
         this.menuService.getCategoryWiseMenu(obj2).subscribe(data => {
+          console.log(data);
           element.items = data;
+          let json = {
+            'category': element.name,
+            'count': element.items.food_list.length
+          }
+          this.food_variety.push(json);
+          console.log(this.food_variety);
         }, err => {
           this.toastr.error('', 'Error while getting menu');
           console.log(err);
         })
+
       });
+
+
+
     }, err => {
       this.toastr.error('', 'Error while getting categories');
       console.log(err);
@@ -59,6 +73,7 @@ export class MenuDetailsComponent implements OnInit {
 
 
 
+   
   }
 
   addToCart(food) {
