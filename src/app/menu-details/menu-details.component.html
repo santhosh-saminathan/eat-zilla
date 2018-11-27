@@ -43,50 +43,19 @@
   <div class="row" *ngIf="allCategories">
 
     <div class="col-md-3">
-      <p>
-        <a href="#test" class="btn_side">Back to search</a>
-      </p>
+      <!-- <p>
+        <a class="btn_side">Back to search</a>
+      </p> -->
 
       <div class="box_style_1">
         <ul id="cat_nav">
           <li *ngFor="let variety of food_variety">
-            <a  class="">{{variety.category}}
+            <a class="cursor_poiter" (click)="scrollTo(variety.category)">{{variety.category}}
               <span>({{variety.count}})</span>
             </a>
           </li>
         </ul>
       </div>
-      <!-- 
-      <div class="box_style_1">
-        <ul id="cat_nav">
-          <li>
-            <a class="active">Starters
-              <span>(141)</span>
-            </a>
-          </li>
-          <li>
-            <a>Main Courses
-              <span>(20)</span>
-            </a>
-          </li>
-          <li>
-            <a>Beef
-              <span>(12)</span>
-            </a>
-          </li>
-          <li>
-            <a>Desserts
-              <span>(11)</span>
-            </a>
-          </li>
-          <li>
-            <a>Drinks
-              <span>(20)</span>
-            </a>
-          </li>
-        </ul>
-      </div> -->
-      <!-- End box_style_1 -->
 
       <div class="box_style_2 hidden-xs" id="help">
         <i class="icon_lifesaver"></i>
@@ -104,7 +73,7 @@
         <h2 class="inner">Menu</h2>
 
         <div *ngFor="let category of allCategories.category;let i = index">
-          <h3 class="nomargin_top">{{category.name}}</h3>
+          <h3 id='{{category.name}}' class="nomargin_top">{{category.name}}</h3>
           <p></p>
           <table class="table table-striped cart-list" *ngIf="category.items">
             <thead>
@@ -133,31 +102,6 @@
                     <a (click)="addToCart(food)" class="dropdown-toggle cursor_poiter" data-toggle="dropdown" aria-expanded="true">
                       <i class="icon_plus_alt2"></i>
                     </a>
-                    <!-- <div class="dropdown-menu">
-                      <h5>Select an option</h5>
-                      <label>
-                        <input type="radio" value="option1" name="options_1" checked>Medium
-                        <span>+ $3.30</span>
-                      </label>
-                      <label>
-                        <input type="radio" value="option2" name="options_1">Large
-                        <span>+ $5.30</span>
-                      </label>
-                      <label>
-                        <input type="radio" value="option3" name="options_1">Extra Large
-                        <span>+ $8.30</span>
-                      </label>
-                      <h5>Add ingredients</h5>
-                      <label>
-                        <input type="checkbox" value="">Extra Tomato
-                        <span>+ $4.30</span>
-                      </label>
-                      <label>
-                        <input type="checkbox" value="">Extra Peppers
-                        <span>+ $2.50</span>
-                      </label>
-                      <a class="add_to_basket" (click)="addToCart()">Add to cart</a>
-                    </div> -->
                   </div>
                 </td>
               </tr>
@@ -165,11 +109,6 @@
           </table>
           <hr>
         </div>
-
-        <div id="test">
-          wueehrekkl
-        </div>
-
       </div>
       <!-- End box_style_1 -->
     </div>

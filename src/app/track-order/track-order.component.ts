@@ -24,6 +24,7 @@ export class TrackOrderComponent implements OnInit {
       this.trackingOrderResponse = data;
       console.log(this.trackingOrderResponse)
       if (this.trackingOrderResponse.status) {
+        // this.orderStatus = 3;
         this.orderStatus = this.trackingOrderResponse.order_status[0].status;
         this.deliveryBoyDetails = this.trackingOrderResponse.order_status[0];
 
