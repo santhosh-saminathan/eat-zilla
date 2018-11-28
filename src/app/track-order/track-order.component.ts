@@ -12,7 +12,7 @@ declare var google;
 export class TrackOrderComponent implements OnInit {
   trackingOrderResponse: any;
   orderId: any;
-  orderStatus: any;
+  orderStatus: number = null;
   deliveryBoyDetails: any;
 
   constructor(private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
@@ -24,20 +24,19 @@ export class TrackOrderComponent implements OnInit {
       this.trackingOrderResponse = data;
       console.log(this.trackingOrderResponse)
       if (this.trackingOrderResponse.status) {
-        // this.orderStatus = 3;
         this.orderStatus = this.trackingOrderResponse.order_status[0].status;
         this.deliveryBoyDetails = this.trackingOrderResponse.order_status[0];
 
 
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var directionsService = new google.maps.DirectionsService;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 14,
-        });
-        directionsDisplay.setMap(map);
+        // var directionsDisplay = new google.maps.DirectionsRenderer;
+        // var directionsService = new google.maps.DirectionsService;
+        // var map = new google.maps.Map(document.getElementById('map'), {
+        //   zoom: 14,
+        // });
+        // directionsDisplay.setMap(map);
 
 
-        this.calculateAndDisplayRoute(directionsService, directionsDisplay);
+        // this.calculateAndDisplayRoute(directionsService, directionsDisplay);
 
       }
     }, err => {

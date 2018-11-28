@@ -12,11 +12,9 @@
 
 
 
-<!-- Content ================================================== -->
 <div class="container margin_60_35">
   <div class="col-md-12 ">
     <div class="heading">
-      <!-- <h3>User123</h3> -->
       <input type="button" class="btn_1" name="" data-toggle="modal" data-target="#edit_profile" value="edit profile">
     </div>
     <div class="box_style_2 nomargin">
@@ -56,8 +54,69 @@
                 <div>Please wait...</div>
               </div>
 
+
+
+              <div *ngIf="currentOrderStatus && currentOrderStatus.order_status&& currentOrderStatus.order_status.length>0">
+                <h4>Current Orders</h4>
+                <div class="strip_list wow fadeIn" *ngFor="let orders of currentOrderStatus.order_status">
+                  <div class="row">
+                    <div class="col-md-9 col-sm-9">
+                      <div class="desc">
+                        <div class="thumb_strip">
+                          <a>
+                            <img src={{orders.restaurant_image}} alt="">
+                          </a>
+                        </div>
+                        <div class="col-md-6 rating">
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star voted"></i>
+                          <i class="icon_star"></i> (
+                          <small>
+                            <a>98 reviews</a>
+                          </small>)
+                        </div>
+                        <h3>{{orders.restaurant_name}}</h3>
+                        <div class="type">
+                          <b>Order Id</b> : {{orders.order_id}}
+                        </div>
+                        <div class="location">
+                          135 Newtownards Road, Belfast, BT4.
+                          <br>
+                          <b>Ordered Time : </b>
+                          <span class="opening"> {{orders.ordered_time}}</span>
+                        </div>
+                        <br>
+                        <br>
+                        <div>
+                          <button class="btn_1" (click)="trackOrder(orders.request_id)" type="button">TRACK ORDER</button>
+                        </div>
+                        <!-- <div *ngFor="let track of orders.trackingDetails">
+                          <b>{{track.detail}}</b> at {{track.created_at}}
+                        </div> -->
+
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                      <div>
+                        <h4>Total Paid: ₹{{orders.bill_amount}}</h4>
+                      </div>
+                      <br>
+                      <h5 class="old" *ngFor="let items of orders.item_list">
+                        {{items.item_quantity}} x{{items.item_name}}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
               <div *ngIf="orderHistoryResponse && pastOrderArray">
                 <h4>Past Orders</h4>
+                <div *ngIf="pastOrderArray.length == 0" class="no_orders">
+                  No Past orders
+                </div>
                 <div class="strip_list wow fadeIn" *ngFor="let orders of pastOrderArray">
                   <div class="row">
                     <div class="col-md-9 col-sm-9">
@@ -101,103 +160,7 @@
                   </div>
                 </div>
               </div>
-              <!-- 
-              <div *ngIf="currentOrders && currentOrders.length>0">
-                <h4>Current Orders</h4>
-                <div class="strip_list wow fadeIn" *ngFor="let orders of currentOrders">
-                  <div class="row">
-                    <div class="col-md-9 col-sm-9">
-                      <div class="desc">
-                        <div class="thumb_strip">
-                          <a>
-                            <img src={{orders.restaurant_image}} alt="">
-                          </a>
-                        </div>
-                        <div class="col-md-6 rating">
-                          <i class="icon_star voted"></i>
-                          <i class="icon_star voted"></i>
-                          <i class="icon_star voted"></i>
-                          <i class="icon_star voted"></i>
-                          <i class="icon_star"></i> (
-                          <small>
-                            <a>98 reviews</a>
-                          </small>)
-                        </div>
-                        <h3>{{orders.restaurant_name}}</h3>
-                        <div class="location">
-                          135 Newtownards Road, Belfast, BT4.
-                          <br>
-                          <span class="opening">{{orders.ordered_on}}</span>
-                        </div>
-                        <h5 class="old" *ngFor="let items of orders.item_list">
-                          {{items.food_name}} {{items.food_quantity}},
-                        </h5>
-                      </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3">
-                      <div style="text-align: center;">
-                        <h4>Total Paid: ₹{{orders.bill_amount}}</h4>
-                      </div>
-                      <div class="go_to margin_60_35">
-                        <div>
-                          <button class="btn_1" type="button">TRACK ORDER</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
 
-              <div *ngIf="currentOrderStatus && currentOrderStatus.order_status&& currentOrderStatus.order_status.length>0">
-                <h4>Current Orders</h4>
-                <div class="strip_list wow fadeIn" *ngFor="let orders of currentOrderStatus.order_status">
-                  <div class="row">
-                    <div class="col-md-9 col-sm-9">
-                      <div class="desc">
-                        <div class="thumb_strip">
-                          <a>
-                            <img src={{orders.restaurant_image}} alt="">
-                          </a>
-                        </div>
-                        <div class="col-md-6 rating">
-                          <i class="icon_star voted"></i>
-                          <i class="icon_star voted"></i>
-                          <i class="icon_star voted"></i>
-                          <i class="icon_star voted"></i>
-                          <i class="icon_star"></i> (
-                          <small>
-                            <a>98 reviews</a>
-                          </small>)
-                        </div>
-                        <h3>{{orders.restaurant_name}}</h3>
-                        <div class="location">
-                          135 Newtownards Road, Belfast, BT4.
-                          <br>
-                          <span class="opening">{{orders.ordered_time}}</span>
-                        </div>
-                        <br>
-                        <br>
-                        <div>
-                          <button class="btn_1" (click)="trackOrder(orders.request_id)" type="button">TRACK ORDER</button>
-                        </div>
-                        <!-- <div *ngFor="let track of orders.trackingDetails">
-                          <b>{{track.detail}}</b> at {{track.created_at}}
-                        </div> -->
-
-                      </div>
-                    </div>
-                    <div class="col-md-3 col-sm-3">
-                      <div>
-                        <h4>Total Paid: ₹{{orders.bill_amount}}</h4>
-                      </div>
-                      <br>
-                      <h5 class="old" *ngFor="let items of orders.item_list">
-                        {{items.item_quantity}} x{{items.item_name}}
-                      </h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
 
 
@@ -374,28 +337,6 @@
       <!-- End row-->
 
       <hr>
-
-      <!-- <h3>Mangnifc popup images</h3>
-                <p>Simply add the class magnific-gallery to the parent container like the example below.</p>
-               <div class="row magnific-gallery">
-                   <div class="col-md-6">
-                      <a href="assets/img/img_1.jpg" title="Photo title"><img src="assets/img/img_1.jpg" alt="" class="img-responsive"></a>
-                   </div>
-                   <div class="col-md-6">
-                      <a href="assets/img/img_2.jpg" title="Photo title"><img src="assets/img/img_2.jpg" alt="" class="img-responsive"></a>
-                   </div>
-               </div><!-- End row-->
-
-      <!--<h3>Mangnifc popup video (Youtube/Vimeo)</h3>
-                <p>Simply add the class magnific to the parent container like the example below plus the class video in the href .</p>
-               <div class="row magnific">
-                   <div class="col-md-6">
-                      <a href="https://vimeo.com/15306847" class="video_pop" title="Video title"><img src="assets/img/img_3.jpg" alt="" class="img-responsive"></a>
-                   </div>
-                   <div class="col-md-6">
-                      <a href="https://www.youtube.com/watch?v=vasS8dMKzjM"  class="video_pop" title="Video title"><img src="assets/img/img_4.jpg" alt="" class="img-responsive"></a>
-                   </div>
-               </div><!-- End row-->
     </div>
   </div>
   <!-- End box_style_2 -->
@@ -418,10 +359,13 @@
           </label>
 
           <!-- <input type="file" (change)="userPic($event.target.files)" class="custom-file-input" id="category_banner" accept=".jpeg,.png,.jpg"> -->
-          <input id="file-upload" type="file" accept=".png, .jpg, .jpeg" #avatar>
+          <input (change)="userPic()" id="file-upload" type="file" accept=".png, .jpg, .jpeg" #avatar>
+
 
           <img src={{userProfileDetails.profile_image}}>
-
+          <div *ngIf="picDetails">New Pic:
+            <b>{{picDetails.name}}</b> , Size: {{picDetails.size}} bytes</div>
+          <div class="size_exceed_error" *ngIf="maxSizeExceed">Maximum file size should be 1.5 Mb</div>
         </div>
 
         <input type="text" class="form-control form-white" [(ngModel)]="userProfileDetails.name" placeholder="Name" name="user name">

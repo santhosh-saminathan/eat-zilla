@@ -24,3 +24,21 @@ img {
 .thumb_strip {
   border: none !important;
 }
+
+.size_exceed_error {
+  color: red;
+}
+
+.no_orders {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.desc .rating {
+  padding-left: 0px;
+}
+
+.margin_60_35 {
+  padding-top: 0px;
+}

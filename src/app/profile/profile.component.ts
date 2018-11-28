@@ -3,13 +3,14 @@ import { ProfileService } from './../services/profile.service';
 import { OrderService } from './../services/order.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { ToastrService } from 'ngx-toastr';
 
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HttpParams } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-profile',
@@ -30,38 +31,27 @@ export class ProfileComponent implements OnInit {
   trackingOrderResponse: any;
   category: any
   fileToUpload: File = null;
+  picDetails: any;
+  maxSizeExceed: boolean = false;
 
-
-  constructor(private http: HttpClient, private profileService: ProfileService, private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private toastr: ToastrService, private http: HttpClient, private profileService: ProfileService, private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getProfileDetails();
     this.orderHistory();
   }
 
-  userPic(image) {
-
-    console.log(image)
-    console.log(image);
-    let content = new FormData();
-    console.log(content);
-    content.append('pic', image[0]);
-
-    console.log(content);
-
-
-    let obj = {
-      'profile_image': content,
-      'name': this.userProfileDetails.name,
-      'email': this.userProfileDetails.email,
-      'id': this.userProfileDetails.id,
+  userPic() {
+    let maxSize = 1500000;
+    if (this.avatar.nativeElement.files[0].size < maxSize) {
+      this.maxSizeExceed = false;
+      this.picDetails = {
+        'name': this.avatar.nativeElement.files[0].name,
+        'size': this.avatar.nativeElement.files[0].size
+      }
+    } else {
+      this.maxSizeExceed = true;
     }
-    this.profileService.updateProfile(obj).subscribe(data => {
-      console.log(data);
-    }, err => {
-      console.log(err);
-    })
-
   }
 
 
@@ -71,7 +61,6 @@ export class ProfileComponent implements OnInit {
       this.profileResponse = data;
       if (this.profileResponse.status) {
         this.userProfileDetails = this.profileResponse.data[0];
-        console.log(this.userProfileDetails);
       }
     }, err => {
       console.log(err);
@@ -79,9 +68,9 @@ export class ProfileComponent implements OnInit {
   }
 
   trackOrder(order_id) {
-    console.log(order_id);
     this.router.navigate(['/track-order'], { queryParams: { 'order-id': order_id } });
   }
+
   orderHistory() {
 
     this.orderService.currentOrderStatus().subscribe(data => {
@@ -111,9 +100,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-
-
-    if (this.avatar.nativeElement.files[0]) {
+    if (!this.maxSizeExceed && this.avatar.nativeElement.files[0]) {
 
 
       const formData = new FormData();
@@ -132,16 +119,23 @@ export class ProfileComponent implements OnInit {
       headers.append('Accept', 'application/json');
       this.http.post('http://54.218.62.130/eatzilla/api/update_profile', formData, { headers: headers })
         .subscribe(
-        (response) => {
-          console.log(response);
-          this.getProfileDetails();
-        },
-        (error) => {
-          console.log(error);
-        }
+          (response) => {
+            console.log(response);
+            this.getProfileDetails();
+            this.toastr.success('', 'Profile updated successfully');
+            setTimeout(() => {
+              $('#edit_profile').modal("hide")
+            }, 1000);
+
+            this.picDetails = null;
+          },
+          (error) => {
+            this.toastr.error('', 'Error while updating profile');
+            console.log(error);
+          }
         );
 
-    } else if (this.userProfileDetails.name && this.userProfileDetails.email) {
+    } else if (!this.maxSizeExceed && this.userProfileDetails.name && this.userProfileDetails.email) {
 
       let obj = {
         'id': this.userProfileDetails.id,
@@ -152,13 +146,16 @@ export class ProfileComponent implements OnInit {
       this.profileService.updateProfile(obj).subscribe(data => {
         console.log(data);
         this.getProfileDetails();
+        this.toastr.success('', 'Profile updated successfully');
+        setTimeout(() => {
+          $('#edit_profile').modal("hide")
+        }, 1000);
+
+        this.picDetails = null;
       }, err => {
         console.log(err);
       })
     }
-
-
-
   }
 
 }
