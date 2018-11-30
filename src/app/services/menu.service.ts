@@ -43,5 +43,15 @@ export class MenuService {
         return this.http.post(url + "/get_category_wise_food_list", data, httpOptions);
     }
 
+    getFoodList(data) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'authId': localStorage.getItem('authId'),
+                'authToken': localStorage.getItem('authToken'),
+            })
+        };
+        return this.http.post(url + "/get_food_list", data, httpOptions);
+    }
+
 
 }

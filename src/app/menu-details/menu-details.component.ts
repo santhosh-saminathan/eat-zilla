@@ -32,30 +32,50 @@ export class MenuDetailsComponent implements OnInit {
     //   console.log(err);
     // })
 
-    this.menuService.getCategory(this.restaurant_Id).subscribe(data => {
+    this.menuService.getFoodList({ 'restaurant_id': this.restaurant_Id, 'is_veg': 0 }).subscribe(data => {
       this.allCategories = data;
-      this.allCategories.category.forEach(element => {
-        element.name = element.name.replace(/ /g, "-");
-        let obj2 = {
-          restaurant_id: this.restaurant_Id,
-          category_id: element.category_id,
-          veg_only: 0
-        }
-        this.menuService.getCategoryWiseMenu(obj2).subscribe(data => {
-          element.items = data;
+      console.log(data);
+      if (this.allCategories.status) {
+        this.allCategories.food_list.forEach(element => {
+          element.category_name = element.category_name.replace(/ /g, "-");
           let json = {
-            'category': element.name,
-            'count': element.items.food_list.length
+            'category': element.category_name,
+            'count': element.items.length
           }
           this.food_variety.push(json);
-        }, err => {
-          this.toastr.error('', 'Error while getting menu');
         })
-      });
+      } else {
+        this.toastr.error('', 'Error while getting menu');
+      }
+
     }, err => {
-      this.toastr.error('', 'Error while getting categories');
-      console.log(err);
+      this.toastr.error('', 'Error while getting menu');
     })
+
+    // this.menuService.getCategory(this.restaurant_Id).subscribe(data => {
+    //   this.allCategories = data;
+    //   this.allCategories.category.forEach(element => {
+    //     element.name = element.name.replace(/ /g, "-");
+    //     let obj2 = {
+    //       restaurant_id: this.restaurant_Id,
+    //       category_id: element.category_id,
+    //       veg_only: 0
+    //     }
+    //     this.menuService.getCategoryWiseMenu(obj2).subscribe(data => {
+    //       element.items = data;
+    //       let json = {
+    //         'category': element.name,
+    //         'count': element.items.food_list.length
+    //       }
+    //       this.food_variety.push(json);
+    //     }, err => {
+    //       this.toastr.error('', 'Error while getting menu');
+    //     })
+    //   });
+    // }, err => {
+    //   this.toastr.error('', 'Error while getting categories');
+    //   console.log(err);
+    // })
   }
 
   addToCart(food) {

@@ -45,4 +45,14 @@ export class RestaurantService {
         return this.http.get(url + "/get_nearby_restaurant?lat=" + lat + "&lng=" + lng, httpOptions);
     }
 
+    updateFavoriteRestaurant(data) {
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'authId': this.webStorageService.getAuthId(),
+                'authToken': this.webStorageService.getAuthToken(),
+            })
+        };
+        return this.http.post(url + "/update_favourite", data, httpOptions);
+
+    }
 }

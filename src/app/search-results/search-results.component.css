@@ -1,24 +1,37 @@
 .filter_type ul li .rating {
-    left: 5px;
-    top: 0px;
+  left: 5px;
+  top: 0px;
 }
 
 .filter_name {
-    position: absolute;
-    margin-left: 5px;
-    margin-top: 1px
+  position: absolute;
+  margin-left: 5px;
+  margin-top: 1px
 }
 
 .search_text {
-    width: 100%;
-    border: none;
-    padding: 8px;
+  width: 100%;
+  border: none;
+  padding: 8px;
 }
 
 .search_text:focus {
-    outline: none;
+  outline: none;
 }
 
 .strip_list {
-    border: 5px solid #F5F5F5;
+  border: 5px solid #F5F5F5;
+}
+
+.float_right {
+  float: right;
+}
+
+.icon-heart {
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.favorite {
+  color: red;
 }

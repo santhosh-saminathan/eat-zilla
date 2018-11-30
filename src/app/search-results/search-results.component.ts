@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RestaurantService } from './../services/restaurant.service';
-import { validateConfig } from '@angular/router/src/config';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-search-results',
@@ -16,13 +16,33 @@ export class SearchResultsComponent implements OnInit {
   displayGridView: boolean = true;
   displayListView: boolean = false;
   searchRestaurant: any = '';
+  updateFavouriteResponse: any;
 
   food_type: any = [];
   foof_type_count: any = [];
 
   filter_data: any = [];
 
-  constructor(private router: Router, private route: ActivatedRoute, private restaurantService: RestaurantService) {
+  constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private restaurantService: RestaurantService) {
+  }
+
+  updateFavourite(restaurant) {
+    this.restaurantService.updateFavoriteRestaurant({ restaurant_id: restaurant.id }).subscribe(data => {
+      console.log(data);
+      this.updateFavouriteResponse = data;
+      if (this.updateFavouriteResponse.status) {
+
+        restaurant.is_favourite = 1 - restaurant.is_favourite;
+        this.toastr.success('', this.updateFavouriteResponse.message);
+
+      } else {
+        this.toastr.error('', 'Error while updating Favourite list');
+      }
+    }, err => {
+      console.log(err)
+      this.toastr.error('', 'Error while updating Favourite list');
+
+    })
   }
 
   ngOnInit() {
@@ -34,7 +54,7 @@ export class SearchResultsComponent implements OnInit {
 
 
     this.restaurantService.getNearByRestaurants(this.lat, this.lng).subscribe(data => {
-      // console.log(data)
+      console.log(data)
       this.nearbyRestaurants = data;
       let all_item_count = 0;
       this.nearbyRestaurants.restaurants.forEach(restaurant => {

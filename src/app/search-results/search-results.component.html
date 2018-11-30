@@ -223,7 +223,7 @@
 
                     <!-- <i class="icon_star"></i> -->
 
-                    <h3>{{restaurant.name}}</h3>
+                    <h3>{{restaurant.name}} </h3>
                     <div class="type">
                       <span *ngFor="let cuisines of restaurant.cuisines;let i = index">
                         {{cuisines.name}}
@@ -231,13 +231,21 @@
                       </span>
                     </div>
                     <div class="location">
-                      135 Newtownards Road, Belfast, BT4.
-                      <span class="opening">Opens at 17:00.</span> Minimum order: $15
+                      {{restaurant.address}} &nbsp;&nbsp;&nbsp;
+                      <span class="opening">
+                        <span *ngIf="restaurant.is_open">Open Now</span>
+                        <span *ngIf="!restaurant.is_open">Closed </span>
+                      </span>
+                      <br>
+                      <b> {{restaurant.travel_time}} &nbsp;&nbsp;&nbsp; ₹{{restaurant.price}}</b>
                     </div>
 
                   </div>
                 </div>
                 <div class="col-md-3 col-sm-3">
+                  <div class="float_right">
+                    <i (click)="updateFavourite(restaurant)" title="favourite" [ngClass]="{'favorite':restaurant.is_favourite}" class="icon-heart"></i>
+                  </div>
                   <div class="go_to">
                     <div>
                       <a (click)="redirectToMenuDetail(restaurant.id)" class="btn_1">View Menu</a>

@@ -72,8 +72,8 @@
       <div class="box_style_2" id="main_menu">
         <h2 class="inner">Menu</h2>
 
-        <div *ngFor="let category of allCategories.category;let i = index">
-          <h3 id='{{category.name}}' class="nomargin_top">{{category.name}}</h3>
+        <div *ngFor="let category of allCategories.food_list;let i = index">
+          <h3 id='{{category.category_name}}' class="nomargin_top">{{category.category_name}}</h3>
           <p></p>
           <table class="table table-striped cart-list" *ngIf="category.items">
             <thead>
@@ -83,13 +83,16 @@
                 <th>Order</th>
               </tr>
             </thead>
-            <tbody *ngFor="let food of category.items.food_list;let j= index">
+            <tbody *ngFor="let food of category.items;let j= index">
               <tr>
                 <td>
                   <figure class="thumb_menu_list">
                     <img src="assets/img/menu-thumb-1.jpg" alt="thumb">
                   </figure>
-                  <h5>{{food.name}}</h5>
+                  <h5>
+                    <img title="veg" *ngIf="food.is_veg" src="assets/img/veg.png" width="16px">
+                    <img title="non-veg" *ngIf="!food.is_veg" src="assets/img/non-veg.png" width="16px"> {{food.name}}
+                  </h5>
                   <p>
                     {{food.description}}
                   </p>

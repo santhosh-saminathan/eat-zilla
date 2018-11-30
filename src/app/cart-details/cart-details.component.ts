@@ -29,7 +29,7 @@ export class CartDetailsComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.getDefaultAddress();// api error
+    this.getDefaultAddress();// api error
     this.restaurant_Id = this.route.snapshot.queryParams['id'];
 
     this.getDeliveryAddress();
