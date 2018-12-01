@@ -43,11 +43,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
 
     if (this.webStorageService.getAuthId() && this.webStorageService.getAuthToken()) {
-      console.log("called");
       this.loginResponse.user_name = this.webStorageService.getUserName();
-      // (this.loginResponse.user_name);
-      console.log(this.loginResponse.user_name);
-      // this.webStorageService.storeUserPic(this.loginResponse.profile_image);
       this.loggedIn = true;
     } else {
       this.loggedIn = false;
@@ -76,16 +72,16 @@ export class HeaderComponent implements OnInit {
   }
 
   getProfileDetails() {
-    this.profileService.getProfile().subscribe(data => {
-      this.loggedIn = true;
-      this.profileResponse = data;
-      if (this.profileResponse.status) {
-        this.userProfileDetails = this.profileResponse.data[0];
-        this.loginResponse = { user_name: this.userProfileDetails.name };
-      }
-    }, err => {
-      console.log(err);
-    })
+    // this.profileService.getProfile().subscribe(data => {
+    //   this.loggedIn = true;
+    //   this.profileResponse = data;
+    //   if (this.profileResponse.status) {
+    //     this.userProfileDetails = this.profileResponse.data[0];
+    //     this.loginResponse = { user_name: this.userProfileDetails.name };
+    //   }
+    // }, err => {
+    //   console.log(err);
+    // })
   }
 
   passwordCheck(event) {

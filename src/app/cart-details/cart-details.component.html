@@ -83,13 +83,13 @@
 
         <div *ngIf="deliveryAddress">
           <label>Select Address to Deliver</label>
-          <div *ngFor="let address of deliveryAddress.data">
-            <div>
+          <div class="address_div" *ngFor="let address of deliveryAddress.data">
+            <div class="">
               <span class="">
-                <input type="radio" name="address" [value]='address' [(ngModel)]="setDeliveryAddr">
+                <input class="" type="radio" name="address" [value]='address' [(ngModel)]="setDeliveryAddr">
               </span>
 
-              <span class=""> {{address.flat_no}} - {{address.landmark}} {{address.address}}</span>
+              <span class="address"> {{address.flat_no}} - {{address.landmark}} {{address.address}}</span>
 
 
             </div>

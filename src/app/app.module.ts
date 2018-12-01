@@ -64,7 +64,7 @@ import { TrackOrderComponent } from './track-order/track-order.component';
     AngularFontAwesomeModule,
     ToastrModule.forRoot()
   ],
-  providers: [SignUpService, MenuService, CartService, ProfileService, WebStorageService, RestaurantService, OrderService],
+  providers: [SignUpService, MenuService, CartService, ProfileService, WebStorageService, RestaurantService, OrderService,HeaderComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

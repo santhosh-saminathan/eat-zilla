@@ -14,3 +14,41 @@
   text-align: center;
   color: red;
 }
+
+.address {
+  font-size: 16px;
+  top: -5px;
+  padding-left: 10px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.address_div {
+  padding: 5px;
+  border: 1px solid linen;
+  border-radius: 5px;
+}
+
+input[type="radio"] {
+  /* remove standard background appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* create custom radiobutton appearance */
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  /* background-color only for content */
+  background-clip: content-box;
+  border: 2px solid #bbb;
+  background-color: #e7e6e7;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* appearance for checked radiobutton */
+
+input[type="radio"]:checked {
+  background-color: #93e026;
+}
