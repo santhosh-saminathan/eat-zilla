@@ -13,6 +13,8 @@ import { CartService } from './../services/cart.service';
 })
 export class CartDetailsComponent implements OnInit {
   deliveryAddress: any = {};
+  allAvailableDeliveryAddress: any;
+  defaultAddress: any;
   newDeliveryAddress: any;
   setDeliveryAddr: any;
   checkCartResponse: any;
@@ -29,10 +31,9 @@ export class CartDetailsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getDefaultAddress();// api error
     this.restaurant_Id = this.route.snapshot.queryParams['id'];
 
-    this.getDeliveryAddress();
+    this.getAllDeliveryAddress();
     this.checkCart();
   }
 
@@ -91,7 +92,7 @@ export class CartDetailsComponent implements OnInit {
         if (this.addDeliveryAddressResponse.status) {
           this.toastr.success('', 'Address Added Successfully');
           this.newDeliveryAddress = null;
-          this.getDeliveryAddress();
+          this.getAllDeliveryAddress();
         } else {
           this.toastr.error('', this.addDeliveryAddressResponse.message);
         }
@@ -106,10 +107,12 @@ export class CartDetailsComponent implements OnInit {
 
   }
 
-  getDeliveryAddress() {
-    this.orderService.getDeliveryLocation().subscribe((data) => {
+  getAllDeliveryAddress() {
+    this.orderService.getAllDeliveryLocations().subscribe((data) => {
       console.log(data);
-      this.deliveryAddress = data;
+      this.allAvailableDeliveryAddress = data;
+      this.getDefaultAddress();// api error
+
     }, err => {
       console.log(err);
     })
@@ -121,10 +124,13 @@ export class CartDetailsComponent implements OnInit {
       let data = {
         current_address: address.address,
         lat: address.lat,
-        lng: address.lng
+        lng: address.lng,
+        landmark:address.landmark,
+        flat_no:address.flat_no
       }
       this.orderService.setDefaultAddress(data).subscribe((data) => {
         console.log(data);
+
       }, err => {
         console.log(err);
       })
@@ -136,6 +142,12 @@ export class CartDetailsComponent implements OnInit {
   getDefaultAddress() {
     this.orderService.getDefaultAddress().subscribe((data) => {
       console.log(data);
+      this.defaultAddress = data;
+      this.allAvailableDeliveryAddress.data.forEach(element => {
+        if (element.id === this.defaultAddress.data.id) {
+          element.default = true;
+        }
+      });
     }, err => {
       console.log(err);
     })

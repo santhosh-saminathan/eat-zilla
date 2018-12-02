@@ -14,7 +14,7 @@ export class OrderService {
     constructor(private http: HttpClient) { }
 
 
-    getDeliveryLocation() {
+    getAllDeliveryLocations() {
         const httpOptions = {
             headers: new HttpHeaders({
                 'authId': localStorage.getItem('authId'),

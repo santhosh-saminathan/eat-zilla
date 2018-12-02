@@ -81,12 +81,14 @@
       <div class="box_style_2" id="order_process">
         <h2 class="inner">Choose Delivery Address</h2>
 
-        <div *ngIf="deliveryAddress">
-          <label>Select Address to Deliver</label>
-          <div class="address_div" *ngFor="let address of deliveryAddress.data">
+        <div *ngIf="allAvailableDeliveryAddress">
+          <label>
+            <h4>Set Address to Deliver</h4>
+          </label>
+          <div class="address_div" *ngFor="let address of allAvailableDeliveryAddress.data">
             <div class="">
               <span class="">
-                <input class="" type="radio" name="address" [value]='address' [(ngModel)]="setDeliveryAddr">
+                <input class="" type="radio" name="address" [checked]="address.default" [value]='address' [(ngModel)]="setDeliveryAddr">
               </span>
 
               <span class="address"> {{address.flat_no}} - {{address.landmark}} {{address.address}}</span>
