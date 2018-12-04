@@ -16,7 +16,7 @@
 }
 
 .address {
-  font-size: 16px;
+  font-size: 14px;
   top: -5px;
   padding-left: 10px;
   position: relative;
@@ -36,8 +36,8 @@ input[type="radio"] {
   appearance: none;
   /* create custom radiobutton appearance */
   display: inline-block;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   padding: 3px;
   /* background-color only for content */
   background-clip: content-box;
@@ -51,4 +51,8 @@ input[type="radio"] {
 
 input[type="radio"]:checked {
   background-color: #93e026;
+}
+
+.box_style_2 h2.inner {
+  font-size: 18px;
 }

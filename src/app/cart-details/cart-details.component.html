@@ -82,30 +82,34 @@
         <h2 class="inner">Choose Delivery Address</h2>
 
         <div *ngIf="allAvailableDeliveryAddress">
-          <label>
-            <h4>Set Address to Deliver</h4>
-          </label>
+          <!-- <label> -->
+          <h4>Your Order will deliver to this Address</h4>
+          <!-- <div *ngFor="let address of allAvailableDeliveryAddress.data"> -->
+          <div class="">
+            <span *ngIf="defaultAddress" class="address"> {{defaultAddress.data.flat_no}} - {{defaultAddress.data.landmark}} {{defaultAddress.data.address}}</span>
+          </div>
+          <!-- </div> -->
+          <hr>
+          <h4>Select another Address to deliver</h4>
           <div class="address_div" *ngFor="let address of allAvailableDeliveryAddress.data">
             <div class="">
               <span class="">
-                <input class="" type="radio" name="address" [checked]="address.default" [value]='address' [(ngModel)]="setDeliveryAddr">
+                <input class="" type="radio" name="address" [checked]="address.default" [value]='address' (change)="setAddress(setDeliveryAddr)"
+                  [(ngModel)]="setDeliveryAddr">
               </span>
-
               <span class="address"> {{address.flat_no}} - {{address.landmark}} {{address.address}}</span>
-
-
             </div>
           </div>
         </div>
         <br>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-12">
             <a class="btn_full" (click)="setAddress(setDeliveryAddr)">Set Address</a>
           </div>
-        </div>
+        </div> -->
 
         <hr>
-
+        <h4>Add new Address to deliver</h4>
         <div class="form-group">
           <label>Flat No / Door No *</label>
           <input type="text" class="form-control" id="deliveryFlatNo" name="flatNo" [(ngModel)]="deliveryAddress.flat_no" placeholder="SM-223">
@@ -133,7 +137,7 @@
 
         <div class="row">
           <div class="col-md-12">
-            <a class="btn_full" (click)="addAddress()">Add Address</a>
+            <a class="btn_full" (click)="addAddress()">Deliver to this Address</a>
           </div>
         </div>
 

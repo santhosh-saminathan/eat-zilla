@@ -35,3 +35,7 @@
 .favorite {
   color: red;
 }
+
+.strip_list.grid .thumb_strip img {
+  width: 100px;
+}

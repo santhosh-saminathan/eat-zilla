@@ -17,6 +17,7 @@ export class CartDetailsComponent implements OnInit {
   defaultAddress: any;
   newDeliveryAddress: any;
   setDeliveryAddr: any;
+  setAddressResponse: any;
   checkCartResponse: any;
   restaurant_Id: any;
   addDeliveryAddressResponse: any;
@@ -87,10 +88,13 @@ export class CartDetailsComponent implements OnInit {
         "type": "2"
       }
 
+      this.setAddress(data);
+
       this.orderService.addDeliveryAddress(data).subscribe((data) => {
         this.addDeliveryAddressResponse = data;
         if (this.addDeliveryAddressResponse.status) {
-          this.toastr.success('', 'Address Added Successfully');
+          console.log(this.addDeliveryAddressResponse);
+          // this.toastr.success('', 'Address Added Successfully');
           this.newDeliveryAddress = null;
           this.getAllDeliveryAddress();
         } else {
@@ -108,6 +112,7 @@ export class CartDetailsComponent implements OnInit {
   }
 
   getAllDeliveryAddress() {
+
     this.orderService.getAllDeliveryLocations().subscribe((data) => {
       console.log(data);
       this.allAvailableDeliveryAddress = data;
@@ -119,17 +124,26 @@ export class CartDetailsComponent implements OnInit {
   }
 
   setAddress(address) {
-    console.log(address)
+
     if (address) {
       let data = {
         current_address: address.address,
         lat: address.lat,
         lng: address.lng,
-        landmark:address.landmark,
-        flat_no:address.flat_no
+        landmark: address.landmark,
+        flat_no: address.flat_no
       }
+      console.log(data);
       this.orderService.setDefaultAddress(data).subscribe((data) => {
-        console.log(data);
+        this.setAddressResponse = data;
+        if (this.setAddressResponse) {
+          this.toastr.success('', 'Address Added Successfully');
+          this.getDefaultAddress();
+          console.log(data);
+
+        } else {
+          this.toastr.error('', this.setAddressResponse.message || 'Error');
+        }
 
       }, err => {
         console.log(err);

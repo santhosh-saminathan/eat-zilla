@@ -262,13 +262,19 @@
         <div *ngIf="displayListView">
           <div class="row">
             <div *ngFor="let restaurant of nearbyRestaurants.restaurants;">
-              <a *ngIf="!restaurant.hide && restaurant.name.toLowerCase().includes(searchRestaurant.toLowerCase())" class="col-md-6 col-sm-6 strip_list grid wow zoomIn">
+              <a style="height: 300px !important" *ngIf="!restaurant.hide && restaurant.name.toLowerCase().includes(searchRestaurant.toLowerCase())"
+                class="col-md-6 col-sm-6 strip_list grid wow zoomIn">
                 <div class="ribbon_1">Popular</div>
                 <div class="desc">
+                  <div class="float_right">
+                    <i (click)="updateFavourite(restaurant)" title="favourite" [ngClass]="{'favorite':restaurant.is_favourite}" class="icon-heart"></i>
+                  </div>
                   <div class="thumb_strip">
+
                     <a class="cursor_poiter" (click)="redirectToMenuDetail(restaurant.id)">
-                      <img src={{restaurant.image}} alt="">
+                      <img src={{restaurant.image}}>
                     </a>
+
                   </div>
                   <div class="rating" title="{{restaurant.rating}} Rating">
                     <i [ngClass]="{'voted': restaurant.rating >=1}" class="icon_star"></i>
@@ -280,7 +286,7 @@
                       <a>98 reviews</a>
                     </small>)
                   </div>
-                  <h3>{{restaurant.name}}</h3>
+                  <h3 (click)="redirectToMenuDetail(restaurant.id)" class="cursor_poiter">{{restaurant.name}}</h3>
                   <div class="type">
                     <span *ngFor="let cuisines of restaurant.cuisines;let i = index">
                       {{cuisines.name}}
@@ -288,9 +294,13 @@
                     </span>
                   </div>
                   <div class="location">
-                    135 Newtownards Road, Belfast, BT4.
+                    {{restaurant.address}}
                     <br>
-                    <span class="opening">Opens at 17:00.</span> Minimum order: $15
+                    <span class="opening">
+                      <span *ngIf="restaurant.is_open">Open Now</span>
+                      <span *ngIf="!restaurant.is_open">Closed </span>
+                    </span>
+                    <b>&nbsp;&nbsp;&nbsp; {{restaurant.travel_time}} &nbsp;&nbsp;&nbsp; ₹{{restaurant.price}}</b>
                   </div>
 
                 </div>
