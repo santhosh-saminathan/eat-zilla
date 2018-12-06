@@ -28,15 +28,15 @@ export class TrackOrderComponent implements OnInit {
         this.deliveryBoyDetails = this.trackingOrderResponse.order_status[0];
 
 
-        // var directionsDisplay = new google.maps.DirectionsRenderer;
-        // var directionsService = new google.maps.DirectionsService;
-        // var map = new google.maps.Map(document.getElementById('map'), {
-        //   zoom: 14,
-        // });
-        // directionsDisplay.setMap(map);
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var directionsService = new google.maps.DirectionsService;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+        });
+        directionsDisplay.setMap(map);
 
 
-        // this.calculateAndDisplayRoute(directionsService, directionsDisplay);
+        this.calculateAndDisplayRoute(directionsService, directionsDisplay);
 
       }
     }, err => {

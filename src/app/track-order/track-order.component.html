@@ -88,35 +88,25 @@
           <div class="row">
             <div class="col-sm-3 col-md-2">
               <img *ngIf="deliveryBoyDetails.delivery_boy_image" class="delivery_boy_pic" src={{deliveryBoyDetails.delivery_boy_image}}>
-              <img *ngIf="!deliveryBoyDetails.delivery_boy_image" class="delivery_boy_pic" src="https://www.freeiconspng.com/uploads/account-profile-icon-1.png">
+              <img *ngIf="!deliveryBoyDetails.delivery_boy_image" class="delivery_boy_pic" src="./assets/img/user.png">
             </div>
-            <div class="col-sm-3 col-md-3 delivery_boy_details">
+            <div class="col-sm-6 col-md-7 delivery_boy_details">
+
               <span *ngIf="deliveryBoyDetails.delivery_boy_name">{{deliveryBoyDetails.delivery_boy_name}}</span>
               <span *ngIf="!deliveryBoyDetails.delivery_boy_name">Delivery Boy Name</span>
               <br>
               <span *ngIf="deliveryBoyDetails.delivery_boy_phone">({{deliveryBoyDetails.delivery_boy_phone}})</span>
               <span *ngIf="!deliveryBoyDetails.delivery_boy_phone">(9000000000)</span>
             </div>
-            <div class="col-sm-3 col-md-4"></div>
             <div class="col-sm-3 col-md-3">
 
               <span class="delivery_amount">Total Amount: {{deliveryBoyDetails.item_total}}</span>
 
             </div>
-
-
-            <span class="delivery_boy_details">
-
-            </span>
           </div>
-
-
-
-
-
         </div>
-        <br>
-        <!-- <div id="map"></div> -->
+        
+        <div id="map"></div>
       </div>
 
     </div>
