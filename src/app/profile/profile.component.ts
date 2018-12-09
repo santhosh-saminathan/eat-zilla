@@ -34,11 +34,15 @@ export class ProfileComponent implements OnInit {
   picDetails: any;
   maxSizeExceed: boolean = false;
 
+  favouritesResponse: any;
+  favouriteRestaurants: any;
+
   constructor(private toastr: ToastrService, private http: HttpClient, private profileService: ProfileService, private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getProfileDetails();
     this.orderHistory();
+    this.getFavourites();
   }
 
   userPic() {
@@ -119,20 +123,20 @@ export class ProfileComponent implements OnInit {
       headers.append('Accept', 'application/json');
       this.http.post('http://54.218.62.130/eatzilla/api/update_profile', formData, { headers: headers })
         .subscribe(
-          (response) => {
-            console.log(response);
-            this.getProfileDetails();
-            this.toastr.success('', 'Profile updated successfully');
-            setTimeout(() => {
-              $('#edit_profile').modal("hide")
-            }, 1000);
+        (response) => {
+          console.log(response);
+          this.getProfileDetails();
+          this.toastr.success('', 'Profile updated successfully');
+          setTimeout(() => {
+            $('#edit_profile').modal("hide")
+          }, 1000);
 
-            this.picDetails = null;
-          },
-          (error) => {
-            this.toastr.error('', 'Error while updating profile');
-            console.log(error);
-          }
+          this.picDetails = null;
+        },
+        (error) => {
+          this.toastr.error('', 'Error while updating profile');
+          console.log(error);
+        }
         );
 
     } else if (!this.maxSizeExceed && this.userProfileDetails.name && this.userProfileDetails.email) {
@@ -156,6 +160,18 @@ export class ProfileComponent implements OnInit {
         console.log(err);
       })
     }
+  }
+
+  getFavourites() {
+    this.profileService.getFavouriteRestaurants().subscribe(data => {
+      this.favouritesResponse = data;
+      // console.log(this.favouritesResponse);
+      if (this.favouritesResponse.status) {
+        this.favouriteRestaurants = this.favouritesResponse.favourite_list;
+      }
+    }, err => {
+      console.log(err);
+    })
   }
 
 }

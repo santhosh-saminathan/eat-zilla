@@ -35,4 +35,16 @@ export class ProfileService {
     return this.http.post(url + "/update_profile", data, httpOptions);
   }
 
+  getFavouriteRestaurants() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+
+        'authId': localStorage.getItem('authId'),
+        'authToken': localStorage.getItem('authToken'),
+      })
+    };
+
+    return this.http.get(url + "/get_favourite_list", httpOptions);
+  }
+
 }

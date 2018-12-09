@@ -198,65 +198,46 @@
 
 
             <div class="tab-pane" id="favouites">
-              <div class="row">
-                <div class="col-md-6 col-sm-6 wow zoomIn" data-wow-delay="0.1s">
-                  <a class="strip_list grid" href="detail_page.html">
+              <div class="row" *ngIf="!favouriteRestaurants || favouriteRestaurants.length == 0">
+                <h3 class="text_center_align"> No Favourite Restaurant</h3>
+              </div>
+              <div class="row" *ngIf="favouriteRestaurants">
+
+                <div *ngFor="let restaurant of favouriteRestaurants" class="col-md-6 col-sm-6 wow zoomIn">
+                  <a class="strip_list grid">
                     <div class="ribbon_1">Popular</div>
                     <div class="desc">
                       <div class="thumb_strip">
-                        <img src="assets/img/thumb_restaurant.jpg" alt="">
+                        <img src={{restaurant.image}} alt="">
                       </div>
-                      <div class="rating">
-                        <i class="icon_star voted"></i>
-                        <i class="icon_star voted"></i>
-                        <i class="icon_star voted"></i>
-                        <i class="icon_star voted"></i>
-                        <i class="icon_star"></i>
+                      <div class="rating" title="{{restaurant.rating}} Rating">
+                        <i [ngClass]="{'voted': restaurant.rating >=1}" class="icon_star"></i>
+                        <i [ngClass]="{'voted': restaurant.rating >=2}" class="icon_star"></i>
+                        <i [ngClass]="{'voted': restaurant.rating >=3}" class="icon_star"></i>
+                        <i [ngClass]="{'voted': restaurant.rating >=4}" class="icon_star"></i>
+                        <i [ngClass]="{'voted': restaurant.rating >=5}" class="icon_star"></i>
+
                       </div>
-                      <h3>Taco Mexican</h3>
+                      <h3>{{restaurant.name}}</h3>
                       <div class="type">
                         Mexican / American
                       </div>
                       <div class="location">
-                        135 Newtownards Road, Belfast, BT4.
+                        {{restaurant.address}}
                         <br>
-                        <span class="opening">Opens at 17:00.</span> Minimum order: $15
+                        <span class="opening">
+                          <span *ngIf="restaurant.is_open">Open Now</span>
+                          <span *ngIf="!restaurant.is_open">Closed </span>
+                        </span>
+                        <br>
+                        <b>&nbsp;&nbsp;&nbsp; {{restaurant.travel_time}} &nbsp;&nbsp;&nbsp; ₹{{restaurant.price}}</b>
                       </div>
 
                     </div>
                   </a>
                   <!-- End strip_list-->
                 </div>
-                <!-- End col-md-6-->
-                <div class="col-md-6 col-sm-6 wow zoomIn" data-wow-delay="0.2s">
-                  <a class="strip_list grid" href="detail_page.html">
 
-                    <div class="desc">
-                      <div class="thumb_strip">
-                        <img src="assets/img/thumb_restaurant_2.jpg" alt="">
-                      </div>
-                      <div class="rating">
-                        <i class="icon_star voted"></i>
-                        <i class="icon_star voted"></i>
-                        <i class="icon_star voted"></i>
-                        <i class="icon_star voted"></i>
-                        <i class="icon_star"></i>
-                      </div>
-                      <h3>Naples Pizza</h3>
-                      <div class="type">
-                        Italian / Pizza
-                      </div>
-                      <div class="location">
-                        135 Newtownards Road, Belfast, BT4.
-                        <br>
-                        <span class="opening">Opens at 17:00.</span> Minimum order: $15
-                      </div>
-
-                    </div>
-                  </a>
-                  <!-- End strip_list-->
-                </div>
-                <!-- End col-md-6-->
               </div>
               <!-- End row-->
             </div>
