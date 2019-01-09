@@ -24,13 +24,15 @@ export class SignUpService {
 
     logout() {
 
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'authId': localStorage.getItem('authId'),
-                'authToken': localStorage.getItem('authToken'),
-            })
-        };
-        return this.http.get(url + "/logout", httpOptions);
+        // const httpOptions = {
+        //     headers: new HttpHeaders({
+        //         'authId': localStorage.getItem('authId'),
+        //         'authToken': localStorage.getItem('authToken'),
+        //     })
+        // };
+        return this.http.get(url + "/logout?authId="+localStorage.getItem('authId')+"&authToken="+localStorage.getItem('authToken'));
+
+        // return this.http.get(url + "/logout", httpOptions);
     }
 
     forgotPassword(data) {

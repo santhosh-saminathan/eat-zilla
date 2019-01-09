@@ -14,37 +14,40 @@ export class ProfileService {
   constructor(private http: HttpClient) { }
 
   getProfile() {
-    const httpOptions = {
-      headers: new HttpHeaders({
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'authId': localStorage.getItem('authId'),
+    //     'authToken': localStorage.getItem('authToken'),
+    //   })
+    // };
+    return this.http.get(url + "/get_profile?authId="+localStorage.getItem('authId')+"&authToken="+localStorage.getItem('authToken'));
 
-        'authId': localStorage.getItem('authId'),
-        'authToken': localStorage.getItem('authToken'),
-      })
-    };
-
-    return this.http.get(url + "/get_profile", httpOptions);
+    // return this.http.get(url + "/get_profile", httpOptions);
   }
 
   updateProfile(data) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      })
-    }
-    return this.http.post(url + "/update_profile", data, httpOptions);
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     'Accept': 'application/json'
+    //   })
+    // }
+    data.authId = localStorage.getItem('authId');
+    data.authToken = localStorage.getItem('authToken');
+    return this.http.post(url + "/update_profile", data);
   }
 
   getFavouriteRestaurants() {
-    const httpOptions = {
-      headers: new HttpHeaders({
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
 
-        'authId': localStorage.getItem('authId'),
-        'authToken': localStorage.getItem('authToken'),
-      })
-    };
+    //     'authId': localStorage.getItem('authId'),
+    //     'authToken': localStorage.getItem('authToken'),
+    //   })
+    // };
+    return this.http.get(url + "/get_favourite_list?authId="+localStorage.getItem('authId')+"&authToken="+localStorage.getItem('authToken'));
 
-    return this.http.get(url + "/get_favourite_list", httpOptions);
+    // return this.http.get(url + "/get_favourite_list", httpOptions);
   }
 
 }

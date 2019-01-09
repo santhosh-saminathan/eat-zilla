@@ -13,46 +13,44 @@ let deviceToken = environment.deviceToken;
 export class RestaurantService {
     constructor(private http: HttpClient, private webStorageService: WebStorageService) { }
 
-    // httpOptions = {
-    //     headers: new HttpHeaders({
-    //         'authId': this.webStorageService.getAuthId(),
-    //         'authToken': this.webStorageService.getAuthToken(),
-    //     })
-    // };
-
-
     getPopularBrands() {
 
-        let httpOptions = {
-            headers: new HttpHeaders({
-                'authId': this.webStorageService.getAuthId(),
-                'authToken': this.webStorageService.getAuthToken(),
-            })
-        };
+        // let httpOptions = {
+        //     headers: new HttpHeaders({
+        //         'authId': this.webStorageService.getAuthId(),
+        //         'authToken': this.webStorageService.getAuthToken(),
+        //     })
+        // };
+        return this.http.get(url + "/get_popular_brands?authId="+localStorage.getItem('authId')+"&authToken="+localStorage.getItem('authToken'));
 
-        return this.http.get(url + "/get_popular_brands", httpOptions);
+        
+        // return this.http.get(url + "/get_popular_brands", httpOptions);
     }
 
     getNearByRestaurants(lat, lng) {
 
-        let httpOptions = {
-            headers: new HttpHeaders({
-                'authId': this.webStorageService.getAuthId(),
-                'authToken': this.webStorageService.getAuthToken(),
-            })
-        };
+        // let httpOptions = {
+        //     headers: new HttpHeaders({
+        //         'authId': this.webStorageService.getAuthId(),
+        //         'authToken': this.webStorageService.getAuthToken(),
+        //     })
+        // };
+        return this.http.get(url + "/get_nearby_restaurant?lat="+lat+"&lng="+lng+"&authId="+localStorage.getItem('authId')+"&authToken="+localStorage.getItem('authToken'));
 
-        return this.http.get(url + "/get_nearby_restaurant?lat=" + lat + "&lng=" + lng, httpOptions);
+        // return this.http.get(url + "/get_nearby_restaurant?lat=" + lat + "&lng=" + lng, httpOptions);
     }
 
     updateFavoriteRestaurant(data) {
-        let httpOptions = {
-            headers: new HttpHeaders({
-                'authId': this.webStorageService.getAuthId(),
-                'authToken': this.webStorageService.getAuthToken(),
-            })
-        };
-        return this.http.post(url + "/update_favourite", data, httpOptions);
+        // let httpOptions = {
+        //     headers: new HttpHeaders({
+        //         'authId': this.webStorageService.getAuthId(),
+        //         'authToken': this.webStorageService.getAuthToken(),
+        //     })
+        // };
+
+        data.authId = localStorage.getItem('authId');
+        data.authToken = localStorage.getItem('authToken');
+        return this.http.post(url + "/update_favourite", data);
 
     }
 }
