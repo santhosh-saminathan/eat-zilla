@@ -91,13 +91,13 @@
           <!-- </div> -->
           <hr>
           <h4>Select another Address to deliver</h4>
-          <div class="address_div" *ngFor="let address of allAvailableDeliveryAddress.data">
-            <div class="">
+          <div class="address_div" [ngClass]="{'highlightAddressBox': address.default }" *ngFor="let address of allAvailableDeliveryAddress.data">
+            <div class="" >
               <span class="">
-                <input class="" type="radio" name="address" [checked]="address.default" [value]='address' (change)="setAddress(setDeliveryAddr)"
+                <input class="" type="radio" name="address" [ngClass]="{'highlightAddressCheckbox': address.default }" [checked]="address.default" [value]='address' (change)="setAddress(setDeliveryAddr)"
                   [(ngModel)]="setDeliveryAddr">
               </span>
-              <span class="address"> {{address.flat_no}} - {{address.landmark}} {{address.address}}</span>
+              <span [ngClass]="{'highlightAddress': address.default }" class="address"> {{address.flat_no}} - {{address.landmark}} {{address.address}}</span>
             </div>
           </div>
         </div>

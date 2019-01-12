@@ -56,3 +56,16 @@ input[type="radio"]:checked {
 .box_style_2 h2.inner {
   font-size: 18px;
 }
+
+.highlightAddress{
+  font-size: 15px;
+}
+
+.highlightAddressBox{
+  background: linen
+}
+
+.highlightAddressCheckbox{
+  background-color: #93e026;
+  border: 2px solid #93e026;
+}

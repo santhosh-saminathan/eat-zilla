@@ -39,7 +39,7 @@
   font-weight: 600;
   position: absolute;
   margin-top: -8px;
-  color: white;
+  /* color: white; */
 }
 
 .delivery_boy_pic {
@@ -50,18 +50,18 @@
 
 .delivery_boy_details {
   font-size: 16px;
-  color: white;
+  /* color: white; */
   margin-top: 5px;
 }
 
 .delivery_amount {
   float: right;
-  color: white;
+  /* color: white; */
   font-size: 16px;
 }
 
 h4 {
-  color: white;
+  /* color: white; */
 }
 
 #map {

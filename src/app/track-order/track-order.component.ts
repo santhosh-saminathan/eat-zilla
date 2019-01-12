@@ -12,7 +12,7 @@ declare var google;
 export class TrackOrderComponent implements OnInit {
   trackingOrderResponse: any;
   orderId: any;
-  orderStatus: number = null;
+  orderStatus: number = 5;
   deliveryBoyDetails: any;
 
   constructor(private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
@@ -24,7 +24,7 @@ export class TrackOrderComponent implements OnInit {
       this.trackingOrderResponse = data;
       console.log(this.trackingOrderResponse)
       if (this.trackingOrderResponse.status) {
-        this.orderStatus = this.trackingOrderResponse.order_status[0].status;
+        // this.orderStatus = this.trackingOrderResponse.order_status[0].status;
         this.deliveryBoyDetails = this.trackingOrderResponse.order_status[0];
 
 

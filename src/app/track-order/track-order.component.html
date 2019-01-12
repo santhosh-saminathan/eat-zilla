@@ -11,7 +11,7 @@
   loading..
 </div>
 
-<div style="background-color: rgba(0,0,0,.7)">
+<div style="">
   <div class="container margin_60_35">
     <div *ngIf="orderStatus == 0">
       <span style="color: white;text-align: center">
@@ -100,7 +100,7 @@
             </div>
             <div class="col-sm-3 col-md-3">
 
-              <span class="delivery_amount">Total Amount: {{deliveryBoyDetails.item_total}}</span>
+              <span class="delivery_amount">Total Amount: {{deliveryBoyDetails.bill_amount}}</span>
 
             </div>
           </div>
@@ -113,8 +113,8 @@
 
 
 
-    <div class="row" style="color:white;border:1px solid white;border-radius:4px;width:80%;margin:0 auto">
-      <h3 style="color:white;text-align:center">Order Details</h3>
+    <div class="row" style="background:white;border:1px solid white;border-radius:4px;width:80%;margin:0 auto">
+      <h3 style="text-align:center">Order Details</h3>
       <br>
       <div style="" class="col-sm-6">
 
