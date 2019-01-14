@@ -41,7 +41,7 @@ export class TrackOrderComponent implements OnInit {
       if (this.trackingOrderResponse.status) {
         this.orderStatus = this.trackingOrderResponse.order_status[0].status;
         this.deliveryBoyDetails = this.trackingOrderResponse.order_status[0];
-
+// console.log(this.orderStatus++);
 
         var directionsDisplay = new google.maps.DirectionsRenderer;
         var directionsService = new google.maps.DirectionsService;

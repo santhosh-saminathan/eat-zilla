@@ -262,7 +262,7 @@
 
             </tbody>
           </table>
-          <hr>
+          <hr *ngIf="cartDetails">
           <table *ngIf="cartDetails" class="table table_summary">
             <tbody>
               <tr>
@@ -271,25 +271,25 @@
                   <span class="pull-right">${{cartDetails.invoice[0].item_total}}</span>
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="cartDetails.invoice[0].delivery_charge">
                 <td>
                   Delivery fee
                   <span class="pull-right">${{cartDetails.invoice[0].delivery_charge}}</span>
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="cartDetails.invoice[0].gst">
                 <td>
                   GST
                   <span class="pull-right">${{cartDetails.invoice[0].gst}}</span>
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="cartDetails.invoice[0].restaurant_packaging_charge">
                 <td>
                   Packaging fee
                   <span class="pull-right">${{cartDetails.invoice[0].restaurant_packaging_charge}}</span>
                 </td>
               </tr>
-              <tr>
+              <tr *ngIf="cartDetails.invoice[0].offer_discount">
                 <td>
                   Discount
                   <span class="pull-right">${{cartDetails.invoice[0].offer_discount}}</span>

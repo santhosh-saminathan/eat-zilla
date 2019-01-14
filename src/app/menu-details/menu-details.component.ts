@@ -18,11 +18,16 @@ export class MenuDetailsComponent implements OnInit {
 
   food_variety: any = [];
 
-  constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private menuService: MenuService, private cartService: CartService) { }
+  constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private menuService: MenuService, private cartService: CartService) { 
+    this.restaurant_Id = this.route.snapshot.queryParams['restaurant'];
+    if(!this.restaurant_Id){
+      this.router.navigate(['/home']);
+    }
+  }
 
   ngOnInit() {
     this.checkCart();
-    this.restaurant_Id = this.route.snapshot.queryParams['restaurant'];
+   
     // let obj = {
     //   restaurant_id: this.restaurant_Id
     // }
