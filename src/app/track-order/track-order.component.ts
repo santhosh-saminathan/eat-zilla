@@ -12,19 +12,34 @@ declare var google;
 export class TrackOrderComponent implements OnInit {
   trackingOrderResponse: any;
   orderId: any;
-  orderStatus: number = 5;
+  orderStatus: number;
   deliveryBoyDetails: any;
+  orderHistoryResponse:any;
+  orderDetails:any;
 
   constructor(private orderService: OrderService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.orderId = this.route.snapshot.queryParams['order-id'];
 
+    this.orderService.orderHistory().subscribe(data=>{
+      console.log(data);
+      this.orderHistoryResponse = data;
+      this.orderHistoryResponse.upcoming_orders.forEach(element => {
+        if(this.orderId == element.request_id){
+          this.orderDetails = element;
+          console.log(element);
+        }
+      });
+    },err=>{
+      console.log(err);
+    })
+
     this.orderService.trackOrderDetail({ request_id: this.orderId }).subscribe(data => {
       this.trackingOrderResponse = data;
       console.log(this.trackingOrderResponse)
       if (this.trackingOrderResponse.status) {
-        // this.orderStatus = this.trackingOrderResponse.order_status[0].status;
+        this.orderStatus = this.trackingOrderResponse.order_status[0].status;
         this.deliveryBoyDetails = this.trackingOrderResponse.order_status[0];
 
 

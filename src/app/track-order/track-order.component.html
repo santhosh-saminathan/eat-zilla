@@ -12,7 +12,7 @@
 </div>
 
 <div style="">
-  <div class="container margin_60_35">
+  <div style="padding-top:20px" class="container margin_60_35">
     <div *ngIf="orderStatus == 0">
       <span style="color: white;text-align: center">
         <h4>Your Order is Pending. Please wait...</h4>
@@ -20,9 +20,11 @@
       <br>
       <br>
     </div>
-    <div class="row">
+    <div class="row" style="background:white;border-radius:4px;">
+        <h3 style="text-align:center">Delivery Details</h3>
+        <br>
       <div *ngIf="orderStatus != null" class="col-sm-4">
-
+       
         <div class="row">
           <div class="bs-wizard">
             <div [ngClass]="{'disabled': orderStatus<=1 }" class=" bs-wizard-step active">
@@ -111,46 +113,31 @@
 
     </div>
 
+    <br>
 
 
-    <div class="row" style="background:white;border:1px solid white;border-radius:4px;width:80%;margin:0 auto">
+    <div *ngIf="orderDetails" class="row" style="background:white;border:1px solid white;border-radius:4px;width:80%;margin:0 auto">
       <h3 style="text-align:center">Order Details</h3>
       <br>
       <div style="" class="col-sm-6">
 
         <div style="font-weight:100">FROM</div>
-        <h4 style="font-weight:bold">Sree Ram Mess</h4>
-        <div>Here hotels long address or parital address</div>
+        <h4 style="font-weight:bold">{{orderDetails.restaurant_name}}</h4>
+        <div>{{orderDetails.restaurant_address}}</div>
         <br>
         <br>
         <div style="font-weight:100">DELIVER TO</div>
-        <div>Users long delivery address, it is full address with pincode and all information of user</div>
+        <div>{{orderDetails.delivery_address}}</div>
       </div>
       <div style="" class="col-sm-6">
         <table class="table table_summary">
-          <tbody>
+          <tbody *ngFor="let item of orderDetails.item_list">
             <tr>
               <td>
-                <strong> 1 x</strong> food
+                <strong> {{item.food_quantity}} x</strong> {{item.food_name}}
               </td>
               <td>
-                <strong class="pull-right">₹ 12</strong>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong> 2 x</strong> burger
-              </td>
-              <td>
-                <strong class="pull-right">₹ 120</strong>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <strong> 1 x</strong> Pizza
-              </td>
-              <td>
-                <strong class="pull-right">₹ 42</strong>
+                <strong class="pull-right">₹ {{item.item_price}}</strong>
               </td>
             </tr>
           </tbody>
@@ -158,40 +145,40 @@
         <hr>
         <table class="table table_summary">
           <tbody>
-            <!-- <tr>
+            <tr>
             <td>
               Subtotal
-              <span class="pull-right">₹ 100</span>
+              <span class="pull-right">₹ {{orderDetails.item_total}}</span>
             </td>
           </tr>
-          <tr>
+          <tr *ngIf="orderDetails.delivery_charge">
             <td>
               Delivery fee
-              <span class="pull-right">₹ 8</span>
+              <span class="pull-right">₹ {{orderDetails.delivery_charge}}</span>
             </td>
           </tr>
-          <tr >
+          <tr *ngIf="orderDetails.tax">
             <td>
               GST
-              <span class="pull-right">₹ 10</span>
+              <span class="pull-right">₹ {{orderDetails.tax}}</span>
             </td>
           </tr>
-          <tr >
+          <tr *ngIf="orderDetails.restaurant_packaging_charge">
             <td>
               Packaging fee
-              <span class="pull-right">₹ 0</span>
+              <span class="pull-right">₹ {{orderDetails.restaurant_packaging_charge}}</span>
             </td>
           </tr>
-          <tr >
+          <tr *ngIf="orderDetails.offer_discount">
             <td>
               Discount
-              <span class="pull-right">₹ 90</span>
+              <span class="pull-right">₹ {{orderDetails.offer_discount}}</span>
             </td>
-          </tr> -->
+          </tr>
             <tr>
               <td class="total">
                 TOTAL
-                <span class="pull-right">₹ 44</span>
+                <span class="pull-right">₹ {{orderDetails.bill_amount}}</span>
               </td>
             </tr>
           </tbody>
