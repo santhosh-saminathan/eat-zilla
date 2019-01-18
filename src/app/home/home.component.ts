@@ -38,15 +38,14 @@ export class HomeComponent implements OnInit {
 
   public handleAddressChange(address: Address) {
     // Do some stuff
-    console.log(address);
-    this.geometry = address.geometry.viewport;
-    console.log(this.geometry.l.l);
-    console.log(this.geometry.j.j);
+    console.log(address, address.geometry.location.lat(), address.geometry.location.lng() );
+    this.geometry = address;
+
   }
 
   redirectToSearchResult() {
-    if (this.geometry && this.geometry.l.l && this.geometry.j.j)
-      this.router.navigate(['/search-results'], { queryParams: { lat: this.geometry.l.l, lng: this.geometry.j.j } });
+    if (this.geometry && this.geometry.geometry.location.lat() && this.geometry.geometry.location.lng())
+      this.router.navigate(['/search-results'], { queryParams: { lat: this.geometry.geometry.location.lat(), lng: this.geometry.geometry.location.lng() } });
     else
       this.router.navigate(['/search-results'], { queryParams: { lat: 1, lng: 1 } });
 

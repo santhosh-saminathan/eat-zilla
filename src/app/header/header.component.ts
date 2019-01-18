@@ -184,10 +184,11 @@ export class HeaderComponent implements OnInit {
 
 
   logout() {
-    this.webStorageService.removeUserData();
+   console.log("called");
     this.signUpService.logout().subscribe(data => {
-
+      this.webStorageService.removeUserData();
       this.ngOnInit();
+      this.toastr.success('', 'Logged Out Successfully');
     }, err => {
       console.log(err);
     })

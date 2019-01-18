@@ -26,20 +26,12 @@ export class MenuDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.checkCart();
    
-    // let obj = {
-    //   restaurant_id: this.restaurant_Id
-    // }
-    // this.menuService.getMenus(obj).subscribe(data => {
-    //   console.log(data);
-    // }, err => {
-    //   console.log(err);
-    // })
 
     this.menuService.getFoodList({ 'restaurant_id': this.restaurant_Id, 'is_veg': 0 }).subscribe(data => {
       this.allCategories = data;
       console.log(data);
+      this.checkCart();
       if (this.allCategories.status) {
         this.allCategories.food_list.forEach(element => {
           element.category_name = element.category_name.replace(/ /g, "-");
@@ -57,30 +49,6 @@ export class MenuDetailsComponent implements OnInit {
       this.toastr.error('', 'Error while getting menu');
     })
 
-    // this.menuService.getCategory(this.restaurant_Id).subscribe(data => {
-    //   this.allCategories = data;
-    //   this.allCategories.category.forEach(element => {
-    //     element.name = element.name.replace(/ /g, "-");
-    //     let obj2 = {
-    //       restaurant_id: this.restaurant_Id,
-    //       category_id: element.category_id,
-    //       veg_only: 0
-    //     }
-    //     this.menuService.getCategoryWiseMenu(obj2).subscribe(data => {
-    //       element.items = data;
-    //       let json = {
-    //         'category': element.name,
-    //         'count': element.items.food_list.length
-    //       }
-    //       this.food_variety.push(json);
-    //     }, err => {
-    //       this.toastr.error('', 'Error while getting menu');
-    //     })
-    //   });
-    // }, err => {
-    //   this.toastr.error('', 'Error while getting categories');
-    //   console.log(err);
-    // })
   }
 
   addToCart(food) {
@@ -138,6 +106,19 @@ export class MenuDetailsComponent implements OnInit {
   checkCart() {
     this.cartService.getCartItems().subscribe(data => {
       this.checkCartResponse = data;
+      console.log(this.checkCartResponse);
+
+      this.allCategories.food_list.forEach(allMenus => {
+        allMenus.items.forEach(food => {
+          console.log(food.food_id);
+          this.checkCartResponse.cart[0].item_list.forEach(cartItem => {
+            if(cartItem.item_id == food.food_id){
+              food.alreadyFound = true;
+              food.cartCount = cartItem.quantity;
+            }
+          });
+        });
+      });
     }, err => {
       console.log(err);
     })

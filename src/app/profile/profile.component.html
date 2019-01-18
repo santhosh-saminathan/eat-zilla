@@ -32,7 +32,7 @@
             </li>
             <li>
               <a href="#favouites" data-toggle="tab">
-                <i class="icon-heart"></i> Favouites</a>
+                <i class="icon-heart"></i> Favourites</a>
             </li>
             <li>
               <a href="#payments" data-toggle="tab">
@@ -100,7 +100,7 @@
                     </div>
                     <div class="col-md-3 col-sm-3">
                       <div>
-                        <h4>Total Paid: ₹{{orders.bill_amount}}</h4>
+                        <h4>Total Paid:${{orders.bill_amount}}</h4>
                       </div>
                       <br>
                       <h5 class="old" *ngFor="let items of orders.item_list">
@@ -149,7 +149,7 @@
                     </div>
                     <div class="col-md-3 col-sm-3">
                       <div style="text-align: center;">
-                        <h4>Total Paid: ₹{{orders.bill_amount}}</h4>
+                        <h4>Total Paid:${{orders.bill_amount}}</h4>
                       </div>
                       <div class="go_to margin_60_35">
                         <div>
@@ -230,7 +230,7 @@
                           <span *ngIf="!restaurant.is_open">Closed </span>
                         </span>
                         <br>
-                        <b>&nbsp;&nbsp;&nbsp; {{restaurant.travel_time}} &nbsp;&nbsp;&nbsp; ₹{{restaurant.price}}</b>
+                        <b>&nbsp;&nbsp;&nbsp; {{restaurant.travel_time}} &nbsp;&nbsp;&nbsp;${{restaurant.price}}</b>
                       </div>
 
                     </div>

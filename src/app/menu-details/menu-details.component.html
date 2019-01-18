@@ -86,25 +86,28 @@
             <tbody *ngFor="let food of category.items;let j= index">
               <tr>
                 <td>
-                  <figure class="thumb_menu_list">
+                  <!-- <figure class="thumb_menu_list">
                     <img src="assets/img/menu-thumb-1.jpg" alt="thumb">
-                  </figure>
+                  </figure> -->
                   <h5>
-                    <img title="veg" *ngIf="food.is_veg" src="assets/img/veg.png" width="16px">
-                    <img title="non-veg" *ngIf="!food.is_veg" src="assets/img/non-veg.png" width="16px"> {{food.name}}
+                    <img title="veg" *ngIf="food.is_veg" src="assets/img/veg.png" width="18px">
+                    <img title="non-veg" *ngIf="!food.is_veg" src="assets/img/non-veg.png" width="18px"> {{food.name}}
                   </h5>
                   <p>
                     {{food.description}}
                   </p>
                 </td>
                 <td>
-                  <strong>€ {{food.price}}</strong>
+                  <strong>$ {{food.price}}</strong>
                 </td>
                 <td class="options">
-                  <div class="dropdown dropdown-options">
-                    <a (click)="addToCart(food)" class="dropdown-toggle cursor_poiter" data-toggle="dropdown" aria-expanded="true">
+                  <div *ngIf="!food.alreadyFound" class="">
+                    <a (click)="addToCart(food)" class="cursor_poiter" >
                       <i class="icon_plus_alt2"></i>
                     </a>
+                  </div>
+                  <div *ngIf="alreadyFound" >
+                    {{food.cartCount}}
                   </div>
                 </td>
               </tr>
@@ -113,9 +116,7 @@
           <hr>
         </div>
       </div>
-      <!-- End box_style_1 -->
     </div>
-    <!-- End col-md-6 -->
 
     <div class="col-md-3" id="sidebar">
       <div class="theiaStickySidebar">

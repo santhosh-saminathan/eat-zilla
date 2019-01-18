@@ -223,7 +223,7 @@
 
                     <!-- <i class="icon_star"></i> -->
 
-                    <h3>{{restaurant.name}} </h3>
+                    <h3 class="cursor-pointer" (click)="redirectToMenuDetail(restaurant.id)">{{restaurant.name}} </h3>
                     <div class="type">
                       <span *ngFor="let cuisines of restaurant.cuisines;let i = index">
                         {{cuisines.name}}
@@ -237,7 +237,7 @@
                         <span *ngIf="!restaurant.is_open">Closed </span>
                       </span>
                       <br>
-                      <b> {{restaurant.travel_time}} &nbsp;&nbsp;&nbsp; ₹{{restaurant.price}}</b>
+                      <b> {{restaurant.travel_time}} &nbsp;&nbsp;&nbsp;${{restaurant.price}}</b>
                     </div>
 
                   </div>
@@ -300,7 +300,7 @@
                       <span *ngIf="restaurant.is_open">Open Now</span>
                       <span *ngIf="!restaurant.is_open">Closed </span>
                     </span>
-                    <b>&nbsp;&nbsp;&nbsp; {{restaurant.travel_time}} &nbsp;&nbsp;&nbsp; ₹{{restaurant.price}}</b>
+                    <b>&nbsp;&nbsp;&nbsp; {{restaurant.travel_time}} &nbsp;&nbsp;&nbsp;${{restaurant.price}}</b>
                   </div>
 
                 </div>

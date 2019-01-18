@@ -39,3 +39,7 @@
 .strip_list.grid .thumb_strip img {
   width: 100px;
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
