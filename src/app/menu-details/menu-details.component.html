@@ -3,27 +3,33 @@
 <!-- SubHeader =============================================== -->
 <!-- <section class="parallax-window" data-parallax="scroll" data-image-src="assets/img/sub_header_2.jpg" data-natural-width="1400"
   data-natural-height="470"> -->
-<div id="subheader" style="height:470px;background-image:url('assets/img/sub_header_2.jpg');">
-  <div id="sub_content" style="background-color: rgba(0,0,0,.7);height:inherit;width:inherit;animation-name:none">
-    <div id="thumb">
-      <img src="assets/img/thumb_restaurant.jpg" alt="">
+<div id="subheader" style="height:450px;background-image:url('assets/img/sub_header_2.jpg');">
+  <div  id="sub_content" style="background-color: rgba(0,0,0,.7);height:inherit;width:inherit;animation-name:none">
+    <div *ngIf="restaurantDetails" id="thumb">
+      <img src={{restaurantDetails.image}} alt="">
     </div>
-    <div class="rating">
-      <i class="icon_star voted"></i>
-      <i class="icon_star voted"></i>
-      <i class="icon_star voted"></i>
-      <i class="icon_star voted"></i>
-      <i class="icon_star"></i> (
-      <small>
-        <a>Read 98 reviews</a>
-      </small>)</div>
-    <h1>Mexican TacoMex</h1>
-    <div>
-      <em>Mexican / American</em>
+    <div *ngIf="restaurantDetails" class="rating" title="{{restaurantDetails.rating}} Rating">
+        <i [ngClass]="{'voted': restaurantDetails.rating >=1}" class="icon_star"></i>
+        <i [ngClass]="{'voted': restaurantDetails.rating >=2}" class="icon_star"></i>
+        <i [ngClass]="{'voted': restaurantDetails.rating >=3}" class="icon_star"></i>
+        <i [ngClass]="{'voted': restaurantDetails.rating >=4}" class="icon_star"></i>
+        <i [ngClass]="{'voted': restaurantDetails.rating >=5}" class="icon_star"></i>(
+        <small>
+          <a>98 reviews</a>
+        </small>)
+      </div>
+    <h1 *ngIf="restaurantDetails">{{restaurantDetails.name}}</h1>
+    <div *ngIf="restaurantDetails && restaurantDetails.cuisines && restaurantDetails.cuisines.length>0">
+        <span *ngFor="let cuisines of restaurantDetails.cuisines;let i = index">
+            {{cuisines.name}}
+            <span *ngIf="(i+1)<(restaurantDetails.cuisines.length)">/</span>
+          </span>
+
+      <!-- <em>Mexican / American</em> -->
     </div>
-    <div>
-      <i class="icon_pin"></i> 135 Newtownards Road, Belfast, BT4 1AB -
-      <strong>Delivery charge:</strong> $10, free over $15.</div>
+    <div *ngIf="restaurantDetails">
+      <i class="icon_pin"></i>{{restaurantDetails.address}} - 
+      <strong>Price:</strong> ${{restaurantDetails.price}}</div>
   </div>
   <!-- End sub_content -->
 </div>
@@ -75,7 +81,7 @@
         <div *ngFor="let category of allCategories.food_list;let i = index">
           <h3 id='{{category.category_name}}' class="nomargin_top">{{category.category_name}}</h3>
           <p></p>
-          <table class="table table-striped cart-list" *ngIf="category.items">
+          <table class="table table-striped cart-list" *ngIf="category.items.length>0">
             <thead>
               <tr>
                 <th>Item</th>
@@ -100,16 +106,19 @@
                 <td>
                   <strong>$ {{food.price}}</strong>
                 </td>
-                <td class="options text_center_align" >
+                <td class="options text_center_align">
                   <div *ngIf="!food.alreadyFound" class="">
-                    <a (click)="addToCart(food)" class="cursor_poiter" >
+                    <a (click)="addToCart(food)" class="cursor_poiter">
                       <i class="icon_plus_alt2"></i>
                     </a>
                   </div>
-                  <div *ngIf="food.alreadyFound" >
-                   <div style="border:1px solid #91dc59">
-                    <span title="Add item" (click)="addToCart(food)" class="box add">+</span><span class="box">{{food.cartCount}}</span><span title="Remove item" (click)="removeFromCart(food.food_id,food.cartCount)" class="box remove">&#8722;</span>
-                   </div> 
+                  <div *ngIf="food.alreadyFound">
+                    <div style="border:1px solid #91dc59">
+                      <span title="Add item" (click)="addToCart(food)" class="box add">+</span>
+                      <span class="box">{{food.cartCount}}</span>
+                      <span title="Remove item" (click)="removeFromCart(food.food_id,food.cartCount)"
+                        class="box remove">&#8722;</span>
+                    </div>
                   </div>
                 </td>
               </tr>
@@ -180,5 +189,30 @@
 </div>
 <!-- End container -->
 <!-- End Content =============================================== -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" data-backdrop="static" data-keyboard="false" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">EATZILLA</h4>
+      </div>
+      <div class="modal-body">
+        <p *ngIf="addToCartResponse">{{addToCartResponse.message}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="forceInsertFood()" >Add New Items</button>
+
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
 <app-footer></app-footer>

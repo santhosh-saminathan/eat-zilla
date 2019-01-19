@@ -60,12 +60,14 @@ export class TrackOrderComponent implements OnInit {
   }
 
   calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    console.log(this.trackingOrderResponse.order_status[0]);
     var selectedMode = 'DRIVING';
     directionsService.route({
       origin: { lat: this.trackingOrderResponse.order_status[0].restaurant_lat, lng: this.trackingOrderResponse.order_status[0].restaurant_lng },  // Haight.
       destination: { lat: this.trackingOrderResponse.order_status[0].user_lat, lng: this.trackingOrderResponse.order_status[0].user_lng },  // Ocean Beach.
       travelMode: google.maps.TravelMode[selectedMode]
     }, function (response, status) {
+      console.log(response,status);
       if (status == 'OK') {
         directionsDisplay.setDirections(response);
       } else {

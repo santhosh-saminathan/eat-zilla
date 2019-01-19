@@ -43,3 +43,7 @@
 .cursor-pointer{
   cursor: pointer;
 }
+
+.thumb_strip{
+  height: 76px;
+}

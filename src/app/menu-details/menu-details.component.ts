@@ -3,6 +3,7 @@ import { MenuService } from './../services/menu.service';
 import { CartService } from './../services/cart.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+declare var $: any;
 
 @Component({
   selector: 'app-menu-details',
@@ -15,7 +16,8 @@ export class MenuDetailsComponent implements OnInit {
   addToCartResponse: any;
   cartItems: any;
   checkCartResponse: any;
-
+  cartAddItemBackup: any;
+  restaurantDetails:any;
   food_variety: any = [];
 
   constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private menuService: MenuService, private cartService: CartService) {
@@ -27,9 +29,18 @@ export class MenuDetailsComponent implements OnInit {
 
   ngOnInit() {
 
+    this.menuService.getRestaurantDetails({ 'restaurant_id': this.restaurant_Id, 'veg_only': 0 }).subscribe(data => {
+      console.log(data);
+      this.restaurantDetails = data;
+      this.restaurantDetails = this.restaurantDetails.restaurants[0];
+      console.log(this.restaurantDetails);
+    }, err => {
+      console.log(err);
+    })
 
     this.menuService.getFoodList({ 'restaurant_id': this.restaurant_Id, 'is_veg': 0 }).subscribe(data => {
       this.allCategories = data;
+      console.log(this.allCategories);
       this.checkCart();
       if (this.allCategories.status) {
         this.allCategories.food_list.forEach(element => {
@@ -51,7 +62,6 @@ export class MenuDetailsComponent implements OnInit {
   }
 
   addToCart(food) {
-    console.log(food);
     let quantity = 1;
     if (this.checkCartResponse && this.checkCartResponse.cart[0].item_list.length > 0)
       this.checkCartResponse.cart[0].item_list.forEach(element => {
@@ -74,33 +84,35 @@ export class MenuDetailsComponent implements OnInit {
         this.toastr.success('', 'Item Added Successfully to cart');
         this.checkCart();
       } else {
-        if (window.confirm(this.addToCartResponse.message)) {
-          let obj = {
-            "food_id": food.food_id,
-            "quantity": 1,
-            "restaurant_id": this.restaurant_Id,
-            "force_insert": 1,
-            'name': food.name,
-            'price': food.price
-          }
+        this.cartAddItemBackup = obj;
+        $('#myModal').modal('show');
 
-          this.cartService.addToCart(obj).subscribe(data => {
-            this.addToCartResponse = data;
-            if (this.addToCartResponse.status) {
-              this.toastr.success('', 'Item Added Successfully to cart');
-              this.checkCart();
-            } else {
-              console.log("error");
-            }
-          }, err => {
-            console.log(err);
-          })
-        }
       }
     }, err => {
       this.toastr.error('', 'Error while adding item');
       console.log(err);
     })
+  }
+
+
+  // if (window.confirm(this.addToCartResponse.message)) {
+  forceInsertFood() {
+    console.log(this.cartAddItemBackup);
+    this.cartAddItemBackup.force_insert = 1,
+
+      this.cartService.addToCart(this.cartAddItemBackup).subscribe(data => {
+        this.addToCartResponse = data;
+        $('#myModal').modal('hide');
+
+        if (this.addToCartResponse.status) {
+          this.toastr.success('', 'Item Added Successfully to cart');
+          this.checkCart();
+        } else {
+          console.log("error");
+        }
+      }, err => {
+        console.log(err);
+      })
   }
 
   checkCart() {
@@ -110,10 +122,10 @@ export class MenuDetailsComponent implements OnInit {
       this.allCategories.food_list.forEach(allMenus => {
         allMenus.items.forEach(food => {
           // this.checkCartResponse.cart[0].item_list.forEach(cartItem => {
-            // if (cartItem.item_id == food.food_id) {
-              food.alreadyFound = false;
-              food.cartCount = 0;
-            // }
+          // if (cartItem.item_id == food.food_id) {
+          food.alreadyFound = false;
+          food.cartCount = 0;
+          // }
           // });
         });
       });
@@ -135,7 +147,7 @@ export class MenuDetailsComponent implements OnInit {
   }
 
   removeFromCart(id, quantity) {
-    console.log(id,quantity);
+    console.log(id, quantity);
     let newQuantity = quantity - 1;
 
     let data = {

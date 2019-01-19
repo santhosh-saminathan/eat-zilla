@@ -17,6 +17,7 @@ export class SearchResultsComponent implements OnInit {
   displayListView: boolean = false;
   searchRestaurant: any = '';
   updateFavouriteResponse: any;
+  hotelCount:any;
 
   food_type: any = [];
   foof_type_count: any = [];
@@ -57,6 +58,7 @@ export class SearchResultsComponent implements OnInit {
       console.log(data)
       this.nearbyRestaurants = data;
       let all_item_count = 0;
+      this.hotelCount = this.nearbyRestaurants.restaurants.length;
       this.nearbyRestaurants.restaurants.forEach(restaurant => {
         // console.log(restaurant);
         restaurant.cuisines.forEach(element => {
