@@ -137,7 +137,7 @@
                 <strong> {{item.food_quantity}} x</strong> {{item.food_name}}
               </td>
               <td>
-                <strong class="pull-right">₹ {{item.item_price}}</strong>
+                <strong class="pull-right">$ {{item.item_price}}</strong>
               </td>
             </tr>
           </tbody>
@@ -148,37 +148,37 @@
             <tr>
             <td>
               Subtotal
-              <span class="pull-right">₹ {{orderDetails.item_total}}</span>
+              <span class="pull-right">$ {{orderDetails.item_total}}</span>
             </td>
           </tr>
           <tr *ngIf="orderDetails.delivery_charge">
             <td>
               Delivery fee
-              <span class="pull-right">₹ {{orderDetails.delivery_charge}}</span>
+              <span class="pull-right">$ {{orderDetails.delivery_charge}}</span>
             </td>
           </tr>
           <tr *ngIf="orderDetails.tax">
             <td>
               GST
-              <span class="pull-right">₹ {{orderDetails.tax}}</span>
+              <span class="pull-right">$ {{orderDetails.tax}}</span>
             </td>
           </tr>
           <tr *ngIf="orderDetails.restaurant_packaging_charge">
             <td>
               Packaging fee
-              <span class="pull-right">₹ {{orderDetails.restaurant_packaging_charge}}</span>
+              <span class="pull-right">$ {{orderDetails.restaurant_packaging_charge}}</span>
             </td>
           </tr>
           <tr *ngIf="orderDetails.offer_discount">
             <td>
               Discount
-              <span class="pull-right">₹ {{orderDetails.offer_discount}}</span>
+              <span class="pull-right">$ {{orderDetails.offer_discount}}</span>
             </td>
           </tr>
             <tr>
               <td class="total">
                 TOTAL
-                <span class="pull-right">₹ {{orderDetails.bill_amount}}</span>
+                <span class="pull-right">$ {{orderDetails.bill_amount}}</span>
               </td>
             </tr>
           </tbody>

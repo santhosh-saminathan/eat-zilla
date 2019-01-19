@@ -24,6 +24,9 @@ export class CartDetailsComponent implements OnInit {
   options: any;
   cartDetails: any;
   requiredField: boolean = true;
+  loadingDefaultAddress: boolean = true;
+  loadingAllAddress: boolean = true;
+  loadingCartItems: boolean = true;
 
 
   constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private orderService: OrderService, private cartService: CartService) { }
@@ -42,9 +45,12 @@ export class CartDetailsComponent implements OnInit {
     this.cartService.checkOutCart({ coupon_code: 'testcode' }).subscribe(data => {
       console.log(data);
       this.checkCartResponse = data;
+      this.loadingCartItems = false;
       if (this.checkCartResponse.status) {
         this.cartDetails = this.checkCartResponse;
+        this.restaurant_Id = this.cartDetails.restaurant_detail[0].restaurant_id;
       } else {
+        this.checkCartResponse = null;
         this.toastr.error('', 'No Item in cart');
       }
     }, err => {
@@ -72,9 +78,6 @@ export class CartDetailsComponent implements OnInit {
   newAddress(address: Address) {
     // Do some stuff
     this.newDeliveryAddress = address;
-    console.log(this.newDeliveryAddress.name + ',' + this.newDeliveryAddress.formatted_address);
-    console.log(this.newDeliveryAddress.geometry.viewport.l.l);
-    console.log(this.newDeliveryAddress.geometry.viewport.j.j);
   }
 
   addAddress() {
@@ -83,8 +86,8 @@ export class CartDetailsComponent implements OnInit {
         "landmark": this.deliveryAddress.landmark,
         "flat_no": this.deliveryAddress.flat_no,
         "address": this.newDeliveryAddress.name + ',' + this.newDeliveryAddress.formatted_address,
-        "lat": this.newDeliveryAddress.geometry.viewport.l.l,
-        "lng": this.newDeliveryAddress.geometry.viewport.j.j,
+        "lat": this.newDeliveryAddress.geometry.location.lat(),
+        "lng": this.newDeliveryAddress.geometry.location.lng(),
         "type": "2"
       }
 
@@ -93,7 +96,6 @@ export class CartDetailsComponent implements OnInit {
       this.orderService.addDeliveryAddress(data).subscribe((data) => {
         this.addDeliveryAddressResponse = data;
         if (this.addDeliveryAddressResponse.status) {
-          console.log(this.addDeliveryAddressResponse);
           // this.toastr.success('', 'Address Added Successfully');
           this.newDeliveryAddress = null;
           this.getAllDeliveryAddress();
@@ -115,7 +117,9 @@ export class CartDetailsComponent implements OnInit {
 
     this.orderService.getAllDeliveryLocations().subscribe((data) => {
       console.log(data);
+      this.loadingAllAddress = false;
       this.allAvailableDeliveryAddress = data;
+      this.allAvailableDeliveryAddress.status ? this.allAvailableDeliveryAddress : this.allAvailableDeliveryAddress = null;
       this.getDefaultAddress();// api error
 
     }, err => {
@@ -156,12 +160,18 @@ export class CartDetailsComponent implements OnInit {
   getDefaultAddress() {
     this.orderService.getDefaultAddress().subscribe((data) => {
       console.log(data);
+      this.loadingDefaultAddress = false;
       this.defaultAddress = data;
-      this.allAvailableDeliveryAddress.data.forEach(element => {
-        if (element.id === this.defaultAddress.data.id) {
-          element.default = true;
-        }
-      });
+      if (this.defaultAddress.status) {
+        this.allAvailableDeliveryAddress.data.forEach(element => {
+          if (element.id === this.defaultAddress.data.id) {
+            element.default = true;
+          }
+        });
+      } else {
+        this.defaultAddress = null
+      }
+
     }, err => {
       console.log(err);
     })

@@ -18,19 +18,18 @@ export class MenuDetailsComponent implements OnInit {
 
   food_variety: any = [];
 
-  constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private menuService: MenuService, private cartService: CartService) { 
+  constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private menuService: MenuService, private cartService: CartService) {
     this.restaurant_Id = this.route.snapshot.queryParams['restaurant'];
-    if(!this.restaurant_Id){
-      this.router.navigate(['/home']);
+    if (!this.restaurant_Id) {
+      this.router.navigate(['/search-results']);
     }
   }
 
   ngOnInit() {
-   
+
 
     this.menuService.getFoodList({ 'restaurant_id': this.restaurant_Id, 'is_veg': 0 }).subscribe(data => {
       this.allCategories = data;
-      console.log(data);
       this.checkCart();
       if (this.allCategories.status) {
         this.allCategories.food_list.forEach(element => {
@@ -52,6 +51,7 @@ export class MenuDetailsComponent implements OnInit {
   }
 
   addToCart(food) {
+    console.log(food);
     let quantity = 1;
     if (this.checkCartResponse && this.checkCartResponse.cart[0].item_list.length > 0)
       this.checkCartResponse.cart[0].item_list.forEach(element => {
@@ -106,25 +106,36 @@ export class MenuDetailsComponent implements OnInit {
   checkCart() {
     this.cartService.getCartItems().subscribe(data => {
       this.checkCartResponse = data;
-      console.log(this.checkCartResponse);
 
       this.allCategories.food_list.forEach(allMenus => {
         allMenus.items.forEach(food => {
-          console.log(food.food_id);
+          // this.checkCartResponse.cart[0].item_list.forEach(cartItem => {
+            // if (cartItem.item_id == food.food_id) {
+              food.alreadyFound = false;
+              food.cartCount = 0;
+            // }
+          // });
+        });
+      });
+
+      this.allCategories.food_list.forEach(allMenus => {
+        allMenus.items.forEach(food => {
           this.checkCartResponse.cart[0].item_list.forEach(cartItem => {
-            if(cartItem.item_id == food.food_id){
+            if (cartItem.item_id == food.food_id) {
               food.alreadyFound = true;
               food.cartCount = cartItem.quantity;
             }
           });
         });
       });
+      console.log(this.allCategories);
     }, err => {
       console.log(err);
     })
   }
 
   removeFromCart(id, quantity) {
+    console.log(id,quantity);
     let newQuantity = quantity - 1;
 
     let data = {

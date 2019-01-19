@@ -80,7 +80,7 @@
               <tr>
                 <th>Item</th>
                 <th>Price </th>
-                <th>Order</th>
+                <th class="text_center_align">Order</th>
               </tr>
             </thead>
             <tbody *ngFor="let food of category.items;let j= index">
@@ -100,14 +100,16 @@
                 <td>
                   <strong>$ {{food.price}}</strong>
                 </td>
-                <td class="options">
+                <td class="options text_center_align" >
                   <div *ngIf="!food.alreadyFound" class="">
                     <a (click)="addToCart(food)" class="cursor_poiter" >
                       <i class="icon_plus_alt2"></i>
                     </a>
                   </div>
-                  <div *ngIf="alreadyFound" >
-                    {{food.cartCount}}
+                  <div *ngIf="food.alreadyFound" >
+                   <div style="border:1px solid #91dc59">
+                    <span title="Add item" (click)="addToCart(food)" class="box add">+</span><span class="box">{{food.cartCount}}</span><span title="Remove item" (click)="removeFromCart(food.food_id,food.cartCount)" class="box remove">&#8722;</span>
+                   </div> 
                   </div>
                 </td>
               </tr>

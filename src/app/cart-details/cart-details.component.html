@@ -81,25 +81,37 @@
       <div class="box_style_2" id="order_process">
         <h2 class="inner">Choose Delivery Address</h2>
 
-        <div *ngIf="allAvailableDeliveryAddress">
+        <div>
           <!-- <label> -->
           <h4>Your Order will deliver to this Address</h4>
-          <!-- <div *ngFor="let address of allAvailableDeliveryAddress.data"> -->
           <div class="">
+            <div class="text_center_align" *ngIf="loadingDefaultAddress">
+              <i class="fa fa-spinner fa-spin" style="font-size:24px;color:#57C704"></i>
+            </div>
+            <div class="no_item" *ngIf="!loadingDefaultAddress && !defaultAddress"> No delivery address found </div>
+
             <span *ngIf="defaultAddress" class="address"> {{defaultAddress.data.flat_no}} - {{defaultAddress.data.landmark}} {{defaultAddress.data.address}}</span>
           </div>
-          <!-- </div> -->
           <hr>
           <h4>Select another Address to deliver</h4>
-          <div class="address_div" [ngClass]="{'highlightAddressBox': address.default }" *ngFor="let address of allAvailableDeliveryAddress.data">
-            <div class="" >
-              <span class="">
-                <input class="" type="radio" name="address" [ngClass]="{'highlightAddressCheckbox': address.default }" [checked]="address.default" [value]='address' (change)="setAddress(setDeliveryAddr)"
-                  [(ngModel)]="setDeliveryAddr">
-              </span>
-              <span [ngClass]="{'highlightAddress': address.default }" class="address"> {{address.flat_no}} - {{address.landmark}} {{address.address}}</span>
+          <div class="text_center_align" *ngIf="loadingAllAddress">
+            <i class="fa fa-spinner fa-spin" style="font-size:24px;color:#57C704"></i>
+          </div>
+          <div class="no_item" *ngIf="!loadingAllAddress && !allAvailableDeliveryAddress"> No Address found. Please Add one </div>
+
+          <div *ngIf="allAvailableDeliveryAddress">
+
+            <div class="address_div" [ngClass]="{'highlightAddressBox': address.default }" *ngFor="let address of allAvailableDeliveryAddress.data">
+              <div class="">
+                <span class="">
+                  <input class="" type="radio" name="address" [ngClass]="{'highlightAddressCheckbox': address.default }" [checked]="address.default"
+                    [value]='address' (change)="setAddress(setDeliveryAddr)" [(ngModel)]="setDeliveryAddr">
+                </span>
+                <span [ngClass]="{'highlightAddress': address.default }" class="address"> {{address.flat_no}} - {{address.landmark}} {{address.address}}</span>
+              </div>
             </div>
           </div>
+
         </div>
         <br>
         <!-- <div class="row">
@@ -245,7 +257,12 @@
           <h3>Your order
             <i class="icon_cart_alt pull-right"></i>
           </h3>
-          <div *ngIf="!cartDetails" class="no_item">No Item in cart</div>
+          <div *ngIf="loadingCartItems" class="no_item">
+            <i class="fa fa-spinner fa-spin" style="font-size:24px;color:#57C704"></i>
+          </div>
+          <div *ngIf="!cartDetails && !loadingCartItems">
+                <div class="no_item">No Items in Cart</div>
+          </div>
           <table *ngIf="cartDetails" class="table table_summary">
             <tbody>
               <tr *ngFor="let cartItem of cartDetails.food_detail">
