@@ -40,6 +40,11 @@ export class HeaderComponent implements OnInit {
 
   constructor(private toastr: ToastrService, private router: Router, private signUpService: SignUpService, private profileService: ProfileService, private webStorageService: WebStorageService) { }
 
+
+  closeLoginModal(){
+    $('#login').modal('hide');
+  }
+
   ngOnInit() {
 
     if (this.webStorageService.getAuthId() && this.webStorageService.getAuthToken()) {
