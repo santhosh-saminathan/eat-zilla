@@ -46,6 +46,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    this.login.phone = "9600771099";
+    this.login.password = "12345678";
 
     if (this.webStorageService.getAuthId() && this.webStorageService.getAuthToken()) {
       this.loginResponse.user_name = this.webStorageService.getUserName();
